@@ -1,0 +1,7 @@
+SELECT CASE WHEN x.description like '% %' THEN substring(x.description, 1, charindex(' ', x.description) -1) ELSE x.description END AS product_family , count(distinct sid) AS count
+FROM service_lookup_mvw AS s with (NOLOCK)
+LEFT JOIN table_x_wfm_new_cfg x ON (x.field_name = s.product AND x.grouping = 'PRODUCT_SUBTYPE_MAPPING')
+WHERE sid = ucid -- ultimately customer circuits 
+AND (isbill = 'Y' OR (isbill IN (null, 'NF') AND uss IN ('ACTIVE', null))) -- not disconnected 
+AND s.account_id is not null AND s.account_id not IN (SELECT DISTINCT t.value FROM table_x_wfm_new_cfg t WHERE t.value = s.account_id AND t.grouping = 'TS_INTERNAL_BUS_ORG_LIST' AND t.value is not null)
+GROUP BY CASE WHEN x.description like '% %' THEN substring(x.description, 1, charindex(' ', x.description) -1) ELSE x.description END

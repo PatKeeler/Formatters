@@ -1,0 +1,7 @@
+ALTER TABLE suppliers RENAME TO vendors;
+ALTER TABLE table_name ADD ( contact_name varchar2(50), last_contacted date );  
+ALTER TABLE supplier ADD supplier_name varchar2(50);
+ALTER TABLE supplier MODIFY supplier_name varchar2(100) not null;
+ALTER TABLE supplier MODIFY ( supplier_name varchar2(100) not null, city varchar2(75) );
+ALTER TABLE supplier DROP COLUMN supplier_name;
+ALTER TABLE supplier RENAME COLUMN supplier_name to sname;

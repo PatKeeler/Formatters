@@ -1,0 +1,14 @@
+SELECT ServiceAccount.name  AS account, sid.name  AS sid,  ServiceZEndNodeName.name
+AS z_end_node_name, IF (n.hasChild = 1, 'Y', 'N')  AS has_child, CASE n.protection
+WHEN 0 THEN 'N'  WHEN 1 THEN 'Y' WHEN 2 THEN 'L'  ELSE 'N'  END n.id  as ciit_id,
+ criteria.value AS search_criteria FROM  (SELECT DISTINCT c.value AS value, target2.circuitId AS
+ circuitId  FROM ( SELECT 'SNTCCA1WS0014' AS value JOIN NetworkTid target IN
+ ( SELECT id AS sourceId FROM serviceSource ) ) criteria JOIN NetworkTid target
+ON (c.value = target.name) JOIN NetworkData target2 ON (NetworkElementSearch.networkId
+ = target2.id) AND exists (SELECT id AS sourceId FROM serviceSource)
+ ) criteria LEFT OUTER JOIN
+   ServiceData s ON (CircuitSearch.serviceId = s.id) AND s.serviceSourceSysNmId
+IN ('1','10','11','12','2','3','4','5','6','7','8','9') LEFT OUTER JOIN
+BusOrg ON (s.busOrgId = BusOrg.id) WHERE this=that AND you=me GROUP BY BusOrg
+ORDER BY scid union all select this as dis, that as dat from something s where
+s.name = 'PAT'

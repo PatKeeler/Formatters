@@ -1,0 +1,10 @@
+SELECT d.domain_name, p.user_name, up.user_first_name, up.user_last_name,
+up.email_addr, p.principal_status_code, p.last_login_date,p.create_timestamp 
+ FROM dna_domain d, principal p, user_principal up
+  WHERE p.principal_id = up.principal_id
+  AND d.domain_id = p.domain_id
+  AND p.principal_status_code = 'Active' -- Only Active users
+    -- whose last login date is 9 months or earlier.
+    -- If there is no last login date set, meaning user never logged in, use the create_timestamp value instead
+  AND ADD_MONTHS (SYSDATE, -9) > NVL (p.last_login_date, p.create_timestamp)
+  order by p.last_login_date desc nulls first ,p.create_timestamp  desc nulls first

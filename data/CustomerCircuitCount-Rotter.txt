@@ -1,0 +1,44 @@
+
+-- raw values
+select distinct sid, source_sys_nm, bandwidth_code,
+       case when x.description like '%|%'
+                then substring(x.description, 1, charindex('|', x.description) -1)
+            else x.description
+       end as product_family
+from service_lookup_mvw as s with (NOLOCK)
+left join table_x_wfm_new_cfg x 
+    on (x.field_name = s.product and x.grouping = 'PRODUCT_SUBTYPE_MAPPING')
+where sid = ucid         -- ultimately customer circuits
+  and (isbill = 'Y' or (isbill in (null, 'NF') and uss in ('ACTIVE', null)))  -- not disconnected
+  and s.account_id not in  -- internal circuits
+      (select distinct t.value from table_x_wfm_new_cfg t
+        where t.value = s.account_id
+          and t.grouping = 'TS_INTERNAL_BUS_ORG_LIST'
+          and t.value is not null)
+;
+union all
+
+
+-- counts by product family
+-- SQL Server can't use an alias in a group by clause so you have to duplicate the case statement
+select 
+       case when x.description like '%|%'
+                then substring(x.description, 1, charindex('|', x.description) -1)
+            else x.description
+       end as product_family,
+       count(distinct sid) as count
+from service_lookup_mvw as s with (NOLOCK)
+left join table_x_wfm_new_cfg x 
+    on (x.field_name = s.product and x.grouping = 'PRODUCT_SUBTYPE_MAPPING')
+where sid = ucid         -- ultimately customer circuits
+  and (isbill = 'Y' or (isbill in (null, 'NF') and uss in ('ACTIVE', null)))  -- not disconnected
+  and s.account_id not in  -- internal circuits
+      (select distinct t.value from table_x_wfm_new_cfg t
+        where t.value = s.account_id
+          and t.grouping = 'TS_INTERNAL_BUS_ORG_LIST'
+          and t.value is not null)
+group by case when x.description like '%|%'
+                then substring(x.description, 1, charindex('|', x.description) -1)
+            else x.description
+       end
+;

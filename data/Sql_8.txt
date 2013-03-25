@@ -1,0 +1,123 @@
+WITH simple_sum AS (SELECT trunc(calendar_date, 'mm') calendar_month_date,
+claim_id, sum(amount_paid) amount_paid FROM temp_claim_history GROUP BY
+trunc(calendar_date, 'mm'), claim_id), end_month AS ( SELECT trunc(sysdate, 'mm')
+calendar_month_date FROM dual), itd_sum AS (SELECT simple_sum.calendar_month_date,
+simple_sum.claim_id, simple_sum.amount_paid, sum(simple_sum.amount_paid) OVER (
+partition by simple_sum.claim_id ORDER BY simple_sum.calendar_month_date) itd_amount_paid,
+nvl ( lead(simple_sum.calendar_month_date) OVER (partition by simple_sum.claim_id
+ORDER BY simple_sum.calendar_month_date ), add_months(end_month.calendar_month_date, 1))
+next_calendar_month_date FROM simple_sum, end_month), month_list AS (SELECT
+add_months( trunc( to_date('2010' , 'rrrr' ) , 'rrrr' ) , -rownum+1 ) some_month_date FROM
+dual connect by level <= 240), dense_itd_summary AS (SELECT itd_sum.*,
+month_list.some_month_date filled_calendar_month_date FROM itd_sum, month_list WHERE
+month_list.some_month_date >= itd_sum.calendar_month_date AND month_list.some_month_date <
+itd_sum.next_calendar_month_date);
+
+
+SELECT filled_calendar_month_date, claim_id, itd_amount_paid FROM dense_itd_summary
+ORDER BY claim_id, filled_calendar_month_date;
+
+
+WITH sum_sales AS ( select /*+ materialize */ sum(quantity) all_sales from stores ),
+number_stores AS (select /*+ materialize */ count(*) nbr_stores from stores ),
+sales_by_store AS ( select /*+ materialize */ store_name, sum(quantity) store_sales
+from store natural join sales ) SELECT store_name FROM store, sum_sales, number_stores,
+sales_by_store where store_sales > (all_sales / nbr_stores);
+
+
+SELECT empno, deptno, sal, RANK() OVER (PARTITION BY deptno ORDER BY
+sal DESC NULLS LAST) RANK, DENSE_RANK() OVER (PARTITION BY deptno ORDER BY
+sal DESC NULLS LAST) DENSE_RANK FROM emp WHERE deptno IN (10, 20) ORDER BY 2, RANK;
+
+SELECT
+       clli_cd
+       --, count(*)
+      ,clli_addr
+      ,city_name
+      ,state_cd
+      ,state_name
+      ,postal_area_cd
+      ,country_cd
+      ,pricing_market_name
+      ,long_value
+      ,lat_value
+        ,access_waiver_ind
+      ,lifecycle_status_cd
+      ,price_type
+        ,pl_pricing_typ
+        ,epl_pricing_typ
+      ,pl_ds1_ind
+      ,pl_ds3_ind
+      ,pl_oc12_ind
+      ,pl_oc3_ind
+      ,pl_oc48_ind
+      ,epl_fe_ind
+      ,epl_ge_ind
+      ,pl_multiplier_value
+      ,epl_multiplier_value
+      ,gw_clli_cd
+      ,gw_pricing_market_name
+      ,lh_ds1_ind
+      ,lh_ds3_ind
+      ,lh_oc3_ind
+      ,lh_oc12_ind
+      ,lh_oc48_ind
+      ,lh_fe_ind
+      ,lh_ge_ind
+FROM
+      (
+      SELECT
+            nl.nextgen_loc_num
+          ,nl_hg.nextgen_loc_num a_gw_nextgen_loc_num
+            ,bl.clli_cd
+            ,bl.clli_addr
+            ,bl.city_name
+            ,sr.state_cd
+            ,sr.state_name
+            ,bl.postal_area_cd
+            ,bl.country_cd
+            ,bl.pricing_market_name
+            ,bl.long_value
+            ,bl.lat_value
+                ,bl.access_waiver_ind
+            ,nl.lifecycle_status_cd
+            ,'PL: ' + MIN(nl.pl_pricing_typ) OVER (PARTITION BY bl.clli_cd) + ', EPL: ' + MIN(nl.epl_pricing_typ) OVER (PARTITION BY bl.clli_cd) price_type
+                , MIN(nl.pl_pricing_typ) OVER (PARTITION BY bl.clli_cd) AS pl_pricing_typ
+                , MIN(nl.epl_pricing_typ) OVER (PARTITION BY bl.clli_cd) AS epl_pricing_typ
+            , dbo.f_getVHMileage(bl.lat_value, bl.long_value, bl_hg.lat_value, bl_hg.long_value) a_gw_mileage
+            , MIN(dbo.f_getVHMileage(bl.lat_value, bl.long_value, bl_hg.lat_value, bl_hg.long_value)) OVER (PARTITION BY bl.clli_cd)  min_a_gw_mileage
+            , MIN(nl_hg.nextgen_loc_num) OVER (PARTITION BY nl.nextgen_loc_num, dbo.f_getVHMileage(bl.lat_value, bl.long_value, bl_hg.lat_value, bl_hg.long_value))  min_a_gw_nextgen_loc_num
+            , MIN(nl.nextgen_loc_num) OVER (PARTITION BY bl.clli_cd) min_a_loc_num
+            ,MAX(mnc.pl_ds1_ind) OVER (PARTITION BY bl.clli_cd) pl_ds1_ind
+            ,MAX(mnc.pl_ds3_ind) OVER (PARTITION BY bl.clli_cd) pl_ds3_ind
+            ,MAX(mnc.pl_oc12_ind) OVER (PARTITION BY bl.clli_cd) pl_oc12_ind
+            ,MAX(mnc.pl_oc3_ind) OVER (PARTITION BY bl.clli_cd) pl_oc3_ind
+            ,MAX(mnc.pl_oc48_ind) OVER (PARTITION BY bl.clli_cd) pl_oc48_ind
+            ,MAX(mnc.epl_fe_ind) OVER (PARTITION BY bl.clli_cd) epl_fe_ind
+            ,MAX(mnc.epl_ge_ind) OVER (PARTITION BY bl.clli_cd) epl_ge_ind
+            ,lhnc.pl_multiplier_value
+            ,lhnc.epl_multiplier_value
+            ,bl_hg.clli_cd gw_clli_cd
+            ,bl_hg.pricing_market_name gw_pricing_market_name
+            ,max(lhnc.ds1_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_ds1_ind
+            ,max(lhnc.ds3_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_ds3_ind
+            ,max(lhnc.oc3_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_oc3_ind
+            ,max(lhnc.oc12_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_oc12_ind
+            ,max(lhnc.oc48_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_oc48_ind
+            ,max(lhnc.fast_e_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_fe_ind
+            ,max(lhnc.gig_e_ind) OVER (PARTITION BY bl_hg.clli_cd) lh_ge_ind
+      FROM BUILDING_LOCATION bl
+      JOIN STATE_REGION sr ON sr.state_cd = bl.state_cd
+      JOIN NODE_LOCATION nl ON nl.clli_cd = bl.clli_cd
+      JOIN METRO_NODE_CAPABILITY mnc ON mnc.nextgen_loc_num = nl.nextgen_loc_num
+      JOIN NODE_LOCATION nl_hg ON nl_hg.primary_homing_gw_name = nl.primary_homing_gw_name
+      JOIN LONG_HAUL_NODE_CAPBLTY lhnc ON lhnc.nextgen_loc_num = nl_hg.nextgen_loc_num
+      JOIN BUILDING_LOCATION bl_hg ON bl_hg.clli_cd = nl_hg.clli_cd
+      WHERE 1=1
+      AND nl.lifecycle_status_cd = 'COMPLETE'
+        AND ISNULL(nl.site_disposition_type, '<NULL>') NOT IN ('Vacated', 'Capped', 'Remove - Duplicate', 'Decom', 'Research')
+      AND nl.facility_type IN ('MC', 'COMMON DMARC', 'CUSTOMER POP DMARC', 'DISTRIBUTION POP', 'EXTENDED DMARC', 'PHYSICAL LEC', 'NEUTRAL COLO DMARC', 'VIRTUAL LEC', 'CABLE LANDING POP', 'SYNERGY', 'GATEWAY', 'CABLE LANDING')
+      ) v_bl
+WHERE v_bl.a_gw_mileage = v_bl.min_a_gw_mileage
+AND v_bl.a_gw_nextgen_loc_num = v_bl.min_a_gw_nextgen_loc_num
+AND v_bl.nextgen_loc_num = v_bl.min_a_loc_num
