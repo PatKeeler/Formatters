@@ -2,6 +2,7 @@ package tools.java.pats.formatters;
 
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
+import tools.java.pats.formatters.Operators.OverClauseFormatter;
 import tools.java.pats.nodes.Node;
 import tools.java.pats.string.utils.StringIndexes;
 
@@ -87,13 +88,8 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
             sb.append(caseLines.formatNode(s, tab, userIndentTab));
 
             // Check for AS in last line
-            int tempInd = sb.lastIndexOf("\n");
-            if (tempInd > 1) {
-                int spaces = 0;
-                String newStr = formatLastAsLine(tempInd, sb, asLines, spaces);
-                newStr = "\n" + tab + userIndentTab + newStr;
-                sb.replace(tempInd, sb.length(), newStr);
-            }
+            String tabs = tab + userIndentTab;
+            formatLastAsLine(sb, 0, tabs, asLines);
 
         }
         //Format IF statements
@@ -103,13 +99,8 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
              sb.append(IfLines.formatNode(s, tab, userIndentTab));
 
             // Check for AS in last line
-            int tempInd = sb.lastIndexOf("\n");
-            if (tempInd > 1) {
-                int spaces = userIndentAmount;
-                String newStr = formatLastAsLine(tempInd, sb, asLines, spaces);
-                newStr = "\n" + tab + userIndentTab + userIndentTab + newStr;
-                sb.replace(tempInd, sb.length(), newStr);
-            }
+            String tabs = tab + userIndentTab + userIndentTab;
+            formatLastAsLine(sb, userIndentAmount, tabs, asLines);
         }
         //Format embedded select statements
         else if (s.toUpperCase().trim().startsWith("(")) {
@@ -122,13 +113,8 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
                     sb.append(formatEmbeddedSelect(TWO_INDENTS, s, ind));
 
                     // Check for AS in last line
-                    int tempInd = sb.lastIndexOf("\n");
-                    if (tempInd > 1) {
-                        int spaces = 0;
-                        String newStr = formatLastAsLine(tempInd, sb, asLines, spaces);
-                        newStr = "\n" + tab + userIndentTab + newStr;
-                        sb.replace(tempInd, sb.length(), newStr);
-                    }
+                    String tabs = tab + userIndentTab;
+                    formatLastAsLine(sb, 0, tabs, asLines);
 
                     //Process remaining - if any.
                     String remaining = s.substring(ind.getEnd() + 1);
@@ -161,47 +147,11 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
             Matcher matcher = OVER_CLAUSE.matcher(s);
 
             if(matcher.find()) {
-                int index = s.indexOf("OVER");
-                //append property through OVER.
-                String tempOver = s;
-                String temp = tempOver.substring(0, index + 4);
-                sb.append(format("\n%s%s%s", tab, userIndentTab, temp));
-                //append open paren on new line
-                sb.append(format("\n%s%s%s%s", tab,userIndentTab, userIndentTab, "("));
-                //bump past OVER
-                tempOver = tempOver.substring(index + 4);
-                String[] overColumns = tempOver.split(",");
-                //find open paren - may be multiple spaces
-                index = tempOver.indexOf("(");
-                tempOver = tempOver.substring(index + 1);
-                //find Order By
-                String[] overCmds = tempOver.split(" ORDER BY ");
-                if (overCmds.length == 2) {
-                    //append PARTITION BY on new line
-                    sb.append(format("\n%s%s%s%s%s", tab,userIndentTab, userIndentTab,
-                            userIndentTab, overCmds[0].trim()));
-                    //append ORDER BY on new line
-                    //first, find closing paren
-                    //TODO - there can be a comma and more properties after OVER, handle them here.
-                    //TODO - would have to find closing paren on over clause and format accordingly
-                    index =overCmds[1].lastIndexOf(")");
-                    sb.append(format("\n%s%s%s%s%s%s", tab,userIndentTab, userIndentTab,
-                            userIndentTab, "ORDER BY ", overCmds[1].substring(0,index)));
-                    //append close paren on new line
-                    sb.append(format("\n%s%s%s%s,", tab,userIndentTab, userIndentTab,
-                            overCmds[1].substring(index)));
-                } else if (overCmds.length == 1) {
-                    //append PARTITION BY on new line
-                    index =overCmds[0].lastIndexOf(")");
-                    sb.append(format("\n%s%s%s%s%s", tab,userIndentTab, userIndentTab,
-                            userIndentTab, overCmds[0].substring(0, index)));
-                    //append close paren on new line
-                    sb.append(format("\n%s%s%s%s,", tab,userIndentTab, userIndentTab,
-                            overCmds[0].substring(index)));
-                } else {
-                    throw new InvalidParameterException(
-                            "OVER command not properly formatted: " + s);
-                }
+                OverClauseFormatter ocf = new OverClauseFormatter(
+                        tab, stringIndentAmount);
+
+                sb.append(ocf.formatOverClause(s));
+
             } else {
                 sb.append(format("\n%s%s%s,", tab, userIndentTab, s.trim()));
             }
@@ -218,5 +168,20 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
                 "Incorrect number of parenthesis in String: %s", sql));
     }
     return sb;
+    }
+
+
+    /**
+     * Format the last AS line
+     * @param sb
+     * @param asLines
+     */
+    private void formatLastAsLine(StringBuffer sb, int spaces, String tabs, AsLinesFormatter asLines) {
+        int tempIndex = sb.lastIndexOf("\n");
+        if (tempIndex > 1) {
+            String newStr = formatLastAsLine(tempIndex, sb, asLines, spaces);
+            newStr = "\n" + tabs + newStr;
+            sb.replace(tempIndex, sb.length(), newStr);
+        }
     }
 }
