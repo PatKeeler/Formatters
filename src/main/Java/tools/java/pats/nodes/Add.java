@@ -76,7 +76,7 @@ public class Add extends Node implements Serializable {
             	FindIndexOfClosingParen fcp = new FindIndexOfClosingParen();
             	int endIndex = fcp.findClosingIndex(index, data);
             	//format columns
-                sb.append(formatMultiColumnsWithinParens(data.substring(index, endIndex)));
+                sb.append(formatMultiColumnsWithinParens(data.substring(index, endIndex + 1)));
                 //Add remaining (probably semi-colon)
                 sb.append(data.substring(endIndex + 1));
             }

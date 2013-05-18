@@ -62,7 +62,11 @@ public class Join extends Node implements Serializable {
 
         sb.append(format("\n%s%s%s", tab, userIndentTab, cmd.trim()));
 
-        sb.append(format("\n%s%s%s%s", tab, userIndentTab, userIndentTab, formatForAndOrInString(data)));
+        if (block) {
+            sb.append(format("%s%s", " ", formatForAndOrInString(data)));
+        } else {
+            sb.append(format("\n%s%s%s%s", tab, userIndentTab, userIndentTab, formatForAndOrInString(data)));
+        }
 
         return sb.toString();
     }

@@ -80,13 +80,23 @@ public class OperatorsFormatter extends Node implements Serializable {
         for (int i = 0; i < myData.length(); i++) {
             if (i + 11 < myData.length()) {
                 if (myData.substring(i, i + 5).equals(" AND ")) {
+                    if (block) {
+                        sb.append(format("\n%s%s%sAND ", tab, userIndentTab, extraTabs));
+                        i = i + 4;
+                    } else {
                     sb.append(format("\n%s%s%sAND\n%s%s%s", tab, twoTabs, extraTabs,
                             tab, userIndentTab, extraTabs));
                     i = i + 4;
+                    }
                 } else if (myData.substring(i, i + 4).equals(" OR ")) {
+                    if (block) {
+                        sb.append(format("\n%s%s%sOR  ", tab, userIndentTab, extraTabs));
+                        i = i + 3;
+                    } else {
                     sb.append(format("\n%s%s%sOR\n%s%s%s", tab, twoTabs, extraTabs,
                              tab, userIndentTab, extraTabs));
                     i = i + 3;
+                    }
                 } else if (myData.substring(i, i + 4).equals(" ON ")) {
                     sb.append(format("\n%s%sON ", tab, threeTabs));
                     i = i + 3;
@@ -127,7 +137,11 @@ public class OperatorsFormatter extends Node implements Serializable {
                     }
                     i = i + ind.getEnd();
                 } else if (myData.substring(i, i + 7).equals("EXISTS ")) {
-                    sb.append(format("%sEXISTS", twoTabs));
+                    if (block) {
+                        sb.append("EXISTS");
+                    } else {
+                        sb.append(format("%sEXISTS", twoTabs));
+                    }
                     i = i + 6;
                     //should be open paren,
                     // there may be a comment, bump past it.
@@ -143,7 +157,11 @@ public class OperatorsFormatter extends Node implements Serializable {
                         i = i + ind.getEnd();
                     }
                 } else if (myData.substring(i, i + 11).equals("NOT EXISTS ")) {
-                    sb.append(format("%sNOT EXISTS", twoTabs));
+                    if (block) {
+                        sb.append("NOT EXISTS");
+                    } else {
+                        sb.append(format("%sNOT EXISTS", twoTabs));
+                    }
                     i = i + 10;
                     //should be open paren,
                     // there may be a comment, bump past it.

@@ -60,7 +60,11 @@ public class Where extends Node implements Serializable {
 
         StringBuffer sb = new StringBuffer();
 
-        sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
+        if(block) {
+            sb.append(format("\n%s%s  ", tab, cmd.trim()));
+        } else {
+            sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
+        }
 
         String myData = data.trim();
 
