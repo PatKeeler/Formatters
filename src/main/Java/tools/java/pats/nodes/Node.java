@@ -46,8 +46,9 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
     // Spaces string of user indent amount
     protected final String userIndentTab;
 
-    // block -- boolean indicator of verbose or block style
-    // true == block style, false == verbose style
+    // boolean indicator of expanded or block style
+    // block style = true
+    // expanded style = false
     protected final boolean block;
 
     // Selected format style

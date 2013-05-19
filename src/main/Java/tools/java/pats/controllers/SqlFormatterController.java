@@ -88,7 +88,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 			response.getWriter().write(results);
 		} 
 
-        //Get the selected style, block or verbose
+        //Get the selected style, block or expanded
         String selectedStyle = request.getParameter("selectedStyle");
 
 		//See if "Reformat and Quotes" request?

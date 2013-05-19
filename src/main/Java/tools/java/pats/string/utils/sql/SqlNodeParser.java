@@ -51,7 +51,7 @@ public class SqlNodeParser implements Serializable {
     /** Variables used in construction of Nodes. */
     private final String tab;
 
-    /** Block or Verbose format style */
+    /** Block or expanded format style */
     private final String selectedStyle;
 
     private final String userIndentAmount;

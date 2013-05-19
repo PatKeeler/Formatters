@@ -31,7 +31,7 @@ public class EmbeddedSelectsFormatter extends Node implements Serializable {
     /** Invalid sql input message */
     private static final String INVALID_INPUT = "Sql input string cannot be null or empty";
 
-    /** Block or Verbose format style */
+    /** Block or expanded format style */
     private final String selectedStyle;
 
     /**
