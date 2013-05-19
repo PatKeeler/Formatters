@@ -38,9 +38,10 @@ public class Into extends Node implements Serializable {
     public Into(final String cmd,
                   final String data,
                   final String recursionTab,
-                  final String userIndentAmount) {
+                  final String userIndentAmount,
+                  final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
         this.data = data;
@@ -67,7 +68,7 @@ public class Into extends Node implements Serializable {
         int indents = 0;
 
         OperatorsFormatter formatOperators =
-                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount);
+                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);
 
         sb.append(formatOperators.formatOperators(data));
 

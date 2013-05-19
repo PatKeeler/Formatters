@@ -33,7 +33,8 @@ public class EmbeddedSelectsFormatterFactory {
      */
      public static EmbeddedSelectsFormatter getFormatter(int indents,
                                                          String recursionTab,
-                                                         String userIndentAmount) {
+                                                         String userIndentAmount,
+                                                         String selectedStyle) {
 
         //Verify indents input
         try {
@@ -47,6 +48,7 @@ public class EmbeddedSelectsFormatterFactory {
 
         return new EmbeddedSelectsFormatter(indents,
                                             recursionTab,
-                                            userIndentAmount);
+                                            userIndentAmount,
+                                            selectedStyle);
     }
 }

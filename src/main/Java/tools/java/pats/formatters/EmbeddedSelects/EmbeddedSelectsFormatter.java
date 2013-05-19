@@ -31,6 +31,9 @@ public class EmbeddedSelectsFormatter extends Node implements Serializable {
     /** Invalid sql input message */
     private static final String INVALID_INPUT = "Sql input string cannot be null or empty";
 
+    /** Block or Verbose format style */
+    private final String selectedStyle;
+
     /**
      * Constructor.
      *
@@ -43,9 +46,12 @@ public class EmbeddedSelectsFormatter extends Node implements Serializable {
      */
     public EmbeddedSelectsFormatter(final int indents,
                                     final String recursionTab,
-                                    final String userIndentAmount) {
+                                    final String userIndentAmount,
+                                    final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
+
+        this.selectedStyle = selectedStyle;
 
         if (indents == 2 || indents == 4) {
             this.indents = indents;
@@ -81,7 +87,8 @@ public class EmbeddedSelectsFormatter extends Node implements Serializable {
 
         //Format
 		SqlFormatter formatter = new SqlFormatter();
-		sb.append(format("\n%s", formatter.formatSql(newSql, recursionTab, stringIndentAmount)));
+		sb.append(format("\n%s", formatter.formatSql(newSql, recursionTab,
+                   stringIndentAmount, selectedStyle)));
 
 		//Close paren
 		sb.append(format("\n%s%s ", tempTab, s.substring(ind.getEnd(), ind.getEnd() + 1).trim()));

@@ -36,9 +36,10 @@ public class Delete extends Node implements Serializable {
     public Delete(final String cmd,
                   final String data,
                   final String recursionTab,
-                  final String userIndentAmount) {
+                  final String userIndentAmount,
+                  final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
         this.data = data;

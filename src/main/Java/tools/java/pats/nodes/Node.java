@@ -48,7 +48,10 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
 
     // block -- boolean indicator of verbose or block style
     // true == block style, false == verbose style
-    protected final boolean block = true;
+    protected final boolean block;
+
+    // Selected format style
+    protected final String selectedStyle;
 
 
     /**
@@ -57,13 +60,23 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
      * @param tab = recursion indent amount
      * @param stringIndentAmount = user supplied indent amount.
      */
-    public Node(final String tab, final String stringIndentAmount) {
+    public Node(final String tab,
+                final String stringIndentAmount,
+                final String selectedStyle) {
+
         super();
 
 
 		// Get the current indent value.
         this.tab = tab;
         this.tabLength = tab.length();
+
+        this.selectedStyle = selectedStyle;
+        if (selectedStyle.equals("block")) {
+            this.block = true;
+        } else {
+            this.block = false;
+        }
 
 		//Get user supplied indent amount
 		//save this value for recursion.
@@ -77,7 +90,6 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
 		}
         this.userIndentAmount = amount.get().intValue();
 		this.userIndentTab = SPACES.substring(0, amount.get());
-
 
     }
 
@@ -132,7 +144,7 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
         StringBuffer sb = new StringBuffer();
 
         MultiLineSegmentsFormatter mlsf =
-                new MultiLineSegmentsFormatter(tab, stringIndentAmount);
+                new MultiLineSegmentsFormatter(tab, stringIndentAmount, selectedStyle);
 
         return mlsf.formatMultiLineSegments(sql);
     }
@@ -197,7 +209,7 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
         StringBuffer sb = new StringBuffer();
 
         EmbeddedSelectsFormatter esf =
-                getFormatter(indent, tab, stringIndentAmount);
+                getFormatter(indent, tab, stringIndentAmount, selectedStyle);
 
         sb.append(esf.formatEmbeddedSelect(sql, ind));
 
@@ -319,7 +331,7 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
         int indents = 2;
 
         OperatorsFormatter formatOperators =
-                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount);
+                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);
 
         sb.append(formatOperators.formatOperators(element));
 

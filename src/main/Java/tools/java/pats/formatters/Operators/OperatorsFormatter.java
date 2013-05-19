@@ -36,9 +36,10 @@ public class OperatorsFormatter extends Node implements Serializable {
      */
     public OperatorsFormatter(final int indents,
                               final String recursionTab,
-                              final String userIndentAmount) {
+                              final String userIndentAmount,
+                              final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         //Verify indents input
         try {

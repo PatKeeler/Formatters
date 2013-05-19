@@ -1,14 +1,14 @@
 package tools.java.pats.nodes;
 
-import static java.lang.String.format;
+import net.jcip.annotations.ThreadSafe;
+import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
+import tools.java.pats.formatters.Operators.OperatorsFormatter;
+import tools.java.pats.string.utils.StringIndexes;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 
-import net.jcip.annotations.ThreadSafe;
-import tools.java.pats.formatters.Operators.OperatorsFormatter;
-import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
-import tools.java.pats.string.utils.StringIndexes;
+import static java.lang.String.format;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,9 +39,10 @@ public class With extends Node implements Serializable {
     public With(final String cmd,
                   final String data,
                   final String recursionTab,
-                  final String userIndentAmount) {
+                  final String userIndentAmount,
+                  final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
         this.data = data;
@@ -121,7 +122,7 @@ public class With extends Node implements Serializable {
 
                     OperatorsFormatter formatOperators =
                             OperatorsFormatterFactory.getFormatter(
-                                    ZERO_INDENTS, tab, stringIndentAmount);
+                                    ZERO_INDENTS, tab, stringIndentAmount, selectedStyle);
 
                     sb.append(format(" %s", formatOperators.formatOperators(
                             s.substring(ind.getEnd() + 1))));

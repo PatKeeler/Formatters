@@ -52,7 +52,8 @@ public class SqlFormatter implements Serializable {
      * @param stringIndentAmount
      * @return
      */
-	public String formatSql(String sql, String tab, String stringIndentAmount) {
+	public String formatSql(String sql, String tab,
+                            String stringIndentAmount, String selectedStyle) {
 
         if (sql.isEmpty()) {
             throw new InvalidParameterException(
@@ -81,7 +82,7 @@ public class SqlFormatter implements Serializable {
 		sql = upper.upperCaseCommands(sql);
 
 		/* Get List of Nodes in script. */
-		SqlNodeParser nodeParser = new SqlNodeParser(sql, tab, stringIndentAmount);
+		SqlNodeParser nodeParser = new SqlNodeParser(sql, tab, stringIndentAmount, selectedStyle);
 		List<Node> nodeList = nodeParser.parseSql();
 
 		StringBuffer sb = new StringBuffer();

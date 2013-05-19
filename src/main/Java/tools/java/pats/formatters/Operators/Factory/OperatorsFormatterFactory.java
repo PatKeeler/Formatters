@@ -1,10 +1,10 @@
 package tools.java.pats.formatters.Operators.Factory;
 
-import java.security.InvalidParameterException;
-
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.nodes.Node;
+
+import java.security.InvalidParameterException;
 
 /**
  * This factory will return 1 of 2 possible instances
@@ -33,7 +33,8 @@ public class OperatorsFormatterFactory {
      */
      public static OperatorsFormatter getFormatter(int indents,
                                                    String recursionTab,
-                                                   String userIndentAmount) {
+                                                   String userIndentAmount,
+                                                   String selectedStyle) {
 
         //Verify indents input
         try {
@@ -46,6 +47,7 @@ public class OperatorsFormatterFactory {
 
         return new OperatorsFormatter(indents,
                                       recursionTab,
-                                      userIndentAmount);
+                                      userIndentAmount,
+                                      selectedStyle);
     }
 }

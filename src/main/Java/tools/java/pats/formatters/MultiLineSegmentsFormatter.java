@@ -34,9 +34,10 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
      * @param userIndentAmount
      */
     public MultiLineSegmentsFormatter(final String recursionTab,
-                                      final String userIndentAmount) {
+                                      final String userIndentAmount,
+                                      final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
     }
 
     /**
@@ -122,7 +123,7 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
 
                         OperatorsFormatter formatOperators =
                                 OperatorsFormatterFactory.getFormatter(
-                                        ZERO_INDENTS, tab, stringIndentAmount);
+                                        ZERO_INDENTS, tab, stringIndentAmount, selectedStyle);
 
                         sb.append(format(" %s", formatOperators.formatOperators(
                                 s.substring(ind.getEnd() + 1))));
@@ -148,7 +149,7 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
 
             if(matcher.find()) {
                 OverClauseFormatter ocf = new OverClauseFormatter(
-                        tab, stringIndentAmount);
+                        tab, stringIndentAmount, selectedStyle);
 
                 sb.append(ocf.formatOverClause(s));
 

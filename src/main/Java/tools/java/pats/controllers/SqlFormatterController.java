@@ -1,22 +1,19 @@
 package tools.java.pats.controllers;
 
-import java.io.IOException;
-import java.io.Serializable;
+import net.jcip.annotations.ThreadSafe;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import tools.java.pats.models.SqlFormatter;
+import tools.java.pats.string.utils.AddQuotesForJavaString;
+import tools.java.pats.string.utils.RemoveQuotesFromJavaString;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.jcip.annotations.ThreadSafe;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import tools.java.pats.models.SqlFormatter;
-import tools.java.pats.string.utils.AddQuotesForJavaString;
-import tools.java.pats.string.utils.RemoveQuotesFromJavaString;
+import java.io.IOException;
+import java.io.Serializable;
 
 
 /**
@@ -81,7 +78,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 		
 		//Default results value if error.
 		String results = "Input Sql string is blank!";
-		
+
 		//Get Input Sql.
 		String inputSQL = request.getParameter("inputSQL");
 
@@ -90,7 +87,10 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 			inputSQL.isEmpty()) {			
 			response.getWriter().write(results);
 		} 
-		
+
+        //Get the selected style, block or verbose
+        String selectedStyle = request.getParameter("selectedStyle");
+
 		//See if "Reformat and Quotes" request?
 		String addQuotesAndReformat = request.getParameter("addQuotesAndReformat");
 		
@@ -142,7 +142,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
 			try {
                 RemoveQuotesFromJavaString removeQuotes = new RemoveQuotesFromJavaString();
 				results = removeQuotes.removeQuotes(inputSQL);
-                results = formatter.formatSql(results, tab, userIndentAmount);
+                results = formatter.formatSql(results, tab, userIndentAmount, selectedStyle);
 			}
 			catch(Exception e) {
 				results = "Exception during Remove Quotes And Format processing: " +
@@ -158,7 +158,7 @@ public class SqlFormatterController extends HttpServlet implements Serializable 
         {
 			try {				
 				//Format the input.
-				results = formatter.formatSql(inputSQL, tab, userIndentAmount);
+				results = formatter.formatSql(inputSQL, tab, userIndentAmount, selectedStyle);
 
 				//Add quotes to formatted results if requested.
 				if (null != addQuotesAndReformat && addQuotesAndReformat.equals("true")) {

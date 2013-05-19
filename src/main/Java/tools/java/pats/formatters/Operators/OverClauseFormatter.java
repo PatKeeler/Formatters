@@ -26,9 +26,10 @@ public class OverClauseFormatter extends Node implements Serializable{
      * @param userIndentAmountString
      */
     public OverClauseFormatter (final String recursionTab,
-                               final String userIndentAmountString) {
+                                final String userIndentAmountString,
+                                final String selectedStyle) {
 
-        super(recursionTab, userIndentAmountString);
+        super(recursionTab, userIndentAmountString, selectedStyle);
     }
 
 

@@ -48,16 +48,27 @@
             <fieldset>
                   <legend> Output options.</legend>
                   <table border="0" width="100%" cellpadding="10">
+                      <tr>
+                            <td width="25%" align="right">
+                                <label for="styleRadio"> Select format style.</label>
+                            </td>
+                            <td width="25%">
+                                <input type="radio" name="styleRadio" value="block" checked>Block style<br>
+                            </td>
+                            <td width="50%">
+                                <input type="radio" name="styleRadio" value="verbose">Verbose style<br>
+                            </td>
+                        </tr>
                         <tr>
                               <td width="25%" align="right">
                               		<label for="indentCheckBox">Indent options:</label>
                               </td>
                               <td width="25%">
                                     <input type="checkbox"
-                                             name="indentCheckBox" 
-                                             id="indentCheckBox" 
-                           				     onclick="checkIndentAmountEnabled()"
-                                             checked > Indent elements.</input>
+                                           name="indentCheckBox"
+                                           id="indentCheckBox"
+                        			       onclick="checkIndentAmountEnabled()"
+                                           checked > Indent elements.</input>
                               </td>
                               <td width="50%">Indent amount: 
                                     <input type="text" name="indentAmount" 

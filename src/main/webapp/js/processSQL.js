@@ -19,12 +19,14 @@ function getFormattedSql() {
 
     var parameters = new Object();
 
-    parameters.inputSQL=$("[name=inputSQL]").val();
+    parameters.inputSQL = $("[name=inputSQL]").val();
 
     if ($("[name=indentCheckBox]").is(":checked")) {
         parameters.indent=true;
         parameters.indentAmount=$("[name=indentAmount]").val();
     }
+
+    parameters.selectedStyle = $("[name=styleRadio]:checked").val();
 
  	if ($("[name=addQuotesAndReformatCheckBox]").is(":checked")) {
 		 parameters.addQuotesAndReformat=true;

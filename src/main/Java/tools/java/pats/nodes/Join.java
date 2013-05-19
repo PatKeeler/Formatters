@@ -38,9 +38,10 @@ public class Join extends Node implements Serializable {
     public Join(final String cmd,
                   final String data,
                   final String recursionTab,
-                  final String userIndentAmount) {
+                  final String userIndentAmount,
+                  final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
         this.data = data;
@@ -86,7 +87,7 @@ public class Join extends Node implements Serializable {
         int indents = 3;
 
         OperatorsFormatter formatOperators =
-                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount);
+                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);
 
         sb.append(formatOperators.formatOperators(element));
 

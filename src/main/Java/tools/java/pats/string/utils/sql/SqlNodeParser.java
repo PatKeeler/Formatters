@@ -1,6 +1,9 @@
 package tools.java.pats.string.utils.sql;
 
-import static java.lang.String.format;
+import net.jcip.annotations.ThreadSafe;
+import tools.java.pats.enums.SqlNodes;
+import tools.java.pats.nodes.Node;
+import tools.java.pats.string.utils.FindIndexOfClosingParen;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -13,10 +16,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.jcip.annotations.ThreadSafe;
-import tools.java.pats.enums.SqlNodes;
-import tools.java.pats.nodes.Node;
-import tools.java.pats.string.utils.FindIndexOfClosingParen;
+import static java.lang.String.format;
 
 
 /**
@@ -50,7 +50,10 @@ public class SqlNodeParser implements Serializable {
 
     /** Variables used in construction of Nodes. */
     private final String tab;
-//    private final String userIndentTab;
+
+    /** Block or Verbose format style */
+    private final String selectedStyle;
+
     private final String userIndentAmount;
     
     /** Pattern for "WITH (NOLOCK)", we need to include this in the From
@@ -66,12 +69,15 @@ public class SqlNodeParser implements Serializable {
      * @param tab
      * @param userIndentAmount
      */
-	public SqlNodeParser(final String sql, final String tab, final String userIndentAmount) {
+	public SqlNodeParser(final String sql, final String tab,
+                         final String userIndentAmount,
+                         final String selectedStyle) {
 
         //These fields used in Node Constructors.
 		this.sql = sql;
         this.tab = tab;
         this.userIndentAmount = userIndentAmount;
+        this.selectedStyle = selectedStyle;
 
 	}
     /**
@@ -219,11 +225,13 @@ public class SqlNodeParser implements Serializable {
         Node node = null;
         try {
             Constructor<?> constructor = clazz.getConstructor(String.class,
-                                                           String.class,
-                                                           String.class,
-                                                           String.class);
+                                                              String.class,
+                                                              String.class,
+                                                              String.class,
+                                                              String.class);
 
-            node = (Node) constructor.newInstance(cmd, data, tab, userIndentAmount);
+            node = (Node) constructor.newInstance(cmd, data, tab,
+                                                  userIndentAmount, selectedStyle);
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();

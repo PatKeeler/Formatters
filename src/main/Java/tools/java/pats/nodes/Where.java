@@ -38,9 +38,10 @@ public class Where extends Node implements Serializable {
     public Where(final String cmd,
                   final String data,
                   final String recursionTab,
-                  final String userIndentAmount) {
+                  final String userIndentAmount,
+                  final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount);
+        super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
         this.data = data;
@@ -61,7 +62,14 @@ public class Where extends Node implements Serializable {
         StringBuffer sb = new StringBuffer();
 
         if(block) {
-            sb.append(format("\n%s%s  ", tab, cmd.trim()));
+//            sb.append(format("\n%s%s  ", tab, cmd.trim()));
+            int indexAnd = data.indexOf(" AND ");
+            int indexOr = data.indexOf(" OR ");
+            if (indexAnd > -1 || indexOr > -1) {
+                sb.append(format("\n%s%s\n%s%s    ", tab, cmd.trim(), tab, userIndentTab));
+            } else {
+                sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
+            }
         } else {
             sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
         }
@@ -71,7 +79,7 @@ public class Where extends Node implements Serializable {
         int indents = 0;
 
         OperatorsFormatter formatOperators =
-                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount);
+                OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);
 
         sb.append(formatOperators.formatOperators(data));
 
