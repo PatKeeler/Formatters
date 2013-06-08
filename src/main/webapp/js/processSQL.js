@@ -43,12 +43,12 @@ function getFormattedSql() {
    if ($("[name=removeQuotesOnlyCheckBox]").is(":checked")) {
         parameters.removeQuotesOnly=true;
    }
-   
+
    $.post("ReformatSql",
         parameters ,
         function(data){
-	   		 clearInterval(t);
-             updatePage(data);
+            clearInterval(t);
+            updatePage(data);
         },
         "html"
    );
@@ -57,7 +57,6 @@ function getFormattedSql() {
 function updatePage(data) {
 
 	$("[name=outputSQL]").val(data);
-
 }
 
 
