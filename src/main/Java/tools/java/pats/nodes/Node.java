@@ -60,6 +60,7 @@ public class Node implements Serializable, ProjectStaticConstants {
      *
      * @param tab = recursion indent amount
      * @param stringIndentAmount = user supplied indent amount.
+     * @param selectedStyle = user supplied formatting style.
      */
     public Node(final String tab,
                 final String stringIndentAmount,
@@ -165,6 +166,12 @@ public class Node implements Serializable, ProjectStaticConstants {
     }
 
 
+    /**
+     * 
+     * @param sb
+     * @param sql
+     * @param ind
+     */
     protected void formatMultiColumnsInINFourUserIndents(StringBuffer sb,
                                                          String sql,
                                                          StringIndexes ind) {

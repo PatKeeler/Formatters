@@ -28,10 +28,12 @@ public class CreateIndex extends Node implements Query, Serializable {
 
     /**
      * Final Argument Constructor.
+     *
      * @param cmd
      * @param data
      * @param recursionTab
      * @param userIndentAmount
+     * @param selectedStyle
      */
     public CreateIndex(final String cmd,
                   final String data,

@@ -32,10 +32,12 @@ public class With extends Node implements Query, Serializable {
 
     /**
      * Final Argument Constructor.
+     *
      * @param cmd
      * @param data
      * @param recursionTab
      * @param userIndentAmount
+     * @param selectedStyle
      */
     public With(final String cmd,
                   final String data,

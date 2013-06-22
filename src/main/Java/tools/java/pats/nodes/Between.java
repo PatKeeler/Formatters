@@ -30,10 +30,12 @@ public class Between extends Node implements Query, Serializable {
 
     /**
      * Final Argument Constructor.
+     *
      * @param cmd
      * @param data
      * @param recursionTab
      * @param userIndentAmount
+     * @param selectedStyle
      */
     public Between(final String cmd,
                   final String data,

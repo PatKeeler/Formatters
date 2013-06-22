@@ -28,10 +28,12 @@ public class CreateView extends Node implements Query, Serializable {
 
     /**
      * Final Argument Constructor.
+     *
      * @param cmd
      * @param data
      * @param recursionTab
      * @param userIndentAmount
+     * @param selectedStyle
      */
     public CreateView(final String cmd,
                   final String data,

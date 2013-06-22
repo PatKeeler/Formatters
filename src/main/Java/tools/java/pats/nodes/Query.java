@@ -6,7 +6,7 @@ package tools.java.pats.nodes;
  * Date: 6/21/13
  * Time: 5:49 PM
  *
- * This interface will be implemented by all Nodes
+ * This interface will be implemented by all subclasses of Node.
  */
 public interface Query {
 
