@@ -15,7 +15,7 @@ import static java.lang.String.format;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class Alter extends Node implements Serializable {
+public class Alter extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
@@ -58,11 +58,9 @@ public class Alter extends Node implements Serializable {
      * This class will have the table name as the data resulting in
      * a one line statement.
      *
-     * @param node
      * @return
      */
-    @Override
-    public String processLine(Node node) {
+    public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 

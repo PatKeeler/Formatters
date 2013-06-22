@@ -2,7 +2,7 @@ package tools.java.pats.string.utils.sql;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.enums.SqlNodes;
-import tools.java.pats.nodes.Node;
+import tools.java.pats.nodes.Query;
 import tools.java.pats.string.utils.FindIndexOfClosingParen;
 
 import java.io.Serializable;
@@ -86,10 +86,10 @@ public class SqlNodeParser implements Serializable {
      *
      * @return List of Nodes
      */
-    public List<Node> parseSql() {
+    public List<Query> parseSql() {
 
         //The list of Nodes found in the Input.
-        List<Node> nodeList = new ArrayList<Node>();
+        List<Query> nodeList = new ArrayList<Query>();
 
         //The start of the data pointer
         int index = 0;
@@ -141,7 +141,7 @@ public class SqlNodeParser implements Serializable {
                         } else {
                             //capture the data string
                             data = sql.substring(index, i);
-                            Node node = getNode(cmd, data);
+                            Query node = getNode(cmd, data);
                             nodeList.add(node);
                         }
                         //Capture command and reset pointers
@@ -166,7 +166,7 @@ public class SqlNodeParser implements Serializable {
 	                        } else {
 	                            //capture the data string
 	                            data = sql.substring(index, i);
-	                            Node node = getNode(cmd, data);
+	                            Query node = getNode(cmd, data);
 	                            nodeList.add(node);
 	                        }
 	                        //Capture command and reset pointers
@@ -195,7 +195,7 @@ public class SqlNodeParser implements Serializable {
             } else {
                 data = sql.substring(index, i);
             }
-            Node node = getNode(cmd, data);
+            Query node = getNode(cmd, data);
             nodeList.add(node);
         }
 
@@ -210,7 +210,7 @@ public class SqlNodeParser implements Serializable {
      * 
      * @return node
      */
-    private Node getNode(String cmd, String data) {
+    private Query getNode(String cmd, String data) {
 
         SqlNodes sqlNode = SqlNodes.valueOf(cmd.trim().replace(" ", "_"));
         String className = sqlNode.getClassName();
@@ -222,7 +222,7 @@ public class SqlNodeParser implements Serializable {
             e.printStackTrace();
         }
 
-        Node node = null;
+        Query node = null;
         try {
             Constructor<?> constructor = clazz.getConstructor(String.class,
                                                               String.class,
@@ -230,7 +230,7 @@ public class SqlNodeParser implements Serializable {
                                                               String.class,
                                                               String.class);
 
-            node = (Node) constructor.newInstance(cmd, data, tab,
+            node = (Query) constructor.newInstance(cmd, data, tab,
                                                   userIndentAmount, selectedStyle);
 
         } catch (NoSuchMethodException e) {

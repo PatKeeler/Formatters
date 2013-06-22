@@ -1,17 +1,23 @@
 package tools.java.pats.formatters;
 
+import tools.java.pats.constants.ProjectStaticConstants;
+import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
+import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.formatters.Operators.OverClauseFormatter;
-import tools.java.pats.nodes.Node;
+import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
+import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.String.format;
+import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory.getFormatter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,24 +26,51 @@ import static java.lang.String.format;
  * Time: 6:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MultiLineSegmentsFormatter extends Node implements Serializable {
+public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;
 
     /** Pattern to identify single line comments. */
     protected static final Pattern OVER_CLAUSE = Pattern.compile(" OVER\\s+\\(");
 
+    /** Format variables */
+    protected final String tab;
+    protected final String stringIndentAmount;
+    protected final String selectedStyle;
+
+    protected final String userIndentTab;
+    protected final String SPACES =
+            "                                                                 " +
+            "                                                                 ";
+
+    protected final int userIndentAmount;
+
 
     /**
      * Final Argument Constructor.
+     *
      * @param recursionTab
-     * @param userIndentAmount
+     * @param stringIndentAmount
+     * @param selectedStyle
      */
     public MultiLineSegmentsFormatter(final String recursionTab,
-                                      final String userIndentAmount,
+                                      final String stringIndentAmount,
                                       final String selectedStyle) {
 
-        super(recursionTab, userIndentAmount, selectedStyle);
+        this.tab = recursionTab;
+        this.stringIndentAmount = stringIndentAmount;
+        this.selectedStyle = selectedStyle;
+
+        AtomicReference<Integer> amount = new AtomicReference<Integer>(null);
+              try {
+                  amount.set(Integer.valueOf(this.stringIndentAmount));
+              }
+      		catch (NumberFormatException e) {
+                  amount.set(0);
+      		}
+            this.userIndentAmount = amount.get().intValue();
+      		this.userIndentTab = SPACES.substring(0, amount.get());
+
     }
 
     /**
@@ -53,7 +86,10 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
     String[] columns = sql.split(",");
 
     // Join elements within parens.
-    columns = joinColumsWithinParens(columns);
+        RejoinComumnsWithinParens rejoin =
+                new RejoinComumnsWithinParens(columns, tab);
+
+        columns = rejoin.rejoinColumns();
 
     //Remove extra spacing in these columns,
     // added for correctly formatting the "With" statement.
@@ -105,13 +141,19 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
         }
         //Format embedded select statements
         else if (s.toUpperCase().trim().startsWith("(")) {
-            if(isEmbeddedSelect(s)) {
-                StringIndexes ind = getIndexesForSqlWithinParens(s);
+            CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
+            if(cfs.isEmbeddedSelect(s)) {
+
+                GetStringWithinParens getString = new GetStringWithinParens();
+                StringIndexes ind = getString.getIndexesForSqlWithinParens(s);
 
                 String newSql = s.substring(ind.getStart(), ind.getEnd());
 
                 if (! newSql.isEmpty()) {
-                    sb.append(formatEmbeddedSelect(TWO_INDENTS, s, ind));
+                    EmbeddedSelectsFormatter esf =
+                            getFormatter(TWO_INDENTS, tab, stringIndentAmount, selectedStyle);
+                    sb.append(esf.formatEmbeddedSelect(s, ind));
+//                    sb.append(esf.formatEmbeddedSelects(TWO_INDENTS, s, ind));
 
                     // Check for AS in last line
                     String tabs = tab + userIndentTab;
@@ -178,9 +220,38 @@ public class MultiLineSegmentsFormatter extends Node implements Serializable {
      * @param asLines
      */
     private void formatLastAsLine(StringBuffer sb, int spaces, String tabs, AsLinesFormatter asLines) {
+
         int tempIndex = sb.lastIndexOf("\n");
         if (tempIndex > 1) {
-            String newStr = formatLastAsLine(tempIndex, sb, asLines, spaces);
+            //Get the original max property length.
+            int origPropLen = asLines.getMaxPropLength();
+
+            //Get the last line in buffer
+            String[] tempStr = {sb.substring(tempIndex)};
+
+            //Re-load asLines with new string array.
+            asLines = new AsLinesFormatter(tempStr);
+
+            //Get the original max property length.
+            int currentPropLen = asLines.getMaxPropLength();
+
+            //If original max property length > current, reset to
+            // to original.
+            if (origPropLen > currentPropLen) {
+                //Remove userIndent if required and spaces exists
+                if (origPropLen - spaces > currentPropLen) {
+                    asLines.setMaxPropLength(origPropLen - spaces);
+                } else {
+                    asLines.setMaxPropLength(origPropLen);
+                }
+            }
+
+            //Format last line with AS.
+            String newStr = asLines.formatNode().toString();
+
+            //Replace sb last line with new formatted line.
+            newStr = newStr.substring(1, newStr.length() - 1);
+
             newStr = "\n" + tabs + newStr;
             sb.replace(tempIndex, sb.length(), newStr);
         }

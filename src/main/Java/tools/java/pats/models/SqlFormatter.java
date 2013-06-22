@@ -3,7 +3,7 @@ package tools.java.pats.models;
 import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tools.java.pats.nodes.Node;
+import tools.java.pats.nodes.Query;
 import tools.java.pats.string.utils.sql.CommandsToUpper;
 import tools.java.pats.string.utils.sql.SqlNodeParser;
 import tools.java.pats.string.utils.sql.StringCleaner;
@@ -83,7 +83,7 @@ public class SqlFormatter implements Serializable {
 
 		/* Get List of Nodes in script. */
 		SqlNodeParser nodeParser = new SqlNodeParser(sql, tab, stringIndentAmount, selectedStyle);
-		List<Node> nodeList = nodeParser.parseSql();
+		List<Query> nodeList = nodeParser.parseSql();
 
 		StringBuffer sb = new StringBuffer();
 		
@@ -96,11 +96,11 @@ public class SqlFormatter implements Serializable {
 		sb.append(comments.toString());
 
 		// Format each node.
-        for (Node n : nodeList) {
+        for (Query node : nodeList) {
             try {	
-            	sb.append(n.processLine(n));
+            	sb.append(node.processLine(node));
             } catch (Exception e) {
-				throw new InvalidParameterException(n.getClass().getCanonicalName());
+				throw new InvalidParameterException(node.getClass().getCanonicalName());
 //				System.out.println("canonicalName: " + n.getClass().getCanonicalName());
 //				e.printStackTrace();
 			}

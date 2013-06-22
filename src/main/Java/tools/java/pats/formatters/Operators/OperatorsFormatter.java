@@ -1,6 +1,7 @@
 package tools.java.pats.formatters.Operators;
 
 import net.jcip.annotations.ThreadSafe;
+import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
 import tools.java.pats.nodes.Node;
 import tools.java.pats.string.utils.StringIndexes;
 
@@ -75,6 +76,8 @@ public class OperatorsFormatter extends Node implements Serializable {
 
         String extraTabs = SPACES.substring(0, userIndentAmount * extraIndent);
 
+        CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
+
         int index = 0;
 
         //TODO  Refactor this if statement
@@ -113,7 +116,7 @@ public class OperatorsFormatter extends Node implements Serializable {
                     }
                     String sql = myData.substring(i, myData.length());
                     StringIndexes ind = getIndexesForSqlWithinParens(sql);
-                    if (isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                         sb.append(formatEmbeddedSelect(FOUR_INDENTS, sql, ind));
                     } else {
                         formatMultiColumnsInINFourUserIndents(sb, sql, ind);
@@ -131,7 +134,7 @@ public class OperatorsFormatter extends Node implements Serializable {
                     }
                     String sql = myData.substring(i, myData.length());
                     StringIndexes ind = getIndexesForSqlWithinParens(sql);
-                    if (isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                         sb.append(formatEmbeddedSelect(FOUR_INDENTS, sql, ind));
                     } else {
                         formatMultiColumnsInINFourUserIndents(sb, sql, ind);
@@ -151,7 +154,7 @@ public class OperatorsFormatter extends Node implements Serializable {
                         sb.append((format(myData.substring(i, index))));
                         i = index;
                     }
-                    if (isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                         String sql = myData.substring(i, myData.length());
                         StringIndexes ind = getIndexesForSqlWithinParens(sql);
                         sb.append(formatEmbeddedSelect(FOUR_INDENTS, sql, ind));
@@ -171,7 +174,7 @@ public class OperatorsFormatter extends Node implements Serializable {
                         sb.append((format(myData.substring(i, index))));
                         i = index;
                     }
-                    if (isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                         String sql = myData.substring(i, myData.length());
                         StringIndexes ind = getIndexesForSqlWithinParens(sql);
                         sb.append(formatEmbeddedSelect(FOUR_INDENTS, sql, ind));

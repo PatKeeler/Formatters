@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
  * Format select statements - determine proper column location
  * for the AS statements and format each property accordingly.
  *

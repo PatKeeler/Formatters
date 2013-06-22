@@ -2,10 +2,12 @@ package tools.java.pats.nodes;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.formatters.*;
+import tools.java.pats.formatters.ColumnsWithinParensFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
+import tools.java.pats.formatters.MultiLineSegmentsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
+import tools.java.pats.formatters.ValuesFormatter;
 import tools.java.pats.string.utils.FindIndexOfClosingParen;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
@@ -13,8 +15,6 @@ import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory.getFormatter;
@@ -29,7 +29,7 @@ import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelects
  * Time: 9:32 PM
  */
 @ThreadSafe
-public abstract class Node implements Serializable, ProjectStaticConstants {
+public class Node implements Serializable, ProjectStaticConstants {
 
     /** Required serialization parameter */
     private static final long serialVersionUID = 1951L;
@@ -94,15 +94,6 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
 
     }
 
-    /**
-     * This method will be overridden by all Node subclasses.
-     */
-    public String processLine(Node node) {
-
-        return null;
-    }
-
-
 
     /**
      * Format multiple column definitions.
@@ -150,50 +141,6 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
         return mlsf.formatMultiLineSegments(sql);
     }
 
-    /**
-     * Get the last line from buffer, if it has an AS, format it.
-     * 
-     * @param tempInd
-     * @param sb
-     * @param asLines
-     * @param spaces
-     * @return
-     */
-    protected String formatLastAsLine(int tempInd, StringBuffer sb,
-                                    AsLinesFormatter asLines, int spaces) {
-
-        //Get the original max property length.
-        int origPropLen = asLines.getMaxPropLength();
-
-        //Get the last line in buffer
-        String[] tempStr = {sb.substring(tempInd)};
-
-        //Re-load asLines with new string array.
-        asLines = new AsLinesFormatter(tempStr);
-
-        //Get the original max property length.
-        int currentPropLen = asLines.getMaxPropLength();
-
-        //If original max property length > current, reset to
-        // to original.
-        if (origPropLen > currentPropLen) {
-            //Remove userIndent if required and spaces exists
-            if (origPropLen - spaces > currentPropLen) {
-                asLines.setMaxPropLength(origPropLen - spaces);
-            } else {
-                asLines.setMaxPropLength(origPropLen);
-            }
-        }
-
-        //Format last line with AS.
-        String newStr = asLines.formatNode().toString();
-
-        //Replace sb last line with new formatted line.
-        newStr = newStr.substring(1, newStr.length() - 1);
-
-        return newStr;
-    }
-
 
     /**
      * Format embedded select with user indents.
@@ -216,7 +163,6 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
 
         return sb.toString();
     }
-
 
 
     protected void formatMultiColumnsInINFourUserIndents(StringBuffer sb,
@@ -250,23 +196,6 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
         sb.replace(sb.length() - 1, sb.length(), "");
 
 		sb.append(format("\n%s%s", tempParenTab, sql.substring(ind.getEnd(), ind.getEnd() + 1).trim()));
-    }
-
-    /**
-     * boolean method to indicate if string has embedded select statement.
-     *
-     * @param sql
-     * @return boolean true or false
-     */
-    protected boolean isEmbeddedSelect(String sql) {
-
-        Pattern select = Pattern.compile("^([\\( | \\s]*SELECT)");
-        Matcher m = select.matcher(sql);
-        if (m.find()) {
-            return true;
-        }
-
-        return false;
     }
 
 
@@ -310,7 +239,7 @@ public abstract class Node implements Serializable, ProjectStaticConstants {
      *            String[] array of column lines.
      * @return String[] array with all column data on same line.
      */
-    protected String[] joinColumsWithinParens(String[] columns) {
+    public String[] joinColumsWithinParens(String[] columns) {
 
         RejoinComumnsWithinParens rejoin =
                 new RejoinComumnsWithinParens(columns, tab);

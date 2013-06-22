@@ -21,7 +21,7 @@ import static java.lang.String.format;
  * The command will be COMMENT, the data will be the comment in parens.
  */
 @ThreadSafe
-public class Comment extends Node implements Serializable {
+public class Comment extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
@@ -71,8 +71,7 @@ public class Comment extends Node implements Serializable {
      * @param node
      * @return
      */
-    @Override
-    public String processLine(Node node) {
+    public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 

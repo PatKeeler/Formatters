@@ -15,7 +15,7 @@ import static java.lang.String.format;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class Values extends Node implements Serializable {
+public class Values extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
@@ -56,8 +56,12 @@ public class Values extends Node implements Serializable {
     }
 
 
-    @Override
-    public String processLine(Node node) {
+    /**
+     *
+     * @param node
+     * @return
+     */
+    public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 

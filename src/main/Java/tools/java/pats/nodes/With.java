@@ -1,6 +1,7 @@
 package tools.java.pats.nodes;
 
 import net.jcip.annotations.ThreadSafe;
+import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.string.utils.StringIndexes;
@@ -18,7 +19,7 @@ import static java.lang.String.format;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class With extends Node implements Serializable {
+public class With extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
@@ -62,8 +63,7 @@ public class With extends Node implements Serializable {
      * @param node
      * @return
      */
-    @Override
-    public String processLine(Node node) {
+    public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 
@@ -109,7 +109,8 @@ public class With extends Node implements Serializable {
 
 
             //Format embedded select statements
-            if (isEmbeddedSelect(s)) {
+            CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
+            if (cfs.isEmbeddedSelect(s)) {
                 StringIndexes ind = getIndexesForSqlWithinParens(s);
 
                 String newSql = s.substring(ind.getStart(), ind.getEnd());
