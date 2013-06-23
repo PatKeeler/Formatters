@@ -5,7 +5,6 @@ import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
-import tools.java.pats.formatters.Operators.OverClauseFormatter;
 import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;

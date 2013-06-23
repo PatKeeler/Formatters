@@ -1,4 +1,4 @@
-package tools.java.pats.formatters.Operators;
+package tools.java.pats.formatters;
 
 import tools.java.pats.nodes.Node;
 
