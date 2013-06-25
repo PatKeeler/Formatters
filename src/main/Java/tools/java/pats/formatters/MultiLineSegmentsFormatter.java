@@ -38,9 +38,6 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
     protected final String selectedStyle;
 
     protected final String userIndentTab;
-    protected final String SPACES =
-            "                                                                 " +
-            "                                                                 ";
 
     protected final int userIndentAmount;
 
@@ -152,7 +149,6 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
                     EmbeddedSelectsFormatter esf =
                             getFormatter(TWO_INDENTS, tab, stringIndentAmount, selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(s, ind));
-//                    sb.append(esf.formatEmbeddedSelects(TWO_INDENTS, s, ind));
 
                     // Check for AS in last line
                     String tabs = tab + userIndentTab;

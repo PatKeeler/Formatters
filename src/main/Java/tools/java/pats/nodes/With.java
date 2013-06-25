@@ -4,6 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
+import tools.java.pats.string.FindIndexesForSqlWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 
 import java.io.Serializable;
@@ -113,7 +114,8 @@ public class With extends Node implements Query, Serializable {
             //Format embedded select statements
             CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
             if (cfs.isEmbeddedSelect(s)) {
-                StringIndexes ind = getIndexesForSqlWithinParens(s);
+                FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(s);
 
                 String newSql = s.substring(ind.getStart(), ind.getEnd());
 

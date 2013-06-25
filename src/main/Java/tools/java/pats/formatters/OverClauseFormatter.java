@@ -1,9 +1,10 @@
 package tools.java.pats.formatters;
 
-import tools.java.pats.nodes.Node;
+import tools.java.pats.constants.ProjectStaticConstants;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.String.format;
 
@@ -14,22 +15,47 @@ import static java.lang.String.format;
  * Time: 6:16 PM
  * To change this template use File | Settings | File Templates.
  */
-public class OverClauseFormatter extends Node implements Serializable{
+public class OverClauseFormatter implements Serializable, ProjectStaticConstants {
 
     private static final long serialVersionUID = 1951L;
+
+    /** Format variables */
+    protected final String tab;
+    protected final String stringIndentAmount;
+    protected final String selectedStyle;
+    // Spaces string of user indent amount
+    protected final String userIndentTab;
+    // int value of user indent amount
+	protected final int userIndentAmount;
 
 
     /**
      * Final argument constructor for super
      *
      * @param recursionTab
-     * @param userIndentAmountString
+     * @param stringIndentAmount
+     * @param selectedStyle
      */
     public OverClauseFormatter (final String recursionTab,
-                                final String userIndentAmountString,
+                                final String stringIndentAmount,
                                 final String selectedStyle) {
 
-        super(recursionTab, userIndentAmountString, selectedStyle);
+        this.tab = recursionTab;
+        this.selectedStyle = selectedStyle;
+
+
+		//Get user supplied indent amount
+		//save this value for recursion.
+		this.stringIndentAmount = stringIndentAmount;
+		AtomicReference<Integer> amount = new AtomicReference<Integer>(null);
+        try {
+            amount.set(Integer.valueOf(this.stringIndentAmount));
+        }
+		catch (NumberFormatException e) {
+            amount.set(0);
+		}
+        this.userIndentAmount = amount.get().intValue();
+		this.userIndentTab = SPACES.substring(0, amount.get());
     }
 
 

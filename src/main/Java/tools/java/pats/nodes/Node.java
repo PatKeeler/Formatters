@@ -8,12 +8,11 @@ import tools.java.pats.formatters.MultiLineSegmentsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.formatters.ValuesFormatter;
-import tools.java.pats.string.utils.FindIndexOfClosingParen;
+import tools.java.pats.string.FindIndexesForSqlWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 
 import java.io.Serializable;
-import java.security.InvalidParameterException;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.String.format;
@@ -104,7 +103,9 @@ public class Node implements Serializable, ProjectStaticConstants {
      */
     protected String formatMultiColumnsWithinParens(String sql) {
 
-        StringIndexes ind = getIndexesForSqlWithinParens(sql);
+        FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
+
+        StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
 
         ColumnsWithinParensFormatter mcf = new ColumnsWithinParensFormatter();
 
@@ -119,11 +120,9 @@ public class Node implements Serializable, ProjectStaticConstants {
      */
     protected String formatValuesColumns(String sql) {
 
-        StringIndexes ind = getIndexesForSqlWithinParens(sql);
-
         ValuesFormatter vf = new ValuesFormatter();
 
-        return  vf.formatValues(sql, ind, tab, userIndentTab);
+        return  vf.formatValues(sql, tab, userIndentTab);
     }
 
     /**
@@ -215,28 +214,9 @@ public class Node implements Serializable, ProjectStaticConstants {
      */
     protected StringIndexes getIndexesForSqlWithinParens(String sql) {
 
-        int start = -1;
-        int end = 0;
+        FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
 
-        StringIndexes indexes = new StringIndexes();
-
-        FindIndexOfClosingParen findClosingParen = new FindIndexOfClosingParen();
-
-        for (int n = 0; n < sql.length(); n++) {
-
-            if (sql.charAt(n) == OPEN_PAREN_BYTE) {
-                start = n;
-                end = findClosingParen.findClosingIndex(start, sql);
-                if (end > 0) {
-                    indexes.setStart(start + 1);
-                    indexes.setEnd(end);
-                    return indexes;
-                }
-            }
-        }
-
-        throw new InvalidParameterException(format(
-                "Incorrect number of parenthesis at: %s", sql));
+        return findIndexes.getIndexesForSqlWithinParens(sql);
     }
 
     /**

@@ -2,7 +2,6 @@ package tools.java.pats.formatters;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 
 import java.io.Serializable;
@@ -28,13 +27,11 @@ public class ValuesFormatter implements Serializable, ProjectStaticConstants {
      * indents, each on a single line.
      *
      * @param sql        sql string
-     * @param ind        StringIndexes
      * @param tab        recursion indent amount
      * @param userIndent user selected indent amount
      * @return String formatted line.
      */
     public String formatValues(String sql,
-                               StringIndexes ind,
                                String tab,
                                String userIndent) {
 
