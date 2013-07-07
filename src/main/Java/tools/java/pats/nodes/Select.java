@@ -15,7 +15,7 @@ import static java.lang.String.format;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class Select  extends Node implements Query, Serializable {
+public class Select extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
