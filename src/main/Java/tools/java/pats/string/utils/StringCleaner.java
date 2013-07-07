@@ -1,7 +1,8 @@
-package tools.java.pats.string.utils.sql;
+package tools.java.pats.string.utils;
 
 import net.jcip.annotations.ThreadSafe;
 import org.xml.sax.SAXException;
+import tools.java.pats.string.utils.sql.RemoveSqlComments;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

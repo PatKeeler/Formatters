@@ -1,4 +1,4 @@
-package tools.java.pats.formatters.EmbeddedSelects;
+package tools.java.pats.formatters;
 
 import net.jcip.annotations.ThreadSafe;
 

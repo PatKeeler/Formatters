@@ -2,11 +2,11 @@ package tools.java.pats.formatters.Operators;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
+import tools.java.pats.formatters.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory;
 import tools.java.pats.nodes.Node;
-import tools.java.pats.string.FindIndexesForSqlWithinParens;
+import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 
@@ -118,7 +118,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
 
         CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
 
-        FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
+        FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
 
         int index = 0;
 

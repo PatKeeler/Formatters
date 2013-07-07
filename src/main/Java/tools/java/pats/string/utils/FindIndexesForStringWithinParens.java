@@ -1,15 +1,13 @@
-package tools.java.pats.string;
+package tools.java.pats.string.utils;
 
 import tools.java.pats.nodes.Node;
-import tools.java.pats.string.utils.FindIndexOfClosingParen;
-import tools.java.pats.string.utils.StringIndexes;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 
-public class FindIndexesForSqlWithinParens implements Serializable {
+public class FindIndexesForStringWithinParens implements Serializable {
 
-    public FindIndexesForSqlWithinParens() {
+    public FindIndexesForStringWithinParens() {
 
     }
 

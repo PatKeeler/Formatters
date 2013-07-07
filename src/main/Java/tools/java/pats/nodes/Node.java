@@ -8,7 +8,7 @@ import tools.java.pats.formatters.MultiLineSegmentsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.formatters.ValuesFormatter;
-import tools.java.pats.string.FindIndexesForSqlWithinParens;
+import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 
@@ -103,7 +103,7 @@ public class Node implements Serializable, ProjectStaticConstants {
      */
     protected String formatMultiColumnsWithinParens(String sql) {
 
-        FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
+        FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
 
         StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
 
@@ -214,7 +214,7 @@ public class Node implements Serializable, ProjectStaticConstants {
      */
     protected StringIndexes getIndexesForSqlWithinParens(String sql) {
 
-        FindIndexesForSqlWithinParens findIndexes = new FindIndexesForSqlWithinParens();
+        FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
 
         return findIndexes.getIndexesForSqlWithinParens(sql);
     }

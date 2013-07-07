@@ -1,7 +1,6 @@
 package tools.java.pats.formatters;
 
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.formatters.EmbeddedSelects.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
