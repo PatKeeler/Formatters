@@ -6,6 +6,7 @@ import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
+import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
 
 import java.io.Serializable;

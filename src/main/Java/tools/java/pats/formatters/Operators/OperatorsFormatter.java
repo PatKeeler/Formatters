@@ -2,7 +2,7 @@ package tools.java.pats.formatters.Operators;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.formatters.CheckForEmbeddedSelect;
+import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory;
 import tools.java.pats.nodes.Node;

@@ -1,7 +1,7 @@
 package tools.java.pats.nodes;
 
 import net.jcip.annotations.ThreadSafe;
-import tools.java.pats.formatters.CheckForEmbeddedSelect;
+import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.string.utils.FindIndexesForStringWithinParens;

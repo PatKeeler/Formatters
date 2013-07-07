@@ -1,4 +1,4 @@
-package tools.java.pats.formatters;
+package tools.java.pats.string.utils.sql;
 
 import net.jcip.annotations.ThreadSafe;
 
