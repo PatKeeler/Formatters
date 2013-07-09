@@ -4,7 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tools.java.pats.nodes.Query;
-import tools.java.pats.string.utils.sql.CommandsToUpper;
+import tools.java.pats.string.utils.sql.SqlKeywordsToUpperCase;
 import tools.java.pats.string.utils.sql.SqlNodeParser;
 import tools.java.pats.string.utils.StringCleaner;
 
@@ -78,8 +78,8 @@ public class SqlFormatter implements Serializable {
         System.out.println("Sql = " + tab + sql);
 
 		// Upper case all commands.
-		CommandsToUpper upper = new CommandsToUpper();
-		sql = upper.upperCaseCommands(sql);
+		SqlKeywordsToUpperCase upper = new SqlKeywordsToUpperCase();
+		sql = upper.upperCaseKeywords(sql);
 
 		/* Get List of Nodes in script. */
 		SqlNodeParser nodeParser = new SqlNodeParser(sql, tab, stringIndentAmount, selectedStyle);

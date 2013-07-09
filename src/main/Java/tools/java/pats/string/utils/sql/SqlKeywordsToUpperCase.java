@@ -20,12 +20,12 @@ import static java.lang.String.format;
  * @author Pat Keeler
  */
 @ThreadSafe
-public class CommandsToUpper implements Serializable {
+public class SqlKeywordsToUpperCase implements Serializable {
 
     private static final long serialVersionUID = 1951L;
 
 
-	public String upperCaseCommands(String sql) {
+	public String upperCaseKeywords(String sql) {
 
 		StringBuffer sb = new StringBuffer(format(" %s ",sql));
 		
