@@ -1,7 +1,7 @@
 package tools.java.pats.string.utils.sql;
 
 import net.jcip.annotations.ThreadSafe;
-import tools.java.pats.enums.SqlCommands;
+import tools.java.pats.enums.SqlKeywords;
 import tools.java.pats.enums.SqlNodes;
 
 import java.io.Serializable;
@@ -61,7 +61,7 @@ public class SqlKeywordsToUpperCase implements Serializable {
 		
 		//Add all commands.
         commands.addAll(Arrays.asList(SqlNodes.getTypes()));
-		commands.addAll(Arrays.asList(SqlCommands.getCommands()));
+		commands.addAll(Arrays.asList(SqlKeywords.getCommands()));
 
 		return commands;
 		

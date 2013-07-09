@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Pat Keeler
  */
-public enum SqlCommands {
+public enum SqlKeywords {
 
     ADD("ADD"),
     AND("AND"),
@@ -37,7 +37,7 @@ public enum SqlCommands {
 
 	private String cmd;
 	
-	private SqlCommands(String cmd) {
+	private SqlKeywords(String cmd) {
 		this.cmd = cmd;
 	}
 	
@@ -45,7 +45,7 @@ public enum SqlCommands {
 		
 		List<String> cmdList = new ArrayList<String>();
 		
-		for (SqlCommands s : SqlCommands.values()) {
+		for (SqlKeywords s : SqlKeywords.values()) {
 			cmdList.add(s.cmd);
 		}
 		
