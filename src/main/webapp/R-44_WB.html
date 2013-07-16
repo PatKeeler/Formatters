@@ -107,7 +107,7 @@
                                     <td>Pilot:</td>
                                     <td>
                                         <input type="number" name="pilotWeight" id="pilotWeight"
-                                               size="10" />
+                                               size="10" value="200"/>
                                     </td>
                                     <td>
                                         <input type="number" name="pilotLongArm" id="pilotLongArm"
@@ -198,46 +198,46 @@
                                 <tr>
                                     <td>Rt Aft Pass & Bags:</td>
                                     <td>
-                                        <input type="number" name="rightPassBagWeight" id="rightPassBagWeight"
+                                        <input type="number" name="rightPassWeight" id="rightPassWeight"
                                                size="10" />
                                     </td>
                                     <td>
-                                        <input type="number" name="rightPassBagLongArm" id="rightPassBagLongArm"
+                                        <input type="number" name="rightPassLongArm" id="rightPassLongArm"
                                                size="10" value="79.5"/>
                                     </td>
                                     <td>
-                                        <input type="number" name="rightPassBagLongMom" id="rightPassBagLongMom"
+                                        <input type="number" name="rightPassLongMom" id="rightPassLongMom"
                                                size="10" />
                                     </td>
                                     <td>
-                                        <input type="number" name="rightPassBagLatArm" id="rightPassBagLatArm"
+                                        <input type="number" name="rightPassLatArm" id="rightPassLatArm"
                                                size="10" value="12.2"/>
                                     </td>
                                     <td>
-                                        <input type="number" name="rightPassBagLatMom" id="rightPassBagLatMom"
+                                        <input type="number" name="rightPassLatMom" id="rightPassLatMom"
                                                size="10" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Lt Aft Pass & Bags:</td>
                                     <td>
-                                        <input type="number" name="leftPassBagWeight" id="leftPassBagWeight"
+                                        <input type="number" name="leftPassWeight" id="leftPassWeight"
                                                size="10" />
                                     </td>
                                     <td>
-                                        <input type="number" name="leftPassBagLongArm" id="leftPassBagLongArm"
+                                        <input type="number" name="leftPassLongArm" id="leftPassLongArm"
                                                size="10" value="79.5"/>
                                     </td>
                                     <td>
-                                        <input type="number" name="leftPassBagLongMom" id="leftPassBagLongMom"
+                                        <input type="number" name="leftPassLongMom" id="leftPassLongMom"
                                                size="10" />
                                     </td>
                                     <td>
-                                        <input type="number" name="leftPassBagLatArm" id="leftPassBagLatArm"
+                                        <input type="number" name="leftPassLatArm" id="leftPassLatArm"
                                                size="10" value="-12.2"/>
                                     </td>
                                     <td>
-                                        <input type="number" name="leftPassBagLatMom" id="leftPassBagLatMom"
+                                        <input type="number" name="leftPassLatMom" id="leftPassLatMom"
                                                size="10" />
                                     </td>
                                 </tr>
@@ -373,23 +373,31 @@
                                     <td>Main Fuel</td>
 									<td>									
 										<input type="number" name="mainToGals" id="mainToGals"
-										 	   size="10" />								
+										 	   size="10" value="28"/>
 									</td>								
                                     <td>
                                         <input type="number" name="mainLdgGals" id="mainLdgGals"
-                                               size="10" />
+                                               size="10" value="14"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Aux Fuel</td>
                                     <td>
                                         <input type="number" name="auxToGals" id="auxToGals"
-                                               size="10" />
+                                               size="10" value="18"/>
                                     </td>
                                     <td>
                                         <input type="number" name="auxLdgGals" id="auxLdgGals"
+                                               size="10" value="9"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fuel Burned (Gals)</td>
+                                    <td>
+                                        <input type="number" name="fuelBurned" id="fuelBurned"
                                                size="10" />
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>Weight per Gallon</td>
@@ -454,23 +462,23 @@
 								<tr>
 									<td>Main Fuel:</td>										
 									<td>									
-										<input type="number" name="fuelWeight" id="fuelWeight"
+										<input type="number" name="mainFuelWeight" id="mainFuelWeight"
 										 	   size="10" />								
 									</td>								
 									<td>									
-										<input type="number" name="fuelLongArm" id="fuelLongArm"
+										<input type="number" name="mainFuelLongArm" id="mainFuelLongArm"
 										 	   size="10" value="106"/>
 									</td>								
 									<td>									
-										<input type="number" name="fuelLongMom" id="fuelLongMom"
+										<input type="number" name="mainFuelLongMom" id="mainFuelLongMom"
 										 	   size="10" />								
 									</td>								
 									<td>									
-										<input type="number" name="fuelLatArm" id="fuelLatArm"
+										<input type="number" name="mainFuelLatArm" id="mainFuelLatArm"
 										 	   size="10" value="-13.5"/>
 									</td>								
 									<td>									
-										<input type="number" name="fuelLatMom" id="fuelLatMom"
+										<input type="number" name="mainFuelLatMom" id="mainFuelLatMom"
 										 	   size="10" />								
 									</td>								
 								</tr>										
