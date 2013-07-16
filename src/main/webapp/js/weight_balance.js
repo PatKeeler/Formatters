@@ -386,7 +386,7 @@ function computeZeroFuelWeight() {
     $("[name=totalLongArm]").val(longMoment / weight);
 
     latMoment+= parseFloat($("[name=mainFuelLatMom]").val()) + parseFloat($("[name=auxFuelLatMom]").val());
-    $("[name=totalLatMom]").val(latMoment / weight);
+    $("[name=totalLatMom]").val(latMoment);
     $("[name=totalLatArm]").val(latMoment / weight);
 
     //Landing weight
