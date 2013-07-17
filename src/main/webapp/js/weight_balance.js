@@ -374,8 +374,8 @@ function computeZeroFuelWeight() {
     $("[name=noFuelLatMom]").val(latMoment);
 
     //Compute the lat and long arms locations
-    $("[name=noFuelLongArm]").val(longMoment / weight);
-    $("[name=noFuelLatArm]").val(latMoment / weight);
+    $("[name=noFuelLongArm]").val(parseFloat(longMoment / weight).toFixed(2));
+    $("[name=noFuelLatArm]").val(parseFloat(latMoment / weight).toFixed(2));
 
     //Compute Take off weight, lat and long arms
     weight+= parseFloat($("[name=mainFuelWeight]").val()) + parseFloat($("[name=auxFuelWeight]").val());
@@ -383,11 +383,11 @@ function computeZeroFuelWeight() {
 
     longMoment+= parseFloat($("[name=mainFuelLongMom]").val()) + parseFloat($("[name=auxFuelLongMom]").val());
     $("[name=totalLongMom]").val(longMoment);
-    $("[name=totalLongArm]").val(longMoment / weight);
+    $("[name=totalLongArm]").val(parseFloat(longMoment / weight).toFixed(2));
 
     latMoment+= parseFloat($("[name=mainFuelLatMom]").val()) + parseFloat($("[name=auxFuelLatMom]").val());
     $("[name=totalLatMom]").val(latMoment);
-    $("[name=totalLatArm]").val(latMoment / weight);
+    $("[name=totalLatArm]").val(parseFloat(latMoment / weight).toFixed(2));
 
     //Landing weight
     $("[name=ldgWeight]").val($("[name=totalWeight]").val() - $("[name=fuelBurnWeight]").val());
