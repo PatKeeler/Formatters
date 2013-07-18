@@ -178,11 +178,11 @@ function computeFuelData() {
 
     //Main fuel takeoff
     fuel = $("[name=mainToGals]").val() * $("[name=fuelWeightPerGal]").val();
-    $("[name=mainFuelWeight]").val(fuel);
+    $("[name=mainFuelWeight]").val(fuel.toFixed(0));
 
     //Aux fuel takeoff
     fuel = $("[name=auxToGals]").val() * $("[name=fuelWeightPerGal]").val();
-    $("[name=auxFuelWeight]").val(fuel);
+    $("[name=auxFuelWeight]").val(fuel.toFixed(0));
 
     //Compute landing fuel in gallons
     fuel = (parseFloat($("[name=mainToGals]").val()) + parseFloat($("[name=auxToGals]").val()))
@@ -190,13 +190,13 @@ function computeFuelData() {
            (parseFloat($("[name=mainLdgGals]").val()) + parseFloat($("[name=auxLdgGals]").val()));
 
     //Set landing fuel in gallons
-    $("[name=fuelBurned]").val(fuel);
+    $("[name=fuelBurned]").val(fuel.toFixed(0));
 
     //Compute landing fuel in pounds
     fuel = $("[name=fuelBurned]").val() * $("[name=fuelWeightPerGal]").val();
 
     //Set landing fuel in pounds
-    $("[name=fuelBurnWeight]").val(fuel);
+    $("[name=fuelBurnWeight]").val(fuel.toFixed(0));
 
 }
 
@@ -240,17 +240,17 @@ function computeFuelMoments() {
 
     //Main fuel long moment
     moment = $("[name=mainFuelWeight]").val() * $("[name=mainFuelLongArm]").val();
-    $("[name=mainFuelLongMom]").val(moment);
+    $("[name=mainFuelLongMom]").val(moment.toFixed(0));
     //Main fuel lat moment
     moment = $("[name=mainFuelWeight]").val() * $("[name=mainFuelLatArm]").val();
-    $("[name=mainFuelLatMom]").val(moment);
+    $("[name=mainFuelLatMom]").val(moment.toFixed(0));
 
     //Aux fuel long moment
     moment = $("[name=auxFuelWeight]").val() * $("[name=auxFuelLongArm]").val();
-    $("[name=auxFuelLongMom]").val(moment);
+    $("[name=auxFuelLongMom]").val(moment.toFixed(0));
     //Aux fuel lat moment
     moment = $("[name=auxFuelWeight]").val() * $("[name=auxFuelLatArm]").val();
-    $("[name=auxFuelLatMom]").val(moment);
+    $("[name=auxFuelLatMom]").val(moment.toFixed(0));
 }
 
 
@@ -296,7 +296,7 @@ function computeZeroFuelWeight() {
         weight+= parseFloat($("[name=aftLtDoorWeight]").val());
     }
     //Populate zero fuel weight
-    $("[name=noFuelWeight]").val(weight);
+    $("[name=noFuelWeight]").val(weight.toFixed(0));
 
 
     //Longitude
@@ -333,7 +333,7 @@ function computeZeroFuelWeight() {
         longMoment+= parseFloat($("[name=aftLtDoorLongMom]").val());
     }
     //Populate zero fuel long moment
-    $("[name=noFuelLongMom]").val(longMoment);
+    $("[name=noFuelLongMom]").val(longMoment.toFixed(0));
 
 
 
@@ -371,7 +371,7 @@ function computeZeroFuelWeight() {
         latMoment+= parseFloat($("[name=aftLtDoorLatMom]").val());
     }
     //Populate zero fuel lat moment
-    $("[name=noFuelLatMom]").val(latMoment);
+    $("[name=noFuelLatMom]").val(latMoment.toFixed(0));
 
     //Compute the lat and long arms locations
     $("[name=noFuelLongArm]").val(parseFloat(longMoment / weight).toFixed(2));
@@ -379,17 +379,18 @@ function computeZeroFuelWeight() {
 
     //Compute Take off weight, lat and long arms
     weight+= parseFloat($("[name=mainFuelWeight]").val()) + parseFloat($("[name=auxFuelWeight]").val());
-    $("[name=totalWeight]").val(weight);
+    $("[name=totalWeight]").val(weight.toFixed(0));
 
     longMoment+= parseFloat($("[name=mainFuelLongMom]").val()) + parseFloat($("[name=auxFuelLongMom]").val());
-    $("[name=totalLongMom]").val(longMoment);
+    $("[name=totalLongMom]").val(longMoment.toFixed(0));
     $("[name=totalLongArm]").val(parseFloat(longMoment / weight).toFixed(2));
 
     latMoment+= parseFloat($("[name=mainFuelLatMom]").val()) + parseFloat($("[name=auxFuelLatMom]").val());
-    $("[name=totalLatMom]").val(latMoment);
+    $("[name=totalLatMom]").val(latMoment.toFixed(0));
     $("[name=totalLatArm]").val(parseFloat(latMoment / weight).toFixed(2));
 
     //Landing weight
-    $("[name=ldgWeight]").val($("[name=totalWeight]").val() - $("[name=fuelBurnWeight]").val());
+    var ldgWeight = $("[name=totalWeight]").val() - $("[name=fuelBurnWeight]").val();
+    $("[name=ldgWeight]").val(ldgWeight.toFixed(0));
 
 }
