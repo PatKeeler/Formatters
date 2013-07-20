@@ -34,11 +34,8 @@ function getAircraftID(sel) {
 
 	selectedAircraft = sel.options[sel.selectedIndex].value;
 	
-	if (selectedAircraft == 99) {
-		alert(invalidAircraft);
-		return;
-	}
-	
+    $("[name=tailNumber]").css('background-color', 'white');
+
 	var aircraftArray = getAircraftArray();
 	
 	var wbParms = aircraftArray[selectedAircraft];
@@ -69,24 +66,58 @@ function computeWB() {
 
     if ( $("[name=tailNumber]").val() == "99" ) {
         alert("You must select an aircraft to compute a weight and balance!");
+        $("[name=tailNumber]").css('background-color', 'red');
+        $("[name=tailNumber]").focus();
+        return;
     }
 
     if (! hasValue($("[name=pilotWeight]").val())) {
         alert("You must provide pilot weight to compute a weight and balance!");
+        $("[name=pilotWeight]").css('background-color', 'red');
+        $("[name=pilotWeight]").focus();
         return;
     }
+    else {
+        $("[name=pilotWeight]").css('background-color', 'white');
+    }
+
 
     //Populate the crew and passenger data.
     computeCrewAndPassCompartment();
 
     //Verify fuel values entered and compute, else return message.
+
+    //Set background color to white before checks
+    $("[name=mainToGals]").css('background-color', 'white');
+    $("[name=mainLdgGals]").css('background-color', 'white');
+    $("[name=auxToGals]").css('background-color', 'white');
+    $("[name=auxLdgGals]").css('background-color', 'white');
+    //Make checks
     if (hasValue($("[name=mainToGals]").val()) && hasValue($("[name=mainLdgGals]").val()) &&
-        hasValue($("[name=mainLdgGals]").val()) && hasValue($("[name=auxLdgGals]").val())) {
+        hasValue($("[name=auxToGals]").val()) && hasValue($("[name=auxLdgGals]").val())) {
 
         computeFuelData();
     }
     else {
         alert("You must enter the takeoff and landing main and aux fuel values!");
+        if (! hasValue($("[name=mainToGals]").val())) {
+            $("[name=mainToGals]").css('background-color', 'red');
+            $("[name=mainToGals]").focus();
+        }
+        if (! hasValue($("[name=mainLdgGals]").val())) {
+            $("[name=mainLdgGals]").css('background-color', 'red');
+            $("[name=mainLdgGals]").focus();
+        }
+        if (! hasValue($("[name=auxToGals]").val())) {
+            $("[name=auxToGals]").css('background-color', 'red');
+            $("[name=auxToGals]").focus();
+        }
+        if (! hasValue($("[name=auxLdgGals]").val())) {
+            $("[name=auxLdgGals]").css('background-color', 'red');
+            $("[name=auxLdgGals]").focus();
+        }
+
+        return
     }
 
     //Compute final weights, moments and arms.
@@ -393,4 +424,28 @@ function computeZeroFuelWeight() {
     var ldgWeight = $("[name=totalWeight]").val() - $("[name=fuelBurnWeight]").val();
     $("[name=ldgWeight]").val(ldgWeight.toFixed(0));
 
+}
+
+
+
+/*
+ * This is the about information for the SQL formatter.
+ */
+function getWBAbout() {
+
+	alert("This Weight and Balance calculator is written specifically for "
+        + "\nRobinson R-44 Raven II aircraft."
+        + "\n\nThe user must perform the following: "
+		+ "\n\n\tSelect the aircraft to compute Weight and Balance for."
+        + "\n\tEnter the weights for crew and passengers."
+		+ "\n\tEnter the take off main and aux fuel in gallons."
+        + "\n\tEnter the landing main and aux fuel in gallons."
+		+ "\n\tSelect the \"Compute\" button to generate the weight and "
+        + "\n\tbalance figures for the provided data."
+		+ "\n\nYou may change any of the figures on the form and select "
+        + "\nthe \"Compute\" button as many times as necessary. "
+        + "\n\nIf you change any of the figures on the form you must select "
+        + "\nthe \"Compute\" button again to re-compute the form. ");
+
+	return true;
 }
