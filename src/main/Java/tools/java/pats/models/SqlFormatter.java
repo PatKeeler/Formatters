@@ -101,8 +101,6 @@ public class SqlFormatter implements Serializable {
             	sb.append(node.processLine(node));
             } catch (Exception e) {
 				throw new InvalidParameterException(node.getClass().getCanonicalName());
-//				System.out.println("canonicalName: " + n.getClass().getCanonicalName());
-//				e.printStackTrace();
 			}
 		}
 

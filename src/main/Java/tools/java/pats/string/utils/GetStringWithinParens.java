@@ -44,7 +44,6 @@ public class GetStringWithinParens implements Serializable, ProjectStaticConstan
         FindIndexOfClosingParen findClosingParen = new FindIndexOfClosingParen();
 
         for (int n = 0; n < sql.length(); n++) {
-
             if (sql.charAt(n) == OPEN_PAREN_BYTE) {
                 start = n;
                 end = findClosingParen.findClosingIndex(start, sql);

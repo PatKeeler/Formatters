@@ -10,7 +10,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -120,7 +119,6 @@ public class SqlNodeParser implements Serializable {
 			}
             //Parse the sql string looking for commands.
             for (String s : sqlEnumList) {
-
                 //Get sql string to parse, followed by space.
                 String cmdSpace = format("%s%s%s", " ", s, " ");
 
@@ -254,7 +252,7 @@ public class SqlNodeParser implements Serializable {
 
         List<String> list = new ArrayList<String>();
 
-        list.addAll(Arrays.asList(SqlNodes.getTypes()));
+        list.addAll(SqlNodes.getTypes());
 
         return list;
     }

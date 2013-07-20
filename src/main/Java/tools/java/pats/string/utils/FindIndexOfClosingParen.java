@@ -39,7 +39,6 @@ public class FindIndexOfClosingParen implements Serializable, ProjectStaticConst
 		int n = 0;
 
 		for (n = index; n < input.length(); n++) {
-
 			if (input.charAt(n) == OPEN_PAREN_BYTE) {
 				parenCount++;
 			} else if (input.charAt(n) == CLOSING_PAREN_BYTE) {

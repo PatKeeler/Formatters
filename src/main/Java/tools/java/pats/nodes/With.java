@@ -1,14 +1,16 @@
 package tools.java.pats.nodes;
 
 import net.jcip.annotations.ThreadSafe;
-import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
+import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.Arrays;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -41,10 +43,10 @@ public class With extends Node implements Query, Serializable {
      * @param selectedStyle
      */
     public With(final String cmd,
-                  final String data,
-                  final String recursionTab,
-                  final String userIndentAmount,
-                  final String selectedStyle) {
+                final String data,
+                final String recursionTab,
+                final String userIndentAmount,
+                final String selectedStyle) {
 
         super(recursionTab, userIndentAmount, selectedStyle);
 
@@ -63,6 +65,7 @@ public class With extends Node implements Query, Serializable {
 
     /**
      * Overidden method.
+     *
      * @param node
      * @return
      */
@@ -86,24 +89,21 @@ public class With extends Node implements Query, Serializable {
      */
     public String formatWithStatements(String sql) {
 
-        StringBuffer sb = new StringBuffer(); 
+        StringBuffer sb = new StringBuffer();
 
         // Get column array.
-        String[] columns = sql.split(",");
+        List<String> columns = Arrays.asList(sql.split(","));
 
         // Join elements within parens.
         columns = joinColumsWithinParens(columns);
 
         // Append the formatted columns to the buffer
-        for (int n = 0; n < columns.length; n++) {
-
-            String s = columns[n];
-
+        for (String s : columns) {
             //Find closing paren and append to it
             int index = (s.indexOf("("));
             if (index == -1) {
                 //append PARTITION BY on new line
-                sb.append(format("\n%s%s%s%s%s", tab,userIndentTab, userIndentTab,
+                sb.append(format("\n%s%s%s%s%s", tab, userIndentTab, userIndentTab,
                         userIndentTab, s.trim()));
             } else {
                 sb.append(format("\n%s%s%s", tab, userIndentTab, s.substring(0, index)));
@@ -111,35 +111,35 @@ public class With extends Node implements Query, Serializable {
                 s = s.substring(index);
 
 
-            //Format embedded select statements
-            CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
-            if (cfs.isEmbeddedSelect(s)) {
-                FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
-                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(s);
+                //Format embedded select statements
+                CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
+                if (cfs.isEmbeddedSelect(s)) {
+                    FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
+                    StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(s);
 
-                String newSql = s.substring(ind.getStart(), ind.getEnd());
+                    String newSql = s.substring(ind.getStart(), ind.getEnd());
 
-                sb.append(formatEmbeddedSelect(TWO_INDENTS, s, ind));
+                    sb.append(formatEmbeddedSelect(TWO_INDENTS, s, ind));
 
-                //Process remaining - if any.
-                String remaining = s.substring(ind.getEnd() + 1);
-                if (remaining.length() > 1) {
+                    //Process remaining - if any.
+                    String remaining = s.substring(ind.getEnd() + 1);
+                    if (remaining.length() > 1) {
 
-                    OperatorsFormatter formatOperators =
-                            OperatorsFormatterFactory.getFormatter(
-                                    ZERO_INDENTS, tab, stringIndentAmount, selectedStyle);
+                        OperatorsFormatter formatOperators =
+                                OperatorsFormatterFactory.getFormatter(
+                                        ZERO_INDENTS, tab, stringIndentAmount, selectedStyle);
 
-                    sb.append(format(" %s", formatOperators.formatOperators(
-                            s.substring(ind.getEnd() + 1))));
+                        sb.append(format(" %s", formatOperators.formatOperators(
+                                s.substring(ind.getEnd() + 1))));
+                    }
+
+                    //append a comma to the end.
+                    if ((sb.charAt(sb.length() - 1) == ' ')) {
+                        sb.replace(sb.length() - 1, sb.length(), ",");
+                    } else {
+                        sb.append(",");
+                    }
                 }
-
-                //append a comma to the end.
-                if ((sb.charAt(sb.length() -1) == ' ')) {
-                    sb.replace(sb.length() - 1, sb.length(), ",");
-                } else {
-                    sb.append(",");
-                }
-            }
             }
         }
 

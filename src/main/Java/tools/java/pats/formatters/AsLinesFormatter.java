@@ -5,7 +5,6 @@ import tools.java.pats.constants.ProjectStaticConstants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,13 +33,13 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
     /**
      * Public constructor
      */
-    public AsLinesFormatter(String[] columns) {
+    public AsLinesFormatter(List<String> columns) {
 
-        if (columns == null || columns.length == 0) {
+        if (columns == null || columns.size() == 0) {
             columnList = new ArrayList<String>();
         }
         else {
-            columnList = Arrays.asList(columns);
+            columnList = columns;
         }
 
         /* AtomicInteger - get the max length setting. */
@@ -57,7 +56,6 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
 
         /* format the columns for newList */
         for (String s : columnList) {
-
             //The CASE and IF statements will be formatted later.
             if ((! s.trim().startsWith("CASE")) &&
                 (! s.trim().startsWith("IF")) &&

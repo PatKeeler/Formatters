@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,20 +21,20 @@ import static java.lang.String.format;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class RejoinComumnsWithinParens {
+public class RejoinColumnsWithinParens {
 
     //The columns to work on
-    private final String[] columns;
+    private final List<String> columns;
     private final String tab;
 
     /**
      * Parameter constructor.
      * @param columns
      */
-    public RejoinComumnsWithinParens(final String[] columns, final String tab) {
+    public RejoinColumnsWithinParens(final List<String> columns, final String tab) {
         super();
 
-        if (columns == null || columns.length == 0) {
+        if (columns == null || columns.size() == 0) {
             throw new InvalidParameterException("The columns array can not be null or empty");
         }
 
@@ -52,9 +51,9 @@ public class RejoinComumnsWithinParens {
      *
      * @return String array
      */
-    public String[] rejoinColumns() {
+    public List<String> rejoinColumns() {
         
-        List<String> columnList = Arrays.asList(columns);
+        List<String> columnList = columns;
         List<String> newList = new ArrayList<String>();
 
         Iterator<String> iter = columnList.iterator();
@@ -84,7 +83,7 @@ public class RejoinComumnsWithinParens {
             }
         }
 
-        return newList.toArray(new String[newList.size()]);
+        return newList;
     }
 
 }

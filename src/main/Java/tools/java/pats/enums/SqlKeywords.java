@@ -41,7 +41,7 @@ public enum SqlKeywords {
 		this.cmd = cmd;
 	}
 	
-	public static String[] getCommands() {
+	public static List<String> getCommands() {
 		
 		List<String> cmdList = new ArrayList<String>();
 		
@@ -49,7 +49,7 @@ public enum SqlKeywords {
 			cmdList.add(s.cmd);
 		}
 		
-		return cmdList.toArray(new String[0]);
+		return cmdList;
 		
 	}
 	

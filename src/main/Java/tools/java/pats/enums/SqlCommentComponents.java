@@ -38,7 +38,6 @@ public enum SqlCommentComponents {
 		List<String> commentList = new ArrayList<String>();
 		
 		for (SqlCommentComponents s : SqlCommentComponents.values()) {
-			
 			commentList.add(s.comment);
 			
 		}

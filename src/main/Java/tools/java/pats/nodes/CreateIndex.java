@@ -99,6 +99,7 @@ public class CreateIndex extends Node implements Query, Serializable {
 
             //format for one or more columns.
             String[] columnArray = columns.split(",");
+
             for (String s : columnArray) {
                 sb.append(format("\n%s%s%s%s,", tab, userIndentTab,
                         userIndentTab, s.trim()));

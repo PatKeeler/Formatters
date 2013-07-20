@@ -2,10 +2,11 @@ package tools.java.pats.formatters;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
-import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
+import tools.java.pats.string.utils.sql.RejoinColumnsWithinParens;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -88,42 +89,41 @@ public class ValuesFormatter implements Serializable, ProjectStaticConstants {
 
         List<String> columnsOut = new ArrayList<String>();
 
-        String[] columnsIn = sql.split("\\)\\s?,\\s?\\(");
+        List<String> columnsIn = Arrays.asList(sql.split("\\)\\s?,\\s?\\("));
 
         //TODO if columnsIn count = 1 split on comma and rejoin values within parens.
-        if (columnsIn.length == 1) {
+        if (columnsIn.size() == 1) {
 
-            if (columnsIn[0].startsWith("(")) {
-                columnsIn[0] = columnsIn[0].substring(1, columnsIn[0].length());
+            if (columnsIn.get(0).startsWith("(")) {
+                columnsIn.set(0, columnsIn.get(0).substring(1, columnsIn.get(0).length()));
             }
 
-            if (columnsIn[0].endsWith(")")) {
-                columnsIn[0] = columnsIn[0].substring(0, columnsIn[0].length() - 1);
+            if (columnsIn.get(0).endsWith(")")) {
+                columnsIn.set(0, columnsIn.get(0).substring(0, columnsIn.get(0).length() - 1));
             }
 
-            if (columnsIn[0].length() > 30) {
+            if (columnsIn.get(0).length() > 30) {
 
-                columnsIn = columnsIn[0].split(",");
+                columnsIn = Arrays.asList(columnsIn.get(0).split(","));
 
-                RejoinComumnsWithinParens rejoin =
-                        new RejoinComumnsWithinParens(columnsIn, tab);
+                RejoinColumnsWithinParens rejoin =
+                        new RejoinColumnsWithinParens(columnsIn, tab);
 
                 columnsIn = rejoin.rejoinColumns();
             }
         } else {
             //Add parens back that were split on.
-            for (int i = 0; i < columnsIn.length; i++) {
-
+            for (String s : columnsIn) {
                 //add open paren if needed
-                if (!columnsIn[i].startsWith(OPEN_PAREN_STRING)) {
-                    columnsIn[i] = OPEN_PAREN_STRING + columnsIn[i];
+                if (! s.startsWith(OPEN_PAREN_STRING)) {
+                    s = OPEN_PAREN_STRING + s;
                 }
 
                 //add closing paren if needed
-                if (!columnsIn[i].endsWith(CLOSING_PAREN_STRING)) {
+                if (! s.endsWith(CLOSING_PAREN_STRING)) {
                     //could be a semi-colon
-                    if (!columnsIn[i].endsWith(SEMI_COLON)) {
-                        columnsIn[i] += CLOSING_PAREN_STRING;
+                    if (! s.endsWith(SEMI_COLON)) {
+                        s += CLOSING_PAREN_STRING;
                     }
                 }
             }
@@ -131,7 +131,6 @@ public class ValuesFormatter implements Serializable, ProjectStaticConstants {
 
         //Add all columns to output
         for (String s : columnsIn) {
-
             columnsOut.add(s);
         }
 

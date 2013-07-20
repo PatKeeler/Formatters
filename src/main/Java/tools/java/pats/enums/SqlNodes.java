@@ -80,7 +80,7 @@ public enum SqlNodes
     }
 
     // Return a <code>List<Node><code> of all possible Nodes.
-    public static String[] getTypes() {
+    public static List<String> getTypes() {
 
         List<String> typeList = new ArrayList<String>();
 
@@ -88,7 +88,7 @@ public enum SqlNodes
             typeList.add(node.type);
         }
 
-        return typeList.toArray(new String[0]);
+        return typeList;
     }
 
     // Return Class name representing the Node type.

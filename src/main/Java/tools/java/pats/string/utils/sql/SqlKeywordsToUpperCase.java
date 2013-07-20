@@ -6,7 +6,6 @@ import tools.java.pats.enums.SqlNodes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,7 +37,6 @@ public class SqlKeywordsToUpperCase implements Serializable {
 		String upper = sb.toString().toUpperCase();
 		
 		for (String s : cmdList) {
-			
 			cmdPat = Pattern.compile(("(\\s+|\\()") + (s) + ("(\\s+|\\(|\\))"));
 			m = cmdPat.matcher(upper);
 
@@ -60,8 +58,8 @@ public class SqlKeywordsToUpperCase implements Serializable {
 		List<String> commands = new ArrayList<String>();
 		
 		//Add all commands.
-        commands.addAll(Arrays.asList(SqlNodes.getTypes()));
-		commands.addAll(Arrays.asList(SqlKeywords.getCommands()));
+        commands.addAll(SqlNodes.getTypes());
+		commands.addAll(SqlKeywords.getCommands());
 
 		return commands;
 		

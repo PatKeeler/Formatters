@@ -43,9 +43,9 @@ public class AddQuotesForJavaString implements Serializable, ProjectStaticConsta
         }
 		
 		//Add quotes to each line.
-		for (int i = 0; i < lines.length; i++ ) {
-			if (lines[i].length() > 0) {
-				sb.append(format("\n\"%s \" + ", lines[i]));				
+        for (String s : lines) {
+			if (s.length() > 0) {
+				sb.append(format("\n\"%s \" + ", s));
 			}			
 		}
 

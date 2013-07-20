@@ -7,10 +7,13 @@ import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
-import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
+import tools.java.pats.string.utils.sql.RejoinColumnsWithinParens;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -79,18 +82,18 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
     StringBuffer sb = new StringBuffer();
 
     // Get column array.
-    String[] columns = sql.split(",");
+    List<String> columns = new ArrayList<String>(Arrays.asList(sql.split(",")));
 
     // Join elements within parens.
-        RejoinComumnsWithinParens rejoin =
-                new RejoinComumnsWithinParens(columns, tab);
+        RejoinColumnsWithinParens rejoin =
+                new RejoinColumnsWithinParens(columns, tab);
 
         columns = rejoin.rejoinColumns();
 
     //Remove extra spacing in these columns,
     // added for correctly formatting the "With" statement.
-    for (int i = 0; i < columns.length; i++) {
-        columns[i] = columns[i].replaceAll("(\\s)+", " ");
+    for (String s : columns) {
+        s = s.replaceAll("(\\s)+", " ");
     }
 
     // Format AS Statements
@@ -102,14 +105,11 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
         e.printStackTrace();
     }
     if (asLines != null) {
-        columns = asLines.formatNode().toArray(new String[0]);
+        columns = asLines.formatNode();
     }
 
-    // Append the formatted columns to the buffer
-    for (int n = 0; n < columns.length; n++) {
-
-        String s = columns[n];
-
+        // Append the formatted columns to the buffer
+        for (String s : columns) {
         //Add space between IF and "(", if needed
         if (s.trim().startsWith("IF(")) {
             s = "IF " + s.trim().substring(2);
@@ -222,10 +222,11 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
             int origPropLen = asLines.getMaxPropLength();
 
             //Get the last line in buffer
-            String[] tempStr = {sb.substring(tempIndex)};
+            String[] aStr = {sb.substring(tempIndex)};
+            List<String> tempList = new ArrayList(Arrays.asList(aStr));
 
             //Re-load asLines with new string array.
-            asLines = new AsLinesFormatter(tempStr);
+            asLines = new AsLinesFormatter(tempList);
 
             //Get the original max property length.
             int currentPropLen = asLines.getMaxPropLength();

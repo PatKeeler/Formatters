@@ -10,9 +10,10 @@ import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.formatters.ValuesFormatter;
 import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
-import tools.java.pats.string.utils.sql.RejoinComumnsWithinParens;
+import tools.java.pats.string.utils.sql.RejoinColumnsWithinParens;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.String.format;
@@ -226,10 +227,10 @@ public class Node implements Serializable, ProjectStaticConstants {
      *            String[] array of column lines.
      * @return String[] array with all column data on same line.
      */
-    public String[] joinColumsWithinParens(String[] columns) {
+    public List<String> joinColumsWithinParens(List<String> columns) {
 
-        RejoinComumnsWithinParens rejoin =
-                new RejoinComumnsWithinParens(columns, tab);
+        RejoinColumnsWithinParens rejoin =
+                new RejoinColumnsWithinParens(columns, tab);
 
         return rejoin.rejoinColumns();
     }

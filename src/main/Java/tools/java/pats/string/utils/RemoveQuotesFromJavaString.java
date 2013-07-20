@@ -61,13 +61,13 @@ public class RemoveQuotesFromJavaString implements ProjectStaticConstants
         int index = 0;
 
 		//Remove quotes from each line.
-		for (int i = 0; i < lines.length; i++ ) {
-			if (lines[i].length() > 0) {
-                if (lines[i].trim().startsWith("//")) {
+        for (String s : lines) {
+			if (s.length() > 0) {
+                if (s.trim().startsWith("//")) {
                     continue;
                 }
                 //get line
-                line = format("%s", lines[i].trim());
+                line = format("%s", s.trim());
                 //see if + first on line
                 if (line.startsWith("+")) {
                     //Yes, remove + and "
