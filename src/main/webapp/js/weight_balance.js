@@ -190,10 +190,10 @@ function computeFuelData() {
            (parseFloat($("[name=mainLdgGals]").val()) + parseFloat($("[name=auxLdgGals]").val()));
 
     //Set landing fuel in gallons
-    $("[name=fuelBurned]").val(fuel.toFixed(0));
+    var fuelBurned = fuel.toFixed(0);
 
     //Compute landing fuel in pounds
-    fuel = $("[name=fuelBurned]").val() * $("[name=fuelWeightPerGal]").val();
+    fuel = fuelBurned * $("[name=fuelWeightPerGal]").val();
 
     //Set landing fuel in pounds
     $("[name=fuelBurnWeight]").val(fuel.toFixed(0));
