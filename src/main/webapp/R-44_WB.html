@@ -15,6 +15,8 @@
 			
 			.hide {display:none;}
 			.show {display:block;}
+
+            .yellow {background: yellow}
 			
 			ul
 				{
@@ -54,12 +56,12 @@
 				<tr>
 					<td>
 						<fieldset>						
-							<legend> R-44 Basic Aircraft Weight and Arm Data: </legend>						
+							<legend> R-44 Basic Aircraft Weight and Arm Data:</legend>
 							<table border="0" width="100%" cellpadding="5">
 								<tr>	
 									<th width="25%" align="right" colspan="1">Aircraft ID.</th>
 									<td align="left" width="75%">
-										<select  name="tailNumber" id="tailNumber"  onchange="getAircraftID(this)" >
+										<select class="yellow" name="tailNumber" id="tailNumber" onchange="getAircraftID(this)" >
 										    <option selected value="99">Select...</option>
 										    <option value="N244SL">N244SL</option>
 										    <option value="N422HL">N422HL</option>
@@ -106,7 +108,7 @@
                                 <tr>
                                     <td>Pilot:</td>
                                     <td>
-                                        <input type="number" name="pilotWeight" id="pilotWeight"
+                                        <input class="yellow" type="number" name="pilotWeight" id="pilotWeight"
                                                size="10" />
                                     </td>
                                     <td>
@@ -244,7 +246,7 @@
 							</table>
 						</fieldset>					
                         <fieldset>
-                            <legend> Doors Off: Check the box for each removed door.</legend>
+                            <legend> Doors:&nbsp; &nbsp; <b>Check the box for each door off.</b></legend>
                             <table border="0" width="100%" cellpadding="5">
                                 <tr>
                                     <th></th>
@@ -372,22 +374,22 @@
 								<tr>
                                     <td>Main Fuel</td>
 									<td>									
-										<input type="number" name="mainToGals" id="mainToGals"
+										<input class="yellow" type="number" name="mainToGals" id="mainToGals"
 										 	   size="10" />
 									</td>								
                                     <td>
-                                        <input type="number" name="mainLdgGals" id="mainLdgGals"
+                                        <input class="yellow" type="number" name="mainLdgGals" id="mainLdgGals"
                                                size="10" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Aux Fuel</td>
                                     <td>
-                                        <input type="number" name="auxToGals" id="auxToGals"
+                                        <input class="yellow" type="number" name="auxToGals" id="auxToGals"
                                                size="10" />
                                     </td>
                                     <td>
-                                        <input type="number" name="auxLdgGals" id="auxLdgGals"
+                                        <input class="yellow" type="number" name="auxLdgGals" id="auxLdgGals"
                                                size="10" />
                                     </td>
                                 </tr>

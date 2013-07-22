@@ -92,13 +92,11 @@ function computeWB() {
     $("[name=mainLdgGals]").css('background-color', 'white');
     $("[name=auxToGals]").css('background-color', 'white');
     $("[name=auxLdgGals]").css('background-color', 'white');
-    //Make checks
-    if (hasValue($("[name=mainToGals]").val()) && hasValue($("[name=mainLdgGals]").val()) &&
-        hasValue($("[name=auxToGals]").val()) && hasValue($("[name=auxLdgGals]").val())) {
 
-        computeFuelData();
-    }
-    else {
+    //Make sure fuel has been entered
+    if (! hasValue($("[name=mainToGals]").val()) || ! hasValue($("[name=mainLdgGals]").val()) ||
+        ! hasValue($("[name=auxToGals]").val()) ||  ! hasValue($("[name=auxLdgGals]").val())) {
+
         alert("You must enter the takeoff and landing main and aux fuel values!");
         if (! hasValue($("[name=mainToGals]").val())) {
             $("[name=mainToGals]").css('background-color', 'red');
@@ -118,6 +116,37 @@ function computeWB() {
         }
 
         return
+    }
+    else {
+
+        if (parseInt($("[name=mainLdgGals]").val()) >= parseInt($("[name=mainToGals]").val())) {
+
+            alert("Main take off fuel must be greater than landing fuel!");
+            $("[name=mainToGals]").css('background-color', 'red');
+            $("[name=mainLdgGals]").css('background-color', 'red');
+            $("[name=mainToGals]").focus();
+            return;
+        }
+
+        if (parseInt($("[name=auxLdgGals]").val()) >= parseInt($("[name=auxToGals]").val())) {
+            alert("Aux take off fuel must be greater than landing fuel!");
+            $("[name=auxToGals]").css('background-color', 'red');
+            $("[name=auxLdgGals]").css('background-color', 'red');
+            $("[name=auxToGals]").focus();
+            return;
+        }
+
+        //Alert if landing fuel less than approximately 30 minutes
+        var landingFuel = parseInt($("[name=mainLdgGals]").val())
+                        + parseInt($("[name=auxLdgGals]").val());
+
+        if (landingFuel <= 6) {
+            alert("Caution: You may be landing with low fuel on board!");
+        }
+
+        //All checks pass
+        computeFuelData();
+
     }
 
     //Compute final weights, moments and arms.
@@ -436,12 +465,13 @@ function getWBAbout() {
 	alert("This Weight and Balance calculator is written specifically for "
         + "\nRobinson R-44 Raven II aircraft."
         + "\n\nThe user must perform the following: "
-		+ "\n\n\tSelect the aircraft to compute Weight and Balance for."
-        + "\n\tEnter the weights for crew and passengers."
-		+ "\n\tEnter the take off main and aux fuel in gallons."
-        + "\n\tEnter the landing main and aux fuel in gallons."
-		+ "\n\tSelect the \"Compute\" button to generate the weight and "
-        + "\n\tbalance figures for the provided data."
+		+ "\n  Select the aircraft to compute Weight and Balance for."
+        + "\n  Enter the weights for crew and passengers."
+		+ "\n  Enter the take off main and aux fuel in gallons."
+        + "\n  Enter the landing main and aux fuel in gallons."
+		+ "\n  Select the \"Compute\" button to generate the weight and "
+        + "\n  balance figures for the provided data."
+        + "\n\nThe minimum requirements are highlighted in yellow."
 		+ "\n\nYou may change any of the figures on the form and select "
         + "\nthe \"Compute\" button as many times as necessary. "
         + "\n\nIf you change any of the figures on the form you must select "
