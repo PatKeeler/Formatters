@@ -1,561 +1,645 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>		
-	<head>			
-		<title>Robinson R44 Raven II Online Weight and Balance Calculator</title>				
-		<script type="text/javascript" src="js/weight_balance.js"></script>
-		<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<meta name="description" content="An online tool to calculate weight and balance for a Robinson R44 Raven II" />
-		<meta name="robots" content="index, follow" />
-		<meta name="author" content="Pat Keeler" />
+<html>
+<head>
+    <title>Robinson R44 Raven II Online Weight and Balance Calculator</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script>
+    $(function() {
+      $( "#tabs" ).tabs();
+    });
+    </script>
+    <script type="text/javascript" src="js/weight_balance.js"></script>
+    <!--<script type="text/javascript" src="js/jquery-1.6.4.js"></script>-->
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta name="description" content="An online tool to calculate weight and balance for a Robinson R44 Raven II"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="author" content="Pat Keeler"/>
 
-		<style>
-		
-			body {font-size: 80%;}
-			
-			.hide {display:none;}
-			.show {display:block;}
+    <style>
 
-            .yellow {background: yellow}
-			
-			ul
-				{
-				    list-style-type: none;
-				    padding:0; margin:0;
-				}
-		</style>		
-	</head>		
-	
-	<body>				
-		<form name="mainForm">					
-			<table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">							
-				<tr>									
-					<td>										
-						<h1 align="center">Pat's R44 Raven II Weight and Balance Calculator</h1>
-						<h4>
-							<table border="0" width="100%" cellpadding="10">
-								<tr>
-									<td width="15%">								
-										<input type="button" name="About" value="User Guide" onClick="getWBAbout(this)"
-											style="font-size:.9em; height:1.8em;" />
-									</td>
-								</tr>
-								<tr>
-									<td width="15%"
-										style="font-size:.9em; height:1.7em;">Email errors, comments or suggestions to 
-										<a href="mailto:pat@patstools.com">Pat@patstools.com</a>.
-									</td>
-								</tr>
-							</table>
-						</h4>
-					</td>							
-				</tr>					
-			</table>					
-			<br />					
-			<table border="0" width="100%">
-				<tr>
-					<td>
-						<fieldset>						
-							<legend> R-44 Basic Aircraft Weight and Arm Data:</legend>
-							<table border="0" width="100%" cellpadding="5">
-								<tr>	
-									<th width="25%" align="right" colspan="1">Aircraft ID.</th>
-									<td align="left" width="75%">
-										<select class="yellow" name="tailNumber" id="tailNumber" onchange="getAircraftID(this)" >
-										    <option selected value="99">Select...</option>
-										    <option value="N244SL">N244SL</option>
-										    <option value="N422HL">N422HL</option>
-										    <option value="N7518D">N7518D</option>
-										</select>									
-									</td>
-								</tr>
-							</table>
-						</fieldset>					
-						<fieldset>						
-							<legend> Crew and Passenger Data: </legend>						
-							<table border="0" width="100%" cellpadding="5">								
-								<tr>	
-									<th></th>
-                                    <th align="left">Weight</th>
-                                    <th align="left">Long Arm</th>
-                                    <th align="left">Long Mom</th>
-                                    <th align="left">Lat Arm</th>
-                                    <th align="left">Lat Moment</th>
-								</tr>										
-                                <tr>
-                                    <td>BEW:</td>
-                                    <td>
-                                        <input type="number" name="bewWeight" id="bewWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="bewLongArm" id="bewLongArm"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="bewLongMom" id="bewLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="bewLatArm" id="bewLatArm"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="bewLatMom" id="bewLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Pilot:</td>
-                                    <td>
-                                        <input class="yellow" type="number" name="pilotWeight" id="pilotWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotLongArm" id="pilotLongArm"
-                                               size="10" value="49.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotLongMom" id="pilotLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotLatArm" id="pilotLatArm"
-                                               size="10" value="12.2"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotLatMom" id="pilotLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Pilot Bags:</td>
-                                    <td>
-                                        <input type="number" name="pilotBagsWeight" id="pilotBagsWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotBagsLongArm" id="pilotBagsLongArm"
-                                               size="10" value="44"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotBagsLongMom" id="pilotBagsLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotBagsLatArm" id="pilotBagsLatArm"
-                                               size="10" value="11.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pilotBagsLatMom" id="pilotBagsLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Co Pilot:</td>
-                                    <td>
-                                        <input type="number" name="coPilotWeight" id="coPilotWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotLongArm" id="coPilotLongArm"
-                                               size="10" value="49.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotLongMom" id="coPilotLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotLatArm" id="coPilotLatArm"
-                                               size="10" value="-10.4"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotLatMom" id="coPilotLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Co Pilot Bags:</td>
-                                    <td>
-                                        <input type="number" name="coPilotBagsWeight" id="coPilotBagsWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotBagsLongArm" id="coPilotBagsLongArm"
-                                               size="10" value="44"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotBagsLongMom" id="coPilotBagsLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotBagsLatArm" id="coPilotBagsLatArm"
-                                               size="10" value="-11.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="coPilotBagsLatMom" id="coPilotBagsLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rt Aft Pass & Bags:</td>
-                                    <td>
-                                        <input type="number" name="rightPassWeight" id="rightPassWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="rightPassLongArm" id="rightPassLongArm"
-                                               size="10" value="79.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="rightPassLongMom" id="rightPassLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="rightPassLatArm" id="rightPassLatArm"
-                                               size="10" value="12.2"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="rightPassLatMom" id="rightPassLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Lt Aft Pass & Bags:</td>
-                                    <td>
-                                        <input type="number" name="leftPassWeight" id="leftPassWeight"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="leftPassLongArm" id="leftPassLongArm"
-                                               size="10" value="79.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="leftPassLongMom" id="leftPassLongMom"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="leftPassLatArm" id="leftPassLatArm"
-                                               size="10" value="-12.2"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="leftPassLatMom" id="leftPassLatMom"
-                                               size="10" />
-                                    </td>
-                                </tr>
-							</table>
-						</fieldset>					
-                        <fieldset>
-                            <legend> Doors:&nbsp; &nbsp; <b>Check the box for each door off.</b></legend>
-                            <table border="0" width="100%" cellpadding="5">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th align="left">Weight</th>
-                                    <th align="left">Long Arm</th>
-                                    <th align="left">Long Mom</th>
-                                    <th align="left">Lat Arm</th>
-                                    <th align="left">Lat Moment</th>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="fwdRtDoorCheckBox"
-                                               id="fwdRtDoorCheckBox"/>
-                                    </td>
-                                    <td>Fwd Right Door:</td>
-                                    <td>
-                                        <input type="number" name="fwdRtDoorWeight" id="fwdRtDoorWeight"
-                                               size="6" value="-7.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdRtDoorLongArm" id="fwdRtDoorLongArm"
-                                               size="6" value="49.4"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdRtDoorLongMom" id="fwdRtDoorLongMom"
-                                               size="6" value="-370.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdRtDoorLatArm" id="fwdRtDoorLatArm"
-                                               size="6" value="24"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdRtDoorLatMom" id="fwdRtDoorLatMom"
-                                               size="6" value="-180"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="fwdLtDoorCheckBox"
-                                               id="fwdLtDoorCheckBox"/>
-                                    </td>
-                                    <td>Fwd Left Door:</td>
-                                    <td>
-                                        <input type="number" name="fwdLtDoorWeight" id="fwdLtDoorWeight"
-                                               size="10" value="-7.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdLtDoorLongArm" id="fwdLtDoorLongArm"
-                                               size="10" value="49.4"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdLtDoorLongMom" id="fwdLtDoorLongMom"
-                                               size="10" value="-370.5"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdLtDoorLatArm" id="fwdLtDoorLatArm"
-                                               size="10" value="-24"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="fwdLtDoorLatMom" id="fwdLtDoorLatMom"
-                                               size="10" value="180"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="aftRtDoorCheckBox"
-                                               id="aftRtDoorCheckBox"/>
-                                    </td>
-                                    <td>Aft Right Door:</td>
-                                    <td>
-                                        <input type="number" name="aftRtDoorWeight" id="aftRtDoorWeight"
-                                               size="10" value="-7"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftRtDoorLongArm" id="aftRtDoorLongArm"
-                                               size="10" value="75.4"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftRtDoorLongMom" id="aftRtDoorLongMom"
-                                               size="10" value="-527.8"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftRtDoorLatArm" id="aftRtDoorLatArm"
-                                               size="10" value="23"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftRtDoorLatMom" id="aftRtDoorLatMom"
-                                               size="10" value="-161"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="aftLtDoorCheckBox"
-                                               id="aftLtDoorCheckBox"/>
-                                    </td>
-                                    <td>Aft Left Door:</td>
-                                    <td>
-                                        <input type="number" name="aftLtDoorWeight" id="aftLtDoorWeight"
-                                               size="10" value="-7"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftLtDoorLongArm" id="aftLtDoorLongArm"
-                                               size="10" value="75.4"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftLtDoorLongMom" id="aftLtDoorLongMom"
-                                               size="10" value="-527.8"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftLtDoorLatArm" id="aftLtDoorLatArm"
-                                               size="10" value="-23"/>
-                                    </td>
-                                    <td>
-                                        <input type="number" name="aftLtDoorLatMom" id="aftLtDoorLatMom"
-                                               size="10" value="161"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </fieldset>
-						<fieldset>
-							<legend> Fuel Data: </legend>
-							<table border="0" width="100%" cellpadding="5">								
-								<tr>
-                                    <th></th>
-									<th align="left">TakeOff Gals.</th>
-                                    <th align="left">Landing Gals.</th>
-								</tr>
-								<tr>
-                                    <td>Main Fuel</td>
-									<td>									
-										<input class="yellow" type="number" name="mainToGals" id="mainToGals"
-										 	   size="10" />
-									</td>								
-                                    <td>
-                                        <input class="yellow" type="number" name="mainLdgGals" id="mainLdgGals"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Aux Fuel</td>
-                                    <td>
-                                        <input class="yellow" type="number" name="auxToGals" id="auxToGals"
-                                               size="10" />
-                                    </td>
-                                    <td>
-                                        <input class="yellow" type="number" name="auxLdgGals" id="auxLdgGals"
-                                               size="10" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Weight per Gallon</td>
-                                    <td>
-                                        <input type="number" name="fuelWeightPerGal" id="fuelWeightPerGal"
-                                               size="10" value ="6.5"/>
-                                    </td>
-                                    <td></td>
-                                </tr>
-								<tr>
-								</tr>
-							</table>					
-						</fieldset>					
-					</td>
-				</tr>
-			</table>
-			<table border="0" width="100%" cellpadding="10">							
-				<tr>									
-					<td width="25%"></td>									
-					<td width="75%">								
-						<input type="button" name="Submit" value="Compute" onClick="computeWB(this)"/>
-					</td>							
-				</tr>					
-			</table>
-			<table border="0" width="100%">							
-				<tr>
-					<td>
-						<fieldset>						
-							<legend> Aircraft Weight and Balance Configuration: </legend>						
-							<table border="0" width="100%" cellpadding="5">								
-								<tr>	
-									<th></th>
-									<th align="left">Weight</th>										
-									<th align="left">Long Arm</th>										
-									<th align="left">Long Mom</th>										
-									<th align="left">Lat Arm</th>										
-									<th align="left">Lat Mom</th>										
-								</tr>										
-								<tr>
-									<td>Zero Fuel Weight:</td>										
-									<td>									
-										<input type="number" name="noFuelWeight" id="noFuelWeight"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="noFuelLongArm" id="noFuelLongArm"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="noFuelLongMom" id="noFuelLongMom"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="noFuelLatArm" id="noFuelLatArm"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="noFuelLatMom" id="noFuelLatMom"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-								<tr>
-									<td>Main Fuel:</td>										
-									<td>									
-										<input type="number" name="mainFuelWeight" id="mainFuelWeight"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="mainFuelLongArm" id="mainFuelLongArm"
-										 	   size="10" value="106"/>
-									</td>								
-									<td>									
-										<input type="number" name="mainFuelLongMom" id="mainFuelLongMom"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="mainFuelLatArm" id="mainFuelLatArm"
-										 	   size="10" value="-13.5"/>
-									</td>								
-									<td>									
-										<input type="number" name="mainFuelLatMom" id="mainFuelLatMom"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-								<tr>
-									<td>Aux Fuel:</td>										
-									<td>									
-										<input type="number" name="auxFuelWeight" id="auxFuelWeight"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="auxFuelLongArm" id="auxFuelLongArm"
-										 	   size="10" value="102"/>
-									</td>								
-									<td>									
-										<input type="number" name="auxFuelLongMom" id="auxFuelLongMom"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="auxFuelLatArm" id="auxFuelLatArm"
-										 	   size="10" value="13"/>
-									</td>								
-									<td>									
-										<input type="number" name="auxFuelLatMom" id="auxFuelLatMom"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-								<tr>
-									<td>Take Off Weight:</td>
-									<td>									
-										<input type="number" name="totalWeight" id="totalWeight"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="totalLongArm" id="totalLongArm"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="totalLongMom" id="totalLongMom"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="totalLatArm" id="totalLatArm"
-										 	   size="10" />								
-									</td>								
-									<td>									
-										<input type="number" name="totalLatMom" id="totalLatMom"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-								<tr>
-									<td>Fuel Burn:</td>										
-									<td>									
-										<input type="number" name="fuelBurnWeight" id="fuelBurnWeight"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-								<tr>
-									<td>Landing Weight:</td>										
-									<td>									
-										<input type="number" name="ldgWeight" id="ldgWeight"
-										 	   size="10" />								
-									</td>								
-								</tr>										
-							</table>					
-						</fieldset>					
-					</td>
-				</tr>
-			</table>
-		</form>			
-		<fieldset class="hide">
-			<legend> Donations - if you find this helpful a couple bucks would be appreciated. </legend>
-				<table border="0" width="100%" cellpadding="10">
-					<tr>
-						<td>
-							<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-							<input type="hidden" name="cmd" value="_s-xclick">
-							<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-							<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-							<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-							</form>		    
-						</td>
-					</tr>
-				</table>
-		</fieldset>
-	</body>		
+        body {
+            font-size: 80%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .yellow {
+            background: yellow
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="mainForm">
+        <table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">
+            <tr>
+                <td>
+                    <h1 align="center">Pat's R44 Raven II Weight and Balance Calculator</h1>
+                    <h4>
+                        <table border="0" width="100%" cellpadding="10">
+                            <tr>
+                                <td width="15%">
+                                    <input type="button" name="About" value="User Guide" onClick="getWBAbout(this)"
+                                           style="font-size:.9em; height:1.8em;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="15%"
+                                    style="font-size:.9em; height:1.7em;">Email errors, comments or suggestions to
+                                    <a href="mailto:pat@patstools.com">Pat@patstools.com</a>.
+                                </td>
+                            </tr>
+                        </table>
+                    </h4>
+                </td>
+            </tr>
+        </table>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Aircraft</a></li>
+                <li><a href="#tabs-2">Crew & Passengers</a></li>
+                <li><a href="#tabs-3">Doors</a></li>
+                <li><a href="#tabs-4">Fuel</a></li>
+                <li><a href="#tabs-5">Final Configuration</a></li>
+                <li><a href="#tabs-6">PA & DA</a></li>
+            </ul>
+            <div id="tabs-1">
+                <fieldset>
+                    <legend> R-44 Basic Aircraft Weight and Arm Data:</legend>
+                    <table border="0" width="100%" cellpadding="5">
+                        <tr>
+                            <th width="25%" align="right" colspan="1">Aircraft ID.</th>
+                            <td align="left" width="75%">
+                                <select class="yellow" name="tailNumber" id="tailNumber" onchange="getAircraftID(this)">
+                                    <option selected value="99">Select...</option>
+                                    <option value="N244SL">N244SL</option>
+                                    <option value="N422HL">N422HL</option>
+                                    <option value="N7518D">N7518D</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="tabs-2">
+                <fieldset>
+                    <legend> Crew and Passenger Data:</legend>
+                    <table border="0" width="100%" cellpadding="5">
+                        <tr>
+                            <th></th>
+                            <th align="left">Weight</th>
+                            <th align="left">Long Arm</th>
+                            <th align="left">Long Mom</th>
+                            <th align="left">Lat Arm</th>
+                            <th align="left">Lat Moment</th>
+                        </tr>
+                        <tr>
+                            <td>BEW:</td>
+                            <td>
+                                <input type="number" name="bewWeight" id="bewWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="bewLongArm" id="bewLongArm"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="bewLongMom" id="bewLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="bewLatArm" id="bewLatArm"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="bewLatMom" id="bewLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pilot:</td>
+                            <td>
+                                <input class="yellow" type="number" name="pilotWeight" id="pilotWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotLongArm" id="pilotLongArm"
+                                       size="10" value="49.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotLongMom" id="pilotLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotLatArm" id="pilotLatArm"
+                                       size="10" value="12.2"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotLatMom" id="pilotLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pilot Bags:</td>
+                            <td>
+                                <input type="number" name="pilotBagsWeight" id="pilotBagsWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotBagsLongArm" id="pilotBagsLongArm"
+                                       size="10" value="44"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotBagsLongMom" id="pilotBagsLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotBagsLatArm" id="pilotBagsLatArm"
+                                       size="10" value="11.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="pilotBagsLatMom" id="pilotBagsLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Co Pilot:</td>
+                            <td>
+                                <input type="number" name="coPilotWeight" id="coPilotWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotLongArm" id="coPilotLongArm"
+                                       size="10" value="49.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotLongMom" id="coPilotLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotLatArm" id="coPilotLatArm"
+                                       size="10" value="-10.4"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotLatMom" id="coPilotLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Co Pilot Bags:</td>
+                            <td>
+                                <input type="number" name="coPilotBagsWeight" id="coPilotBagsWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotBagsLongArm" id="coPilotBagsLongArm"
+                                       size="10" value="44"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotBagsLongMom" id="coPilotBagsLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotBagsLatArm" id="coPilotBagsLatArm"
+                                       size="10" value="-11.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="coPilotBagsLatMom" id="coPilotBagsLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rt Aft Pass & Bags:</td>
+                            <td>
+                                <input type="number" name="rightPassWeight" id="rightPassWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="rightPassLongArm" id="rightPassLongArm"
+                                       size="10" value="79.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="rightPassLongMom" id="rightPassLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="rightPassLatArm" id="rightPassLatArm"
+                                       size="10" value="12.2"/>
+                            </td>
+                            <td>
+                                <input type="number" name="rightPassLatMom" id="rightPassLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lt Aft Pass & Bags:</td>
+                            <td>
+                                <input type="number" name="leftPassWeight" id="leftPassWeight"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="leftPassLongArm" id="leftPassLongArm"
+                                       size="10" value="79.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="leftPassLongMom" id="leftPassLongMom"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input type="number" name="leftPassLatArm" id="leftPassLatArm"
+                                       size="10" value="-12.2"/>
+                            </td>
+                            <td>
+                                <input type="number" name="leftPassLatMom" id="leftPassLatMom"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="tabs-3">
+                <fieldset>
+                    <legend> Doors:&nbsp; &nbsp; <b>Check the box for each door off.</b></legend>
+                    <table border="0" width="100%" cellpadding="5">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th align="left">Weight</th>
+                            <th align="left">Long Arm</th>
+                            <th align="left">Long Mom</th>
+                            <th align="left">Lat Arm</th>
+                            <th align="left">Lat Moment</th>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="fwdRtDoorCheckBox"
+                                       id="fwdRtDoorCheckBox"/>
+                            </td>
+                            <td>Fwd Right Door:</td>
+                            <td>
+                                <input type="number" name="fwdRtDoorWeight" id="fwdRtDoorWeight"
+                                       size="6" value="-7.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdRtDoorLongArm" id="fwdRtDoorLongArm"
+                                       size="6" value="49.4"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdRtDoorLongMom" id="fwdRtDoorLongMom"
+                                       size="6" value="-370.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdRtDoorLatArm" id="fwdRtDoorLatArm"
+                                       size="6" value="24"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdRtDoorLatMom" id="fwdRtDoorLatMom"
+                                       size="6" value="-180"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="fwdLtDoorCheckBox"
+                                       id="fwdLtDoorCheckBox"/>
+                            </td>
+                            <td>Fwd Left Door:</td>
+                            <td>
+                                <input type="number" name="fwdLtDoorWeight" id="fwdLtDoorWeight"
+                                       size="10" value="-7.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdLtDoorLongArm" id="fwdLtDoorLongArm"
+                                       size="10" value="49.4"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdLtDoorLongMom" id="fwdLtDoorLongMom"
+                                       size="10" value="-370.5"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdLtDoorLatArm" id="fwdLtDoorLatArm"
+                                       size="10" value="-24"/>
+                            </td>
+                            <td>
+                                <input type="number" name="fwdLtDoorLatMom" id="fwdLtDoorLatMom"
+                                       size="10" value="180"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="aftRtDoorCheckBox"
+                                       id="aftRtDoorCheckBox"/>
+                            </td>
+                            <td>Aft Right Door:</td>
+                            <td>
+                                <input type="number" name="aftRtDoorWeight" id="aftRtDoorWeight"
+                                       size="10" value="-7"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftRtDoorLongArm" id="aftRtDoorLongArm"
+                                       size="10" value="75.4"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftRtDoorLongMom" id="aftRtDoorLongMom"
+                                       size="10" value="-527.8"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftRtDoorLatArm" id="aftRtDoorLatArm"
+                                       size="10" value="23"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftRtDoorLatMom" id="aftRtDoorLatMom"
+                                       size="10" value="-161"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="aftLtDoorCheckBox"
+                                       id="aftLtDoorCheckBox"/>
+                            </td>
+                            <td>Aft Left Door:</td>
+                            <td>
+                                <input type="number" name="aftLtDoorWeight" id="aftLtDoorWeight"
+                                       size="10" value="-7"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftLtDoorLongArm" id="aftLtDoorLongArm"
+                                       size="10" value="75.4"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftLtDoorLongMom" id="aftLtDoorLongMom"
+                                       size="10" value="-527.8"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftLtDoorLatArm" id="aftLtDoorLatArm"
+                                       size="10" value="-23"/>
+                            </td>
+                            <td>
+                                <input type="number" name="aftLtDoorLatMom" id="aftLtDoorLatMom"
+                                       size="10" value="161"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="tabs-4">
+                <fieldset>
+                    <legend> Fuel Data:</legend>
+                    <table border="0" width="100%" cellpadding="5">
+                        <tr>
+                            <th></th>
+                            <th align="left">TakeOff Gals.</th>
+                            <th align="left">Landing Gals.</th>
+                        </tr>
+                        <tr>
+                            <td>Main Fuel</td>
+                            <td>
+                                <input class="yellow" type="number" name="mainToGals" id="mainToGals"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input class="yellow" type="number" name="mainLdgGals" id="mainLdgGals"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Aux Fuel</td>
+                            <td>
+                                <input class="yellow" type="number" name="auxToGals" id="auxToGals"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input class="yellow" type="number" name="auxLdgGals" id="auxLdgGals"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Weight per Gallon</td>
+                            <td>
+                                <input type="number" name="fuelWeightPerGal" id="fuelWeightPerGal"
+                                       size="10" value="6.5"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="tabs-5">
+                <table border="0" width="100%" cellpadding="10">
+                    <tr>
+                        <td width="25%"></td>
+                        <td width="75%">
+                            <input type="button" name="Submit" value="Compute" onClick="computeWB(this)"/>
+                        </td>
+                    </tr>
+                </table>
+                <table border="0" width="100%">
+                    <tr>
+                        <td>
+                            <fieldset>
+                                <legend> Aircraft Weight and Balance Configuration:</legend>
+                                <table border="0" width="100%" cellpadding="5">
+                                    <tr>
+                                        <th></th>
+                                        <th align="left">Weight</th>
+                                        <th align="left">Long Arm</th>
+                                        <th align="left">Long Mom</th>
+                                        <th align="left">Lat Arm</th>
+                                        <th align="left">Lat Mom</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Zero Fuel Weight:</td>
+                                        <td>
+                                            <input type="number" name="noFuelWeight" id="noFuelWeight"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="noFuelLongArm" id="noFuelLongArm"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="noFuelLongMom" id="noFuelLongMom"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="noFuelLatArm" id="noFuelLatArm"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="noFuelLatMom" id="noFuelLatMom"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Main Fuel:</td>
+                                        <td>
+                                            <input type="number" name="mainFuelWeight" id="mainFuelWeight"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="mainFuelLongArm" id="mainFuelLongArm"
+                                                   size="10" value="106"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="mainFuelLongMom" id="mainFuelLongMom"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="mainFuelLatArm" id="mainFuelLatArm"
+                                                   size="10" value="-13.5"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="mainFuelLatMom" id="mainFuelLatMom"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Aux Fuel:</td>
+                                        <td>
+                                            <input type="number" name="auxFuelWeight" id="auxFuelWeight"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="auxFuelLongArm" id="auxFuelLongArm"
+                                                   size="10" value="102"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="auxFuelLongMom" id="auxFuelLongMom"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="auxFuelLatArm" id="auxFuelLatArm"
+                                                   size="10" value="13"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="auxFuelLatMom" id="auxFuelLatMom"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Take Off Weight:</td>
+                                        <td>
+                                            <input type="number" name="totalWeight" id="totalWeight"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="totalLongArm" id="totalLongArm"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="totalLongMom" id="totalLongMom"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="totalLatArm" id="totalLatArm"
+                                                   size="10"/>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="totalLatMom" id="totalLatMom"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fuel Burn:</td>
+                                        <td>
+                                            <input type="number" name="fuelBurnWeight" id="fuelBurnWeight"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Landing Weight:</td>
+                                        <td>
+                                            <input type="number" name="ldgWeight" id="ldgWeight"
+                                                   size="10"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabs-6">
+                <fieldset>
+                    <legend> PA & DA Data:</legend>
+                    <table border="0" width="100%" cellpadding="5">
+                        <tr>
+                            <th align="left">Current Altimeter.</th>
+                            <th align="left">Temperature in Celsius.</th>
+                            <th align="left">Field Elevation.</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="yellow" type="number" name="currentAltimeter" id="currentAltimeter"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input class="yellow" type="number" name="tempCelsius" id="tempCelsius"
+                                       size="10"/>
+                            </td>
+                            <td>
+                                <input class="yellow" type="number" name="fieldElevation" id="fieldElevation"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="25%"></td>
+                            <td width="25%">
+                                <input type="button" name="Submit" value="Compute" onClick="computePerformance(this)"/>
+                            </td>
+                            <td width="50%"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Pressure Altitude = (29.92 - current altimeter) x 1000 + Field Elevation.</td>
+                            <td>
+                                <input type="number" name="pressureAltitude" id="pressureAltitude"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Density Altitude = (current temperature - 4) x 120 + Field Elevation.</td>
+                            <td>
+                                <input type="number" name="densityAltitude" id="densityAltitude"
+                                       size="10"/>
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+    <fieldset class="hide">
+        <legend> Donations appreciated.</legend>
+        <table border="0" width="100%" cellpadding="10">
+            <tr>
+                <td>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="encrypted"
+                               value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0"
+                               name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1"
+                             height="1">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</body>
 </html>

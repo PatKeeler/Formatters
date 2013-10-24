@@ -456,6 +456,50 @@ function computeZeroFuelWeight() {
 }
 
 
+function computePerformance() {
+
+    //Verify required fields are populated
+    if (! hasValue($("[name=currentAltimeter]").val())) {
+        alert("You must provide the current altimeter to compute PA & DA!");
+        $("[name=currentAltimeter]").css('background-color', 'red');
+        $("[name=currentAltimeter]").focus();
+        return;
+    }
+    else {
+        $("[name=currentAltimeter]").css('background-color', 'white');
+    }
+
+    if (! hasValue($("[name=tempCelsius]").val())) {
+        alert("You must provide the temperature to compute PA & DA!");
+        $("[name=tempCelsius]").css('background-color', 'red');
+        $("[name=tempCelsius]").focus();
+        return;
+    }
+    else {
+        $("[name=tempCelsius]").css('background-color', 'white');
+    }
+
+    if (! hasValue($("[name=fieldElevation]").val())) {
+        alert("You must provide the field elevation to compute PA & DA!");
+        $("[name=fieldElevation]").css('background-color', 'red');
+        $("[name=fieldElevation]").focus();
+        return;
+    }
+    else {
+        $("[name=fieldElevation]").css('background-color', 'white');
+    }
+
+    // Compute the PA
+    var pa = (((29.92 - parseFloat($("[name=currentAltimeter]").val()))) * 1000) + parseFloat($("[name=fieldElevation]").val());
+    $("[name=pressureAltitude]").val(pa.toFixed(0));
+
+    // Compute the DA
+    var da = (((parseFloat($("[name=tempCelsius]").val()) - 4) * 120) + parseFloat($("[name=fieldElevation]").val()));
+    $("[name=densityAltitude]").val(da.toFixed(0));
+
+}
+
+
 
 /*
  * This is the about information for the SQL formatter.
