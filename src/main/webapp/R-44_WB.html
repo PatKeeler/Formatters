@@ -36,6 +36,10 @@
             background: yellow
         }
 
+        .bold {
+            font-weight: bold;
+        }
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -49,7 +53,7 @@
         <table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">
             <tr>
                 <td>
-                    <h1 align="center">Pat's R44 Raven II Weight and Balance Calculator</h1>
+                    <h1 align="center">Pat's R44 Raven II Pre-Flight Calculator</h1>
                     <h4>
                         <table border="0" width="100%" cellpadding="10">
                             <tr>
@@ -72,18 +76,17 @@
 
         <div id="tabs">
             <ul>
-                <li><a href="#tabs-1">Aircraft</a></li>
-                <li><a href="#tabs-2">Crew & Passengers</a></li>
-                <li><a href="#tabs-3">Doors</a></li>
-                <li><a href="#tabs-4">Fuel</a></li>
-                <li><a href="#tabs-5">Final Configuration</a></li>
-                <li><a href="#tabs-6">Performance</a></li>
-                <li><a href="#tabs-7">Links</a></li>
-                <li><a href="#tabs-8">Donations</a></li>
+                <li><a href="#tabs-1">Aircraft & Crew</a></li>
+                <li><a href="#tabs-2">Doors</a></li>
+                <li><a href="#tabs-3">Fuel</a></li>
+                <li><a href="#tabs-4">Take Off Configuration</a></li>
+                <li><a href="#tabs-5">Performance</a></li>
+                <li><a href="#tabs-6">Links</a></li>
+                <li><a href="#tabs-7">Donations</a></li>
             </ul>
             <div id="tabs-1">
                 <fieldset>
-                    <legend> R-44 Basic Aircraft Weight and Arm Data:</legend>
+                    <legend> R-44 Aircraft:</legend>
                     <table border="0" width="100%" cellpadding="5">
                         <tr>
                             <th width="25%" align="right" colspan="1">Aircraft ID.</th>
@@ -98,8 +101,6 @@
                         </tr>
                     </table>
                 </fieldset>
-            </div>
-            <div id="tabs-2">
                 <fieldset>
                     <legend> Crew and Passenger Data:</legend>
                     <table border="0" width="100%" cellpadding="5">
@@ -275,7 +276,7 @@
                     </table>
                 </fieldset>
             </div>
-            <div id="tabs-3">
+            <div id="tabs-2">
                 <fieldset>
                     <legend> Doors:&nbsp; &nbsp; <b>Check the box for each door off.</b></legend>
                     <table border="0" width="100%" cellpadding="5">
@@ -395,7 +396,7 @@
                     </table>
                 </fieldset>
             </div>
-            <div id="tabs-4">
+            <div id="tabs-3">
                 <fieldset>
                     <legend> Fuel Data:</legend>
                     <table border="0" width="100%" cellpadding="5">
@@ -439,7 +440,7 @@
                     </table>
                 </fieldset>
             </div>
-            <div id="tabs-5">
+            <div id="tabs-4">
                 <table border="0" width="100%" cellpadding="10">
                     <tr>
                         <td width="25%"></td>
@@ -574,9 +575,9 @@
                     </tr>
                 </table>
             </div>
-            <div id="tabs-6">
+            <div id="tabs-5">
                 <fieldset>
-                    <legend> Performance Data:</legend>
+                    <legend> Performance Data: &nbsp; &nbsp; See <b>Links</b> tab for current data.</legend>
                     <table border="0" width="100%" cellpadding="5">
                         <tr>
                             <th align="left">Current Altimeter.</th>
@@ -623,23 +624,35 @@
                     </table>
                 </fieldset>
             </div>
-            <div id="tabs-7">
+            <div id="tabs-6">
                 <fieldset>
-                    <legend> Links to helpful sites.</legend>
-                    <a href="http://aviationweather.gov/adds/" target="_blank">AviationWeather.gov/adds/</a>
+                    <legend class="bold"> Links to planning sites.</legend>
                     <br>&nbsp;</br>
-                    <a href="http://www.airnav.com/airports/" target="_blank">AirNav.com/airports/</a>
+                    <a href="http://www.airnav.com/airports/"
+                       style="color:blue"
+                       target="_blank">AirNav.com/airports/</a>
                     <br>&nbsp;</br>
-                    <a href="http://www.faa.gov/" target="_blank">FAA.gov</a>
+                    <a href="http://aviationweather.gov/adds/"
+                       style="color:blue"
+                       target="_blank"> AviationWeather.gov/adds/</a>
                     <br>&nbsp;</br>
-                    <a href="https://www.duat.com/form/login.frm" target="_blank">DUAT.com</a>
+                    <a href="https://www.duat.com/form/login.frm"
+                       style="color:blue"
+                       target="_blank">DUAT.com</a>
+                    <br>&nbsp;</br>
+                    <a href="http://www.faa.gov/"
+                       style="color:blue"
+                       target="_blank">FAA.gov</a>
                     <br>&nbsp;</br>
                 </fieldset>
             </div>
-            <div id="tabs-8">
+            <div id="tabs-7">
                 <fieldset>
-                    <legend> Pats donation site.</legend>
-                    <a href="http://patsformatters.appspot.com/Donations.html" target="_blank">Pats Donations.</a>
+                    <legend class="bold"> Pats donation site.</legend>
+                    <br>&nbsp;</br>
+                    <a href="http://patsformatters.appspot.com/Donations.html"
+                       style="color:blue"
+                       target="_blank">Link to Donations.</a>
                     <br>&nbsp;</br>
                 </fieldset>
             </div>
