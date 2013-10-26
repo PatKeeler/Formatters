@@ -493,12 +493,24 @@ function computePerformance() {
     var pa = (((29.92 - parseFloat($("[name=currentAltimeter]").val()))) * 1000) + parseFloat($("[name=fieldElevation]").val());
     $("[name=pressureAltitude]").val(pa.toFixed(0));
 
-    // Compute the DA
-    var da = (((parseFloat($("[name=tempCelsius]").val()) - 4) * 120) + parseFloat($("[name=fieldElevation]").val()));
+    var da = getISATemp(pa);
+
     $("[name=densityAltitude]").val(da.toFixed(0));
 
 }
 
+
+function getISATemp(pa) {
+
+    var oat = $("[name=tempCelsius]").val();
+
+    var isa_T = 15 - 1.98 / 1000 * pa;
+
+    // density altitude = pa + (120 x (OAT - ISA Temp))
+    var da = pa + (120 * (oat - isa_T));
+
+    return da;
+}
 
 
 /*
