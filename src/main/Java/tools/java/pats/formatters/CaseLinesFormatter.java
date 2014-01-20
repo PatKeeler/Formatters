@@ -32,14 +32,16 @@ public class CaseLinesFormatter implements Serializable {
         int index = 0;      //work index
         int wtLength = 4;  //when or then length
 
-        if (line.toUpperCase().trim().startsWith("CASE")) {
+        if (line.toUpperCase().trim().startsWith("CASE") ||
+            line.toUpperCase().trim().startsWith("MAX(CASE")) {
 
-            //Line starts with the CASE statement
+            //Get index of WHEN
             index = line.toUpperCase().indexOf(" WHEN");
             if (index > -1) {
-                //Format the CASE statement.
+                //Append the statement up to WHEN.
                 newList.append(format("\n%s%s%s", indent, userIndent, line.substring(0,
                         index).trim()));
+                //Bump line up to WHEN
                 line = line.substring(index);
             }
 
@@ -109,6 +111,7 @@ public class CaseLinesFormatter implements Serializable {
                 newList.append(format("\n%s%s%s %s", indent, userIndent, userIndent, line.substring(
                         andIndex, wtIndex).trim()));
             }
+            //Append the WHEN statement
             else {
                 newList.append(format("\n%s%s%s%s", indent, userIndent, userIndent, line.substring(1,
                         wtIndex).trim()));
