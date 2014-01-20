@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * SqlNodes
- *
+ * <br/>
  * List of all Nodes found in Sql Script.
- *
+ * <br/>
  * Each node equals one command and it's data to be formatted.
- *
+ * <br/>
  * @author keeler.pat
  * @version 1:$
  */
@@ -39,6 +39,8 @@ public enum SqlNodes
     DROP_DATABASE("DROP DATABASE", "Drop"),
     DROP_INDEX("DROP INDEX", "Drop"),
     FROM("FROM", "From"),
+    FULL_JOIN("FULL JOIN", "Join"),
+    FULL_OUTER_JOIN("FULL OUTER JOIN", "Join"),
     GROUP_BY("GROUP BY", "GroupBy"),
     HAVING("HAVING", "Having"),
     INSERT_INTO("INSERT INTO", "Insert"),
