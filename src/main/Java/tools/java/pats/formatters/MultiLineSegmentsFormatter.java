@@ -116,9 +116,9 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
         }
 
         //Format CASE statements
-        if (s.toUpperCase().trim().startsWith("CASE ")
-                ||
+        if (s.toUpperCase().trim().startsWith("CASE ") ||
             s.toUpperCase().trim().startsWith("MAX(CASE")) {
+
             CaseLinesFormatter caseLines = new CaseLinesFormatter();
             sb.append(caseLines.formatNode(s, tab, userIndentTab));
 
