@@ -58,6 +58,7 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
         for (String s : columnList) {
             //The CASE and IF statements will be formatted later.
             if ((! s.trim().startsWith("CASE")) &&
+                (! s.trim().startsWith("MAX(CASE")) &&
                 (! s.trim().startsWith("IF")) &&
                 (! s.trim().startsWith("("))) {
 
@@ -99,6 +100,7 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
         for (String s : columns) {
             s = s.trim();
         	if ((! s.trim().startsWith("CASE")) &&
+                (! s.trim().startsWith("MAX(CASE")) &&
                 (! s.trim().startsWith("IF")) &&
                 (! s.trim().startsWith("("))) {
                 propLength = s.indexOf(" AS ");
