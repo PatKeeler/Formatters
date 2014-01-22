@@ -26,6 +26,7 @@ public enum SqlKeywords {
     IN("IN"),
     IS("IS"),
     LIKE("LIKE"),
+    MAX("MAX"),
     NOLOCK("NOLOCK"),
     NOT("NOT"),
     NULL("NULL"),
