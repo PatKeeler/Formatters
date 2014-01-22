@@ -54,22 +54,35 @@ public class CaseLinesFormatter implements Serializable {
             //Process rest of CASE statement
             index = line.indexOf(" ELSE", wtLength);
 
+
             if (index  > -1) {
                 newList.append(formatWT(index, line, indent, userIndent));
                 line = line.substring(index);
-            }
 
-            index = line.indexOf(" END", wtLength);
-            {
-                // Last ELSE statement.
-                newList.append(format("\n%s%s%s%s", indent, userIndent, userIndent, line.substring(1,
-                        index).trim()));
-                // End statement
-                line = format("\n%s%s%s", indent, userIndent, line.substring(index + 1).trim());
+                index = line.indexOf(" END", wtLength);
+                {
+                    // Last ELSE statement.
+                    newList.append(format("\n%s%s%s%s", indent, userIndent, userIndent, line.substring(1,
+                            index).trim()));
+                    // End statement
+                    line = format("\n%s%s%s", indent, userIndent, line.substring(index + 1).trim());
+                }
+            }
+            else {
+
+                index = line.indexOf(" END", wtLength);
+                {
+                    // Last WHEN/THEN statement.
+                    newList.append(formatWT(index, line, indent, userIndent));
+                    line = line.substring(index);
+
+                    //Format End statement
+                    line = format("\n%s%s%s", indent, userIndent, line.trim());
+                }
             }
         }
 
-        // Print END statement.
+        //Append END statement.
         newList.append(format("%s%s,", indent, line));
 
         return newList.toString();
