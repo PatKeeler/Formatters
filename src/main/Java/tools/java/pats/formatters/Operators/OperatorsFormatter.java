@@ -2,6 +2,7 @@ package tools.java.pats.formatters.Operators;
 
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
+import tools.java.pats.formatters.CaseLinesFormatter;
 import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory;
@@ -111,6 +112,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         StringBuffer sb = new StringBuffer();
         String myData = data.trim();
 
+        String oneTab = SPACES.substring(0, userIndentAmount);
         String twoTabs = SPACES.substring(0, userIndentAmount * 2);
         String threeTabs = SPACES.substring(0, userIndentAmount * 3);
 
@@ -234,6 +236,26 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                         sb.append(esf.formatEmbeddedSelect(sql, ind));
                         i = i + ind.getEnd();
                     }
+                } else if (myData.substring(i, i + 5).equals("CASE ")
+                        || myData.substring(i, i + 9).equals("MAX(CASE ")) {
+                    int startIndex = i;
+                    //Find the END for this case
+                    int endIndex = myData.indexOf(" END", startIndex);
+                    endIndex += 4;
+                    //Check or AS - if exists get string to end of AS name
+                    if (myData.substring(endIndex).startsWith(" AS ")) {
+                        endIndex += 4;
+                        //index to end of following word - the first space
+                        endIndex = myData.indexOf(" ", endIndex);
+                    }
+                    String temp = myData.substring(startIndex, endIndex);
+                    System.out.println("   temp: " + temp);
+                    CaseLinesFormatter clf = new CaseLinesFormatter();
+                    String newLine = clf.formatNode(temp, oneTab, userIndentTab);
+                    System.out.println("newLine: " + newLine);
+                    //CaseLinesFormatter add comma at end, don't include it
+                    sb.append(newLine.substring(0, newLine.length() - 1));
+                    i = endIndex;
                 } else {
                     sb.append(format("%s", myData.substring(i, i + 1)));
                 }
