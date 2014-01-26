@@ -269,9 +269,6 @@ function computeToAndLdgData() {
 
     //Complete aircraft weight and arms with zero fuel
     computeZeroFuelWeight();
-
-    //Compute Take off weight and arms with fuel
-    computeToWeightAndArms();
 }
 
 /**
