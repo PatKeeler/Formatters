@@ -27,7 +27,7 @@ public class AddQuotesForJavaString implements Serializable, ProjectStaticConsta
 	/**
 	 * This method adds the quotes.
 	 * 
-	 * @param input
+	 * @param input string
 	 * @return quoted string.
 	 */
 	public String addQuotes(String input) {

@@ -34,17 +34,16 @@ public class StringCleaner implements Serializable {
 		super();
 	}
 
-	/**
-	 * The driver method. 
-	 * <p/>
-	 * Appends the input into 1 line.
-	 * 
-	 * @throws TransformerException
-	 * @throws TransformerFactoryConfigurationError
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 */
+
+    /**
+     * The driver method.
+   	 * <p/>
+   	 * Appends the input into 1 line.
+     *
+     * @param input string
+     * @param comments strings
+     * @return clean string
+     */
 	public String cleanString(String input, StringBuffer comments) {
 
         /* Return error message. */
@@ -80,18 +79,19 @@ public class StringCleaner implements Serializable {
 		return outPutMessage;
 	}
 
-	/**
-	 * Clean up the text.
-	 * 
-	 * @param input
-     * @param  comments
-	 * @return
-	 * @throws TransformerException
-	 * @throws TransformerFactoryConfigurationError
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 */
+
+    /**
+     * Clean up the text.
+     *
+     * @param input string
+     * @param comments comments
+     * @return clean string
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws TransformerFactoryConfigurationError
+     * @throws TransformerException
+     */
 	private String removeSpaces(String input, StringBuffer comments)
 			throws ParserConfigurationException, SAXException, IOException,
 			TransformerFactoryConfigurationError, TransformerException {

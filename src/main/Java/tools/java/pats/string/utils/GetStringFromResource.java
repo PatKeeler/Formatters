@@ -19,8 +19,8 @@ public class GetStringFromResource implements Serializable {
 	/**
 	 * Takes a resource and returns as a string.
 	 * 
-	 * @param resource
-	 * @return String
+	 * @param resource file
+	 * @return String string
 	 * @throws IOException
 	 */
 	public String getString(String resource) throws IOException {

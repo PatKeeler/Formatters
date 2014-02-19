@@ -19,8 +19,8 @@ public class SortCommandsByLength implements Comparator<String>, Serializable {
     /**
      * Sort by length.
      *
-     * @param cmdA
-     * @param cmdB
+     * @param cmdA string
+     * @param cmdB string
      * @return
      */
 	@Override

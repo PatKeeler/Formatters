@@ -15,22 +15,22 @@ public class FindIndexesForStringWithinParens implements Serializable {
      * Get the start and end indexes of data within
      * parenthesis.
      *
-     * @param sql
-     * @return
+     * @param string to index within parens
+     * @return StringIndexes class
      */
-    public StringIndexes getIndexesForSqlWithinParens(String sql) {
+    public StringIndexes getIndexesForSqlWithinParens(String string) {
 
-        int start = -1;
-        int end = 0;
+        int start;
+        int end;
 
         StringIndexes indexes = new StringIndexes();
 
         FindIndexOfClosingParen findClosingParen = new FindIndexOfClosingParen();
 
-        for (int n = 0; n < sql.length(); n++) {
-            if (sql.charAt(n) == Node.OPEN_PAREN_BYTE) {
+        for (int n = 0; n < string.length(); n++) {
+            if (string.charAt(n) == Node.OPEN_PAREN_BYTE) {
                 start = n;
-                end = findClosingParen.findClosingIndex(start, sql);
+                end = findClosingParen.findClosingIndex(start, string);
                 if (end > 0) {
                     indexes.setStart(start + 1);
                     indexes.setEnd(end);
@@ -40,6 +40,6 @@ public class FindIndexesForStringWithinParens implements Serializable {
         }
 
         throw new InvalidParameterException(String.format(
-                "Incorrect number of parenthesis at: %s", sql));
+                "Incorrect number of parenthesis at: %s", string));
     }
 }

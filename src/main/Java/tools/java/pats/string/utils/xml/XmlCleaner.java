@@ -1,17 +1,16 @@
 package tools.java.pats.string.utils.xml;
 
+import net.jcip.annotations.ThreadSafe;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import net.jcip.annotations.ThreadSafe;
-import org.xml.sax.SAXException;
 
 /**
  * This class takes in an XML file and returns 1 xml string with all spaces and
@@ -43,7 +42,7 @@ public class XmlCleaner implements Serializable {
 	 * The driver method. Appends the input into 1 line, removes spaces and
 	 * special characters and then writes to the console and to the output file.
 	 * 
-	 * @param input
+	 * @param input xml string
      *
 	 * @throws TransformerException
 	 * @throws TransformerFactoryConfigurationError
@@ -70,8 +69,8 @@ public class XmlCleaner implements Serializable {
 	/**
 	 * Clean up the text.
 	 * 
-	 * @param message
-	 * @return
+	 * @param message xml string
+	 * @return clean xml
 	 * @throws TransformerException
 	 * @throws TransformerFactoryConfigurationError
 	 * @throws IOException

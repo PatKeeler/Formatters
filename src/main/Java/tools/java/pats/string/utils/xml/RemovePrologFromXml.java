@@ -20,8 +20,8 @@ public class RemovePrologFromXml implements Serializable {
     /**
      * Remove the prolog method.
      *
-     * @param input
-     * @return
+     * @param input xml string
+     * @return clean xml
      */
 	public String removeProlog(String input) {
 		

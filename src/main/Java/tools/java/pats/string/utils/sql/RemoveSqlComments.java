@@ -56,7 +56,7 @@ public class RemoveSqlComments implements Serializable {
 	 * Takes in an SQL string, converts to a list split by line terminators and
 	 * removes comments lines from the list.
 	 * 
-	 * @param input
+	 * @param input un-formatted sql
 	 * @return String free of comments.
 	 */
 	public String removeComments(String input, StringBuffer comments) {
@@ -66,10 +66,9 @@ public class RemoveSqlComments implements Serializable {
 		GetListOfLines getList = new GetListOfLines();
 		List<String> lineList = getList.getSplitLines(input);
 		Matcher match;
-		String line = "";
-        int index = 0;
+		String line;
 
-		Iterator<String> iter = lineList.iterator();
+        Iterator<String> iter = lineList.iterator();
 		while (iter.hasNext()) {
 			line = format("%s ", iter.next().toString());
 			

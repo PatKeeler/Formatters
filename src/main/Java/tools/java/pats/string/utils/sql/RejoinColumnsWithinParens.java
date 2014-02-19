@@ -29,7 +29,8 @@ public class RejoinColumnsWithinParens {
 
     /**
      * Parameter constructor.
-     * @param columns
+     * @param columns List to format
+     * @param tab user indent amount
      */
     public RejoinColumnsWithinParens(final List<String> columns, final String tab) {
         super();
@@ -57,7 +58,7 @@ public class RejoinColumnsWithinParens {
         List<String> newList = new ArrayList<String>();
 
         Iterator<String> iter = columnList.iterator();
-        String line = "";
+        String line;
         String newLine = "";
         int inParen = 0;
 

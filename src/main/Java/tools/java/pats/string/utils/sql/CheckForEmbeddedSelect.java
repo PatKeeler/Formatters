@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ *
  * Created with IntelliJ IDEA.
  * User: Pat
  * Date: 6/21/13
@@ -26,7 +27,7 @@ public class CheckForEmbeddedSelect {
     /**
      * boolean method to indicate if string has embedded select statement.
      *
-     * @param sql
+     * @param sql un-formatted sql
      * @return boolean true or false
      */
     public boolean isEmbeddedSelect(String sql) {

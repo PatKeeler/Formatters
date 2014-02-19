@@ -46,7 +46,7 @@ public class GetStringFromFile implements Serializable {
 		try {
 			BufferedReader input = new BufferedReader(new FileReader(inFile));
 			try {
-				String line = null; // not declared within while loop
+				String line; // not declared within while loop
 
 				while ((line = input.readLine()) != null) {
 					sb.append(format(" %s ", line));

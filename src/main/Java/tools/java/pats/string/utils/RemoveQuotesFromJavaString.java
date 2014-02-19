@@ -9,6 +9,8 @@ package tools.java.pats.string.utils;
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 
+import java.io.Serializable;
+
 import static java.lang.String.format;
 
 
@@ -25,7 +27,7 @@ import static java.lang.String.format;
  * @version 1:$
  */
 @ThreadSafe
-public class RemoveQuotesFromJavaString implements ProjectStaticConstants
+public class RemoveQuotesFromJavaString implements Serializable, ProjectStaticConstants
 {
 
     /**
@@ -42,7 +44,7 @@ public class RemoveQuotesFromJavaString implements ProjectStaticConstants
 	/**
 	 * This method removes the quotes.
 	 *
-	 * @param input
+	 * @param input string
 	 * @return quoted string.
 	 */
 	public String removeQuotes(String input) {
@@ -57,8 +59,8 @@ public class RemoveQuotesFromJavaString implements ProjectStaticConstants
             lines = p2.split(input);
         }
 
-        String line = "";
-        int index = 0;
+        String line;
+        int index;
 
 		//Remove quotes from each line.
         for (String s : lines) {

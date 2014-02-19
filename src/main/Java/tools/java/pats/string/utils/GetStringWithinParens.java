@@ -8,6 +8,7 @@ import java.security.InvalidParameterException;
 import static java.lang.String.format;
 
 /**
+ *
  * Created with IntelliJ IDEA.
  * User: Pat
  * Date: 6/21/13
@@ -31,13 +32,13 @@ public class GetStringWithinParens implements Serializable, ProjectStaticConstan
     /**
      * Find the string within open and closing parens.
      *
-     * @param sql
-     * @return
+     * @param sql input
+     * @return indexes
      */
     public StringIndexes getIndexesForSqlWithinParens(String sql) {
 
-        int start = -1;
-        int end = 0;
+        int start;
+        int end;
 
         StringIndexes indexes = new StringIndexes();
 
@@ -58,6 +59,5 @@ public class GetStringWithinParens implements Serializable, ProjectStaticConstan
         throw new InvalidParameterException(format(
                 "Incorrect number of parenthesis at: %s", sql));
     }
-
 
 }

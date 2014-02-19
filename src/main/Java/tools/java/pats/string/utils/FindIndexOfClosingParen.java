@@ -29,14 +29,14 @@ public class FindIndexOfClosingParen implements Serializable, ProjectStaticConst
 	/**
 	 * Find the matching closing paren and return it's index.
 	 * 
-	 * @param index
-	 * @param input
-	 * @return
+	 * @param index starting point
+	 * @param input string
+	 * @return index of closing paren
 	 */
 	public int findClosingIndex(int index, String input) {
 
 		int parenCount = 0;
-		int n = 0;
+		int n;
 
 		for (n = index; n < input.length(); n++) {
 			if (input.charAt(n) == OPEN_PAREN_BYTE) {

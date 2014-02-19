@@ -31,7 +31,7 @@ public class GetListOfLines implements Serializable, ProjectStaticConstants {
 	 * <p/>
 	 * Remove lines with control characters only (line.length() == 0).
 	 * 
-	 * @param input
+	 * @param input sql string
 	 * @return {@code List<String>} of good lines.
 	 */
 	public List<String> getSplitLines(String input) {

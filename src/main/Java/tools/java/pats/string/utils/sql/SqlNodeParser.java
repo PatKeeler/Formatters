@@ -64,9 +64,9 @@ public class SqlNodeParser implements Serializable {
     /**
      * Constructor.
      *
-     * @param sql
-     * @param tab
-     * @param userIndentAmount
+     * @param sql un-formatted sql
+     * @param tab user indent amount
+     * @param userIndentAmount string length of tab
      */
 	public SqlNodeParser(final String sql, final String tab,
                          final String userIndentAmount,
@@ -94,7 +94,7 @@ public class SqlNodeParser implements Serializable {
         int index = 0;
 
         //The location pointer into the sql string
-        int i = 0;
+        int i;
 
         // List of Enums.
         List<String> sqlEnumList = getSqlEnums();
@@ -109,7 +109,7 @@ public class SqlNodeParser implements Serializable {
          * Index through string, break it up into a list of each command and it's data.
          */
         String cmd = "";
-        String data = "";
+        String data;
         boolean first = true;
 
         loop:
@@ -203,8 +203,8 @@ public class SqlNodeParser implements Serializable {
     /**
      * Create the Node.
      * 
-     * @param cmd
-     * @param data
+     * @param cmd sql command
+     * @param data sql command data
      * 
      * @return node
      */
@@ -222,14 +222,19 @@ public class SqlNodeParser implements Serializable {
 
         Query node = null;
         try {
-            Constructor<?> constructor = clazz.getConstructor(String.class,
-                                                              String.class,
-                                                              String.class,
-                                                              String.class,
-                                                              String.class);
+            Constructor<?> constructor = null;
+            if (clazz != null) {
+                constructor = clazz.getConstructor(String.class,
+                                                                  String.class,
+                                                                  String.class,
+                                                                  String.class,
+                                                                  String.class);
+            }
 
-            node = (Query) constructor.newInstance(cmd, data, tab,
-                                                  userIndentAmount, selectedStyle);
+            if (constructor != null) {
+                node = (Query) constructor.newInstance(cmd, data, tab,
+                                                      userIndentAmount, selectedStyle);
+            }
 
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
