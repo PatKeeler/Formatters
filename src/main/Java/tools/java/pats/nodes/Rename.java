@@ -19,9 +19,6 @@ public class Rename extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_RENAME_CMD = "Rename cmd can not be an empty value";
-    private static String INVALID_RENAME_DATA = "Rename data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -29,11 +26,11 @@ public class Rename extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Rename(final String cmd,
                   final String data,
@@ -60,8 +57,8 @@ public class Rename extends Node implements Query, Serializable {
      * This class will have the table name as the data resulting in
      * a one line statement.
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 

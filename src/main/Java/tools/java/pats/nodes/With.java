@@ -26,9 +26,6 @@ public class With extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_WITH_CMD = "With cmd can not be an empty value";
-    private static String INVALID_WITH_DATA = "With data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -36,11 +33,11 @@ public class With extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public With(final String cmd,
                 final String data,
@@ -66,8 +63,8 @@ public class With extends Node implements Query, Serializable {
     /**
      * Overidden method.
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 
@@ -84,8 +81,8 @@ public class With extends Node implements Query, Serializable {
     /**
      * Format and return the WITH statements.
      *
-     * @param sql
-     * @return formatted sql
+     * @param sql - un-formatted sql
+     * @return formatted sql string
      */
     public String formatWithStatements(String sql) {
 
@@ -116,8 +113,6 @@ public class With extends Node implements Query, Serializable {
                 if (cfs.isEmbeddedSelect(s)) {
                     FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(s);
-
-                    String newSql = s.substring(ind.getStart(), ind.getEnd());
 
                     sb.append(formatEmbeddedSelect(TWO_INDENTS, s, ind));
 

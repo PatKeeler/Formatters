@@ -21,9 +21,6 @@ public class Into extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_INTO_CMD = "Into cmd can not be an empty value";
-    private static String INVALID_INTO_DATA = "Into data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -31,11 +28,11 @@ public class Into extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Into(final String cmd,
                   final String data,
@@ -60,16 +57,14 @@ public class Into extends Node implements Query, Serializable {
 
     /**
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 
         sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
-
-        String myData = data.trim();
 
         int indents = 0;
 

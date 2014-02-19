@@ -19,9 +19,6 @@ public class From extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_FROM_CMD = "From cmd can not be an empty value";
-    private static String INVALID_FROM_DATA = "From data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -29,11 +26,11 @@ public class From extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public From(final String cmd,
                 final String data,
@@ -58,8 +55,8 @@ public class From extends Node implements Query, Serializable {
 
     /**
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 

@@ -10,7 +10,7 @@ import java.security.InvalidParameterException;
 import static java.lang.String.format;
 
 /**
- * Created by IntelliJ IDEA.
+ * Created with IntelliJ IDEA.
  * User: PJ
  * Date: 10/16/11
  * Time: 6:33 PM
@@ -21,9 +21,6 @@ public class Where extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_WHERE_CMD = "Where cmd can not be an empty value";
-    private static String INVALID_WHERE_DATA = "Where data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -31,11 +28,11 @@ public class Where extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Where(final String cmd,
                   final String data,
@@ -47,6 +44,9 @@ public class Where extends Node implements Query, Serializable {
 
         this.cmd = cmd;
         this.data = data;
+
+        String INVALID_WHERE_CMD = "Where cmd can not be an empty value";
+        String INVALID_WHERE_DATA = "Where data can not be an empty value";
 
         if (cmd.isEmpty()) {
             throw new InvalidParameterException(INVALID_WHERE_CMD);
@@ -60,15 +60,14 @@ public class Where extends Node implements Query, Serializable {
 
     /**
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 
         StringBuffer sb = new StringBuffer();
 
         if(block) {
-//            sb.append(format("\n%s%s  ", tab, cmd.trim()));
             int indexAnd = data.indexOf(" AND ");
             int indexOr = data.indexOf(" OR ");
             if (indexAnd > -1 || indexOr > -1) {
@@ -79,8 +78,6 @@ public class Where extends Node implements Query, Serializable {
         } else {
             sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
         }
-
-        String myData = data.trim();
 
         int indents = 0;
 

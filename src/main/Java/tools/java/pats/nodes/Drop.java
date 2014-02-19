@@ -19,10 +19,6 @@ public class Drop extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-
-    private static String INVALID_DROP_CMD = "Drop cmd can not be an empty value";
-    private static String INVALID_DROP_DATA = "Drop data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -30,11 +26,11 @@ public class Drop extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Drop(final String cmd,
                   final String data,
@@ -61,8 +57,8 @@ public class Drop extends Node implements Query, Serializable {
      * This class will have the table name as the data resulting in
      * a one line statement.
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 

@@ -19,32 +19,28 @@ public class Union extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_UNION_CMD = "Union cmd can not be an empty value";
-
     private final String cmd;
-    private final String data;
 
 
 
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Union(final String cmd,
                  final String data,
-                final String recursionTab,
-                final String userIndentAmount,
-                final String selectedStyle) {
+                 final String recursionTab,
+                 final String userIndentAmount,
+                 final String selectedStyle) {
 
       super(recursionTab, userIndentAmount, selectedStyle);
 
         this.cmd = cmd;
-        this.data = data;
 
         if (cmd.isEmpty()) {
             throw new InvalidParameterException(INVALID_UNION_CMD);
@@ -55,10 +51,10 @@ public class Union extends Node implements Query, Serializable {
 
 
     /**
-     * This method only adds the union command sorrounded by blank lines.
+     * This method adds the union command surrounded by blank lines.
      *
-     * @param node
-     * @return
+     * @param node - Class type
+     * @return formatted sql string
      */
     public String processLine(Query node) {
 

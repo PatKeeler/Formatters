@@ -19,9 +19,6 @@ public class Alter extends Node implements Query, Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private static String INVALID_ALTER_CMD = "Alter cmd can not be an empty value";
-    private static String INVALID_ALTER_DATA = "Alter data can not be an empty value";
-
     private final String cmd;
     private final String data;
 
@@ -29,11 +26,11 @@ public class Alter extends Node implements Query, Serializable {
     /**
      * Final Argument Constructor.
      *
-     * @param cmd
-     * @param data
-     * @param recursionTab
-     * @param userIndentAmount
-     * @param selectedStyle
+     * @param cmd - sql command name
+     * @param data - sql arguments for command
+     * @param recursionTab - number of user indents
+     * @param userIndentAmount - length of user supplied indents
+     * @param selectedStyle - block or expanded
      */
     public Alter(final String cmd,
                   final String data,
@@ -60,7 +57,7 @@ public class Alter extends Node implements Query, Serializable {
      * This class will have the table name as the data resulting in
      * a one line statement.
      *
-     * @return
+     * @return - formatted sql string
      */
     public String processLine(Query node) {
 
