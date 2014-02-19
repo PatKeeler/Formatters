@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static java.lang.String.format;
 import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory.getFormatter;
 
 /**
@@ -99,8 +98,8 @@ public class Node implements Serializable, ProjectStaticConstants {
     /**
      * Format multiple column definitions.
      * 
-     * @param sql
-     * @return String formatted.
+     * @param sql un-formatted sql
+     * @return formatted sql string
      */
     protected String formatMultiColumnsWithinParens(String sql) {
 
@@ -116,8 +115,8 @@ public class Node implements Serializable, ProjectStaticConstants {
     /**
      * Format <code>Values</code> column definitions.
      *
-     * @param sql
-     * @return String formatted.
+     * @param sql un-formatted sql
+     * @return formatted sql string
      */
     protected String formatValuesColumns(String sql) {
 
@@ -129,12 +128,10 @@ public class Node implements Serializable, ProjectStaticConstants {
     /**
      * Format the multi column nodes into single lines.
      *
-     * @param sql string of column elements.
-     * @return StringBuffer with formatted action statements.
+     * @param sql un-formatted sql
+     * @return StringBuffer - formatted sql
      */
     protected StringBuffer getMultiLineSegments(String sql) {
-
-        StringBuffer sb = new StringBuffer();
 
         MultiLineSegmentsFormatter mlsf =
                 new MultiLineSegmentsFormatter(tab, stringIndentAmount, selectedStyle);
@@ -147,9 +144,9 @@ public class Node implements Serializable, ProjectStaticConstants {
      * Format embedded select with user indents.
      *
      * @param indent - user indent amount
-     * @param sql
-     * @param ind
-     * @return
+     * @param ind - StringIndexes class
+     * @param sql un-formatted sql
+     * @return formatted sql Select string
      */
     protected String formatEmbeddedSelect(int indent,
                                           String sql,
@@ -165,66 +162,10 @@ public class Node implements Serializable, ProjectStaticConstants {
         return sb.toString();
     }
 
-
-    /**
-     *
-     * @param sb
-     * @param sql
-     * @param ind
-     */
-    protected void formatMultiColumnsInINFourUserIndents(StringBuffer sb,
-                                                         String sql,
-                                                         StringIndexes ind) {
-
-        String tempParenTab = SPACES.substring(0, tabLength + userIndentAmount * 3);
-        String tempDataTab = SPACES.substring(0, tabLength + userIndentAmount * 4);
-
-        //IF sql not too long just append it and return
-        if (sql.length() < 40) {
-            sb.append(format("%s", sql.substring(0, ind.getEnd() + 1).trim()));
-            return;
-        }
-
-        //get the embedded sql to be formatted
-        String newSql = sql.substring(ind.getStart(), ind.getEnd());
-
-        sb.append(format("\n%s%s", tempParenTab, sql.substring(0,ind.getStart()).trim()));
-
-        String[] columns = newSql.split(",");
-
-        if (columns.length > 1) {
-            for (String s : columns) {
-                sb.append(format("\n%s%s,", tempDataTab, s.trim()));
-            }
-        } else {
-            sb.append(format("\n%s%s", tempDataTab, newSql.trim()));
-        }
-        // Remove the last comma
-        sb.replace(sb.length() - 1, sb.length(), "");
-
-		sb.append(format("\n%s%s", tempParenTab, sql.substring(ind.getEnd(), ind.getEnd() + 1).trim()));
-    }
-
-
-    /**
-     * Get the start and end indexes of data within
-     * parenthesis.
-     *
-     * @param sql
-     * @return
-     */
-    protected StringIndexes getIndexesForSqlWithinParens(String sql) {
-
-        FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
-
-        return findIndexes.getIndexesForSqlWithinParens(sql);
-    }
-
     /**
      * Concatenate column rows that were separated by commas within parens.
      *
-     * @param columns
-     *            String[] array of column lines.
+     * @param columns - String[] array of column lines.
      * @return String[] array with all column data on same line.
      */
     public List<String> joinColumsWithinParens(List<String> columns) {
