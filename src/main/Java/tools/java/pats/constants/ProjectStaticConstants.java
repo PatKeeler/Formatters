@@ -31,6 +31,10 @@ public interface ProjectStaticConstants {
             "                                                                                 " +
             "                                                                                 ";
 
+
+    /* Invalid indent parameter message */
+    public static String INVALID_INDENT = "Indent amount must be a value between 0 and 9";
+
     /* Patterns to identify all line terminators.
     *  \n - unix,
     *  \r\n or \n - windows (\n works most of the time, except for notepad).

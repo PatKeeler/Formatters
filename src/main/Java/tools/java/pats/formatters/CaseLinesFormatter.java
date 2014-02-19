@@ -7,6 +7,7 @@ import java.io.Serializable;
 import static java.lang.String.format;
 
 /**
+ *
  * Created by IntelliJ IDEA.
  * User: Pat Keeler
  * Date: 8/26/11
@@ -29,7 +30,7 @@ public class CaseLinesFormatter implements Serializable {
 
         StringBuffer newList = new StringBuffer();
 
-        int index = 0;      //work index
+        int index;      //work index
         int wtLength = 4;  //when or then length
 
         if (line.toUpperCase().trim().startsWith("CASE") ||
@@ -95,15 +96,14 @@ public class CaseLinesFormatter implements Serializable {
      * @param line       - to be formatted
      * @param indent     - recursion indent
      * @param userIndent - user supplied indent
-     * @return
+     * @return formatted When/Then sql string
      */
     private String formatWT(int index, String line, String indent, String userIndent) {
 
         StringBuffer newList = new StringBuffer();
-        int wtIndex = 0;    //WHEN or THEN index
-        int lengthOf4 = 4;  //Length of WHEN or THEN
-        int andIndex = 0;   //Pointer to " AND "
-        int multiIndex = 0; //Pointer to subsequent " AND " elements
+        int wtIndex;    //WHEN or THEN index
+        int andIndex;   //Pointer to " AND "
+        int multiIndex; //Pointer to subsequent " AND " elements
 
         // Format WHEN and THEN statement(s).
         wtIndex = line.indexOf("THEN");

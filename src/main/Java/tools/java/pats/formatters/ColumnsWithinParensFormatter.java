@@ -23,7 +23,7 @@ public class ColumnsWithinParensFormatter implements Serializable {
      * @param sql sql string
      * @param ind StringIndexes
      * @param tab recursion indent amount
-     * @param sql user selected indent amount
+     * @param userIndent user selected indent amount
      * 
      * @return String formatted line.
      */

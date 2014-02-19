@@ -19,22 +19,22 @@ import java.security.InvalidParameterException;
 @ThreadSafe
 public class EmbeddedSelectsFormatterFactory {
 
-    /** Invalid indent parameter message */
-    private static String INVALID_INDENT = "Indent amount must be a value of 2 or 4";
-
 
     /**
      * public method to return 1 of the 2 instances.
      *
-     * @param indents
-     * @param recursionTab
-     * @param userIndentAmount
-     * @return
+     * @param indents - formatting indent amount
+     * @param recursionTab - indent based on recursion
+     * @param userIndentAmount - user indent amount
+     * @return instance
      */
      public static EmbeddedSelectsFormatter getFormatter(int indents,
                                                          String recursionTab,
                                                          String userIndentAmount,
                                                          String selectedStyle) {
+
+        /** Invalid indent parameter message */
+        String INVALID_INDENT = "Indent amount must be a value of 2 or 4";
 
         //Verify indents input
         try {

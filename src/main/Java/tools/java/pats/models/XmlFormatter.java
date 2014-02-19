@@ -37,8 +37,8 @@ public class XmlFormatter implements Serializable {
 	/**
 	 * Clean and Format an XML string.
 	 * 
-	 * @param xml
-	 * @return
+	 * @param xml = un-formatted xml
+	 * @return formatted xml string
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
@@ -79,19 +79,17 @@ public class XmlFormatter implements Serializable {
 	 * <p>
 	 * The returned xml is cleaned and ready for use with SoapUI.
 	 * 
-	 * @param xml
-	 * @return
+	 * @param xml un-formatted xml
+	 * @return formatted xml
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
-	 * @throws TransformerConfigurationException
 	 * @throws TransformerFactoryConfigurationError
 	 * @throws TransformerException
 	 */
 	private StreamResult getFormattedXml(String xml, String userIndentAmount)
 			throws ParserConfigurationException, SAXException, IOException,
-			TransformerConfigurationException,
-			TransformerFactoryConfigurationError, TransformerException {
+            TransformerFactoryConfigurationError, TransformerException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document doc = db.parse(new InputSource(new StringReader(xml)));
@@ -100,7 +98,6 @@ public class XmlFormatter implements Serializable {
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.setOutputProperty(
 				"{http://xml.apache.org/xslt}indent-amount", userIndentAmount);
-//		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 
 		// initialize StreamResult with File object to save to file
 		StreamResult result = new StreamResult(new StringWriter());

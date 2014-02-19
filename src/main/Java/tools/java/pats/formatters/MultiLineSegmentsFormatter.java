@@ -22,6 +22,7 @@ import static java.lang.String.format;
 import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory.getFormatter;
 
 /**
+ *
  * Created with IntelliJ IDEA.
  * User: Pat
  * Date: 3/23/13
@@ -48,9 +49,9 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
     /**
      * Final Argument Constructor.
      *
-     * @param recursionTab
-     * @param stringIndentAmount
-     * @param selectedStyle
+     * @param recursionTab - indent spaces based on recursion
+     * @param stringIndentAmount - user indent amount
+     * @param selectedStyle - block or expanded
      */
     public MultiLineSegmentsFormatter(final String recursionTab,
                                       final String stringIndentAmount,
@@ -75,6 +76,7 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
     /**
      * Format.
      *
+     * @param sql un-formatted sql
      * @return String formatted line.
      */
     public StringBuffer formatMultiLineSegments(String sql) {
@@ -213,8 +215,8 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
 
     /**
      * Format the last AS line
-     * @param sb
-     * @param asLines
+     * @param sb StringBuffer
+     * @param asLines AsLinesFormatter
      */
     private void formatLastAsLine(StringBuffer sb, int spaces, String tabs, AsLinesFormatter asLines) {
 
@@ -225,7 +227,7 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
 
             //Get the last line in buffer
             String[] aStr = {sb.substring(tempIndex)};
-            List<String> tempList = new ArrayList(Arrays.asList(aStr));
+            List<String> tempList = new ArrayList<String>(Arrays.asList(aStr));
 
             //Re-load asLines with new string array.
             asLines = new AsLinesFormatter(tempList);

@@ -52,7 +52,7 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
         List<String> newList = new ArrayList<String>();
 
         /* current column prop length */
-        int propLength = 0;
+        int propLength;
 
         /* format the columns for newList */
         for (String s : columnList) {
@@ -86,13 +86,13 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
     /**
      * Find the property length of longest column.
      *
-     * @param columns
-     * @return
+     * @param columns List
+     * @return int length of longest column
      */
     private int getLongestColumnLength(Collection<String> columns) {
 
         /* Property lengths */
-        int propLength = 0;
+        int propLength;
         int minLength = defaultMinLength;
 
         /* Iterate through columns to get longest property name. 

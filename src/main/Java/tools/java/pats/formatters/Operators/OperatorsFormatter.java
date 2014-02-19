@@ -33,9 +33,6 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
     /** User supplied number of indents */
     private final int extraIndent;
 
-    /** Invalid indent parameter message */
-    private static String INVALID_INDENT = "Indent amount must be a value between 0 and 9";
-
 
     /** Format variables */
     protected final String tab;

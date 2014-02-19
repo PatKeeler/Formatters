@@ -7,6 +7,7 @@ import java.io.Serializable;
 import static java.lang.String.format;
 
 /**
+ *
  * Created by IntelliJ IDEA.
  * User: Pat Keeler
  * Date: 8/26/11
@@ -26,9 +27,6 @@ public class IfLinesFormatter implements Serializable {
     public String formatNode(String line, String indent, String userIndent) {
 
         StringBuffer newList = new StringBuffer();
-
-        int index = 0;
-        int pointer = 0;
 
         if (line.toUpperCase().trim().startsWith("IF")) {
             String[] nodes = line.split(",");

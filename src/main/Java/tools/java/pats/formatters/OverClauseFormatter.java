@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static java.lang.String.format;
 
 /**
+ *
  * Created with IntelliJ IDEA.
  * User: Pat
  * Date: 5/12/13
@@ -32,9 +33,9 @@ public class OverClauseFormatter implements Serializable, ProjectStaticConstants
     /**
      * Final argument constructor for super
      *
-     * @param recursionTab
-     * @param stringIndentAmount
-     * @param selectedStyle
+     * @param recursionTab - spaces based on recursion
+     * @param stringIndentAmount - user indent amount
+     * @param selectedStyle - block or expanded
      */
     public OverClauseFormatter (final String recursionTab,
                                 final String stringIndentAmount,
@@ -62,7 +63,7 @@ public class OverClauseFormatter implements Serializable, ProjectStaticConstants
     /**
      * Format Over Clause method
      *
-     * @param s
+     * @param s un-formatted sql
      * @return formatted s
      */
     public String formatOverClause(String s) {
@@ -78,7 +79,6 @@ public class OverClauseFormatter implements Serializable, ProjectStaticConstants
         sb.append(format("\n%s%s%s%s", tab,userIndentTab, userIndentTab, "("));
         //bump past OVER
         tempOver = tempOver.substring(index + 4);
-        String[] overColumns = tempOver.split(",");
         //find open paren - may be multiple spaces
         index = tempOver.indexOf("(");
         tempOver = tempOver.substring(index + 1);

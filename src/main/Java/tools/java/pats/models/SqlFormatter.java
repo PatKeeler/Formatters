@@ -47,10 +47,10 @@ public class SqlFormatter implements Serializable {
     /**
      * The main SqlFormatter driver.
      *
-     * @param sql
-     * @param tab
-     * @param stringIndentAmount
-     * @return
+     * @param sql - un-formatted sql
+     * @param tab - user indent amount
+     * @param stringIndentAmount - string of tab length
+     * @return formatted sql string
      */
 	public String formatSql(String sql, String tab,
                             String stringIndentAmount, String selectedStyle) {

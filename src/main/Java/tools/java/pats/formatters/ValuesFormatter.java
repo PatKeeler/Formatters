@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ *
  * Created by IntelliJ IDEA.
  * User: Pat
  * Date: 12/28/11
@@ -81,9 +82,9 @@ public class ValuesFormatter implements Serializable, ProjectStaticConstants {
      * Then clean the columns up by adding in "(" and ")"
      * as needed.
      *
-     * @param sql
-     * @param tab
-     * @return String array of value columnts
+     * @param sql un-formatted sql
+     * @param tab indent amount
+     * @return String array of value columns
      */
     private String[] splitAndCleanColumns(String sql, String tab) {
 

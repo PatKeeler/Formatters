@@ -1,9 +1,11 @@
 package tools.java.pats.formatters.Operators.Factory;
 
 import net.jcip.annotations.ThreadSafe;
+import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
 import tools.java.pats.nodes.Node;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 
 /**
@@ -17,19 +19,18 @@ import java.security.InvalidParameterException;
  * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
-public class OperatorsFormatterFactory {
+public class OperatorsFormatterFactory implements Serializable, ProjectStaticConstants {
 
-    /** Invalid indent parameter message */
-    private static String INVALID_INDENT = "Indent amount must be a value between 0 and 9";
+    private static final long serialVersionUID = 1951L;
 
 
     /**
      * public method to return 1 of the 2 instances.
      *
-     * @param indents
-     * @param recursionTab
-     * @param userIndentAmount
-     * @return
+     * @param indents - user indent
+     * @param recursionTab - spaces based on recursion
+     * @param userIndentAmount - user indent amount
+     * @return instance
      */
      public static OperatorsFormatter getFormatter(int indents,
                                                    String recursionTab,
