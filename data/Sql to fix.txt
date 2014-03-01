@@ -13,7 +13,7 @@ WHERE circuit.srce_gtwy != circuit.dest_gtwy
       and region.meta_end_eff_ts = to_date('99991231000000','YYYYMMDDHH24MISS')
       and region.status_cd = 'P'
       and gtwy.meta_end_eff_ts = to_date('99991231000000','YYYYMMDDHH24MISS')
-      and gtwy.status_cd = 'P'
+      and gtwy.status_cd = 'P';
 
 
 
@@ -73,4 +73,4 @@ TO_CHAR(INTRVL_START_TS,'YYYYMMDD')||TO_CHAR(TO_NUMBER(TO_CHAR(INTRVL_START_TS, 
         ipds.w_wiltel_intrfc wi ON a.scid = wi.circuit_id
         Join
         ipds.f_intrfc_mtd_usd m ON a.intrfc_id = m.intrfc_id AND TRUNC(a.intrvl_start_ts,'mm') = m.intrvl_start_ts
-        ORDER BY a.intrvl_start_ts
+        ORDER BY a.intrvl_start_ts;
