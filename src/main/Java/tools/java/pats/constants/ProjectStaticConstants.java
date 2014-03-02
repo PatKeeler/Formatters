@@ -21,10 +21,11 @@ public interface ProjectStaticConstants {
     public static final String SEMI_COLON = ";";
 
     /* User integer indents */
-    public static final int ZERO_INDENTS = 0;
-    public static final int TWO_INDENTS  = 2;
-    public static final int FOUR_INDENTS = 4;
-    public static final int NINE_INDENTS = 9;
+    public static final int ZERO_INDENTS  = 0;
+    public static final int TWO_INDENTS   = 2;
+    public static final int THREE_INDENTS = 3;
+    public static final int FOUR_INDENTS  = 4;
+    public static final int NINE_INDENTS  = 9;
 
     /* Space string, 160 spaces */
     public static final String SPACES =

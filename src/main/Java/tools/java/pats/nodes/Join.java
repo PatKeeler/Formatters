@@ -88,7 +88,7 @@ public class Join extends Node implements Query, Serializable {
 
         StringBuffer sb = new StringBuffer();
         element = element.trim();
-        int indents = 3;
+        int indents = 2;
 
         OperatorsFormatter formatOperators =
                 OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);

@@ -54,7 +54,7 @@ public class EmbeddedSelectsFormatter extends Node implements Serializable {
 
         this.selectedStyle = selectedStyle;
 
-        if (indents == 2 || indents == 4) {
+        if (indents == 2 || indents == 3 || indents == 4) {
             this.indents = indents;
         } else {
             throw new InvalidParameterException(INVALID_INDENT);

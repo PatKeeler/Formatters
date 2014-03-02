@@ -122,140 +122,144 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         int index = 0;
 
         //TODO  Refactor this if statement
+        //todo    Determine when AND is present and set indents accordingly
+
+        boolean isAnd = false;
         for (int i = 0; i < myData.length(); i++) {
-            if (i + 11 < myData.length()) {
-                if (myData.substring(i, i + 5).equals(" AND ")) {
-                    if (block) {
-                        sb.append(format("\n%s%s%sAND ", tab, userIndentTab, extraTabs));
-                        i = i + 4;
-                    } else {
-                    sb.append(format("\n%s%s%sAND\n%s%s%s", tab, twoTabs, extraTabs,
-                            tab, userIndentTab, extraTabs));
+            if (i + 5 < myData.length() && myData.substring(i, i + 5).equals(" AND ")) {
+                isAnd = true;
+                if (block) {
+                    sb.append(format("\n%s%s%sAND ", tab, userIndentTab, extraTabs));
                     i = i + 4;
-                    }
-                } else if (myData.substring(i, i + 4).equals(" OR ")) {
-                    if (block) {
-                        sb.append(format("\n%s%s%sOR  ", tab, userIndentTab, extraTabs));
-                        i = i + 3;
-                    } else {
-                    sb.append(format("\n%s%s%sOR\n%s%s%s", tab, twoTabs, extraTabs,
-                             tab, userIndentTab, extraTabs));
+                } else {
+                sb.append(format("\n%s%s%sAND\n%s%s%s", tab, twoTabs, extraTabs,
+                        tab, userIndentTab, extraTabs));
+                i = i + 4;
+                }
+            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" OR ")) {
+                if (block) {
+                    sb.append(format("\n%s%s%sOR  ", tab, userIndentTab, extraTabs));
                     i = i + 3;
-                    }
-                } else if (myData.substring(i, i + 4).equals(" ON ")) {
-                    sb.append(format("\n%s%sON ", tab, threeTabs));
-                    i = i + 3;
-                } else if (myData.substring(i, i + 4).equals(" IN ")) {
+                } else {
+                sb.append(format("\n%s%s%sOR\n%s%s%s", tab, twoTabs, extraTabs,
+                         tab, userIndentTab, extraTabs));
+                i = i + 3;
+                }
+            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" ON ")) {
+                sb.append(format("\n%s%sON ", tab, twoTabs));
+                i = i + 3;
+            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" IN ")) {
+                if (isAnd) {
                     sb.append(format("\n%s%sIN ", tab, threeTabs));
-                    i = i + 3;
-                    //should be open paren,
-                    // there may be a comment, bump past it.
-                    index = myData.indexOf("(", i);
-                    if (index > i) {
-                        sb.append((format(myData.substring(i, index))));
-                        i = index;
-                    }
-                    String sql = myData.substring(i, myData.length());
-                    GetStringWithinParens getString = new GetStringWithinParens();
-                    StringIndexes ind = getString.getIndexesForSqlWithinParens(sql);
-                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                        EmbeddedSelectsFormatter esf =
-                            getFormatter(TWO_INDENTS, tab, stringIndentAmount, selectedStyle);
-                        sb.append(esf.formatEmbeddedSelect(sql, ind));
-                    } else {
-                        formatMultiColumnsInINFourUserIndents(sb, sql, ind);
-                    }
-                    i = i + ind.getEnd();
-                } else if (myData.substring(i, i + 8).equals(" NOT IN ")) {
-                    sb.append(format("\n%s%sNOT IN ", tab, threeTabs));
-                    i = i + 7;
-                    //should be open paren,
-                    // there may be a comment, bump past it.
-                    index = myData.indexOf("(", i);
-                    if (index > i) {
-                        sb.append((format(myData.substring(i, index))));
-                        i = index;
-                    }
+                } else {
+                    sb.append(format("\n%s%sIN ", tab, twoTabs));
+                }
+                i = i + 3;
+                //should be open paren,
+                // there may be a comment, bump past it.
+                index = myData.indexOf("(", i);
+                if (index > i) {
+                    sb.append((format(myData.substring(i, index))));
+                    i = index;
+                }
+                String sql = myData.substring(i, myData.length());
+                GetStringWithinParens getString = new GetStringWithinParens();
+                StringIndexes ind = getString.getIndexesForSqlWithinParens(sql);
+                if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    EmbeddedSelectsFormatter esf =
+                        getFormatter(THREE_INDENTS, tab, stringIndentAmount, selectedStyle);
+                    sb.append(esf.formatEmbeddedSelect(sql, ind));
+                } else {
+                    formatMultiColumnsInINFourUserIndents(sb, sql, ind);
+                }
+                i = i + ind.getEnd();
+            } else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals(" NOT IN ")) {
+                sb.append(format("\n%s%sNOT IN ", tab, twoTabs));
+                i = i + 7;
+                //should be open paren,
+                // there may be a comment, bump past it.
+                index = myData.indexOf("(", i);
+                if (index > i) {
+                    sb.append((format(myData.substring(i, index))));
+                    i = index;
+                }
+                String sql = myData.substring(i, myData.length());
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
+                EmbeddedSelectsFormatter esf =
+                        EmbeddedSelectsFormatterFactory.getFormatter(
+                                FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
+                if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    sb.append(esf.formatEmbeddedSelect(sql, ind));
+                } else {
+                    formatMultiColumnsInINFourUserIndents(sb, sql, ind);
+                }
+                i = i + ind.getEnd();
+            } else if (i + 7 < myData.length() && myData.substring(i, i + 7).equals("EXISTS ")) {
+                if (block) {
+                    sb.append("EXISTS");
+                } else {
+                    sb.append(format("%sEXISTS", twoTabs));
+                }
+                i = i + 6;
+                //should be open paren,
+                // there may be a comment, bump past it.
+                index = myData.indexOf("(", i);
+                if (index > i) {
+                    sb.append((format(myData.substring(i, index))));
+                    i = index;
+                }
+                if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     String sql = myData.substring(i, myData.length());
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                     EmbeddedSelectsFormatter esf =
                             EmbeddedSelectsFormatterFactory.getFormatter(
                                     FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
-                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                        sb.append(esf.formatEmbeddedSelect(sql, ind));
-                    } else {
-                        formatMultiColumnsInINFourUserIndents(sb, sql, ind);
-                    }
+                    sb.append(esf.formatEmbeddedSelect(sql, ind));
                     i = i + ind.getEnd();
-                } else if (myData.substring(i, i + 7).equals("EXISTS ")) {
-                    if (block) {
-                        sb.append("EXISTS");
-                    } else {
-                        sb.append(format("%sEXISTS", twoTabs));
-                    }
-                    i = i + 6;
-                    //should be open paren,
-                    // there may be a comment, bump past it.
-                    index = myData.indexOf("(", i);
-                    if (index > i) {
-                        sb.append((format(myData.substring(i, index))));
-                        i = index;
-                    }
-                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                        String sql = myData.substring(i, myData.length());
-                        StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
-                        EmbeddedSelectsFormatter esf =
-                                EmbeddedSelectsFormatterFactory.getFormatter(
-                                        FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
-                        sb.append(esf.formatEmbeddedSelect(sql, ind));
-                        i = i + ind.getEnd();
-                    }
-                } else if (myData.substring(i, i + 11).equals("NOT EXISTS ")) {
-                    if (block) {
-                        sb.append("NOT EXISTS");
-                    } else {
-                        sb.append(format("%sNOT EXISTS", twoTabs));
-                    }
-                    i = i + 10;
-                    //should be open paren,
-                    // there may be a comment, bump past it.
-                    index = myData.indexOf("(", i);
-                    if (index > i) {
-                        sb.append((format(myData.substring(i, index))));
-                        i = index;
-                    }
-                    if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                        String sql = myData.substring(i, myData.length());
-                        StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
-                        EmbeddedSelectsFormatter esf =
-                                EmbeddedSelectsFormatterFactory.getFormatter(
-                                        FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
-                        sb.append(esf.formatEmbeddedSelect(sql, ind));
-                        i = i + ind.getEnd();
-                    }
-                } else if (myData.substring(i, i + 5).equals("CASE ")
-                        || myData.substring(i, i + 9).equals("MAX(CASE ")) {
-                    int startIndex = i;
-                    //Find the END for this case
-                    int endIndex = myData.indexOf(" END", startIndex);
-                    endIndex += 4;
-                    //Check or AS - if exists get string to end of AS name
-                    if (myData.substring(endIndex).startsWith(" AS ")) {
-                        endIndex += 4;
-                        //index to end of following word - the first space
-                        endIndex = myData.indexOf(" ", endIndex);
-                    }
-                    String temp = myData.substring(startIndex, endIndex);
-                    System.out.println("   temp: " + temp);
-                    CaseLinesFormatter clf = new CaseLinesFormatter();
-                    String newLine = clf.formatNode(temp, oneTab, userIndentTab);
-                    System.out.println("newLine: " + newLine);
-                    //CaseLinesFormatter add comma at end, don't include it
-                    sb.append(newLine.substring(0, newLine.length() - 1));
-                    i = endIndex;
-                } else {
-                    sb.append(format("%s", myData.substring(i, i + 1)));
                 }
+            } else if (i + 11 < myData.length() && myData.substring(i, i + 11).equals("NOT EXISTS ")) {
+                if (block) {
+                    sb.append("NOT EXISTS");
+                } else {
+                    sb.append(format("%sNOT EXISTS", twoTabs));
+                }
+                i = i + 10;
+                //should be open paren,
+                // there may be a comment, bump past it.
+                index = myData.indexOf("(", i);
+                if (index > i) {
+                    sb.append((format(myData.substring(i, index))));
+                    i = index;
+                }
+                if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    String sql = myData.substring(i, myData.length());
+                    StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
+                    EmbeddedSelectsFormatter esf =
+                            EmbeddedSelectsFormatterFactory.getFormatter(
+                                    FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
+                    sb.append(esf.formatEmbeddedSelect(sql, ind));
+                    i = i + ind.getEnd();
+                }
+            } else if ((i + 5 < myData.length() && myData.substring(i, i + 5).equals("CASE ")) ||
+                       (i + 9 < myData.length() && myData.substring(i, i + 9).equals("MAX(CASE "))) {
+                int startIndex = i;
+                //Find the END for this case
+                int endIndex = myData.indexOf(" END", startIndex);
+                endIndex += 4;
+                //Check or AS - if exists get string to end of AS name
+                if (myData.substring(endIndex).startsWith(" AS ")) {
+                    endIndex += 4;
+                    //index to end of following word - the first space
+                    endIndex = myData.indexOf(" ", endIndex);
+                }
+                String temp = myData.substring(startIndex, endIndex);
+                System.out.println("   temp: " + temp);
+                CaseLinesFormatter clf = new CaseLinesFormatter();
+                String newLine = clf.formatNode(temp, oneTab, userIndentTab);
+                System.out.println("newLine: " + newLine);
+                //CaseLinesFormatter add comma at end, don't include it
+                sb.append(newLine.substring(0, newLine.length() - 1));
+                i = endIndex;
             } else {
                 sb.append(format("%s", myData.substring(i, i + 1)));
             }

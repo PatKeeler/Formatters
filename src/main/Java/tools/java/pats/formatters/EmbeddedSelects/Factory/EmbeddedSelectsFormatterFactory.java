@@ -39,6 +39,7 @@ public class EmbeddedSelectsFormatterFactory {
         //Verify indents input
         try {
             if (indents != Node.TWO_INDENTS &&
+                    indents != Node.THREE_INDENTS &&
                     indents != Node.FOUR_INDENTS) {
                 throw new InvalidParameterException(INVALID_INDENT);
             }
