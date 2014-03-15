@@ -23,7 +23,6 @@ import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelects
  * User: Pat
  * Date: 4/12/12
  * Time: 9:25 PM
- * To change this template use File | Settings | File Templates.
  */
 @ThreadSafe
 public class OperatorsFormatter implements Serializable, ProjectStaticConstants {
