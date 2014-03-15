@@ -32,6 +32,7 @@ public enum SqlNodes
     CREATE_UNIQUE_INDEX("CREATE UNIQUE INDEX", "CreateIndex"),
     CREATE_TABLE("CREATE TABLE", "CreateTable"),
     CREATE_VIEW("CREATE VIEW", "CreateView"),
+    CROSS_JOIN("CROSS JOIN", "Join"),
     DELETE("DELETE", "Delete"),
     DELETE_FROM("DELETE FROM", "Delete"),
     DROP("DROP", "Drop"),
