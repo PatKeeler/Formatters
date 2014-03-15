@@ -108,9 +108,10 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         StringBuffer sb = new StringBuffer();
         String myData = data.trim();
 
-        String oneTab = SPACES.substring(0, userIndentAmount);
-        String twoTabs = SPACES.substring(0, userIndentAmount * 2);
+        String oneTab    = SPACES.substring(0, userIndentAmount);
+        String twoTabs   = SPACES.substring(0, userIndentAmount * 2);
         String threeTabs = SPACES.substring(0, userIndentAmount * 3);
+        String fourTabs  = SPACES.substring(0, userIndentAmount * 4);
 
         String extraTabs = SPACES.substring(0, userIndentAmount * extraIndent);
 
@@ -149,9 +150,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 i = i + 3;
             } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" IN ")) {
                 if (isAnd) {
-                    sb.append(format("\n%s%sIN ", tab, threeTabs));
+                    sb.append(format("\n%s%sIN ", tab, fourTabs));
                 } else {
-                    sb.append(format("\n%s%sIN ", tab, twoTabs));
+                    sb.append(format("\n%s%sIN ", tab, threeTabs));
                 }
                 i = i + 3;
                 //should be open paren,
@@ -169,11 +170,19 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                         getFormatter(THREE_INDENTS, tab, stringIndentAmount, selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
-                    formatMultiColumnsInINFourUserIndents(sb, sql, ind);
+                    if (isAnd) {
+                        formatMultiColumnsInINFourUserIndents(userIndentAmount * 2, sb, sql, ind);
+                    } else {
+                        formatMultiColumnsInINFourUserIndents(userIndentAmount, sb, sql, ind);
+                    }
                 }
                 i = i + ind.getEnd();
             } else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals(" NOT IN ")) {
-                sb.append(format("\n%s%sNOT IN ", tab, twoTabs));
+                if (isAnd) {
+                    sb.append(format("\n%s%sNOT IN ", tab, fourTabs));
+                } else {
+                    sb.append(format("\n%s%sNOT IN ", tab, threeTabs));
+                }
                 i = i + 7;
                 //should be open paren,
                 // there may be a comment, bump past it.
@@ -190,7 +199,11 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
-                    formatMultiColumnsInINFourUserIndents(sb, sql, ind);
+                    if (isAnd) {
+                        formatMultiColumnsInINFourUserIndents(userIndentAmount * 2, sb, sql, ind);
+                    } else {
+                        formatMultiColumnsInINFourUserIndents(userIndentAmount, sb, sql, ind);
+                    }
                 }
                 i = i + ind.getEnd();
             } else if (i + 7 < myData.length() && myData.substring(i, i + 7).equals("EXISTS ")) {
@@ -276,12 +289,13 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
      * @param sql
      * @param ind
      */
-    protected void formatMultiColumnsInINFourUserIndents(StringBuffer sb,
+    protected void formatMultiColumnsInINFourUserIndents(int thisIndent,
+                                                         StringBuffer sb,
                                                          String sql,
                                                          StringIndexes ind) {
 
-        String tempParenTab = SPACES.substring(0, tabLength + userIndentAmount * 3);
-        String tempDataTab = SPACES.substring(0, tabLength + userIndentAmount * 4);
+        String tempParenTab = SPACES.substring(0, tabLength + (userIndentAmount * 3) + thisIndent);
+        String tempDataTab = SPACES.substring(0, tabLength + (userIndentAmount * 4) + thisIndent);
 
         //IF sql not too long just append it and return
         if (sql.length() < 40) {
