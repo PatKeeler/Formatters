@@ -34,7 +34,8 @@ public class CaseLinesFormatter implements Serializable {
         int wtLength = 4;  //when or then length
 
         if (line.toUpperCase().trim().startsWith("CASE") ||
-            line.toUpperCase().trim().startsWith("MAX(CASE")) {
+            line.toUpperCase().trim().startsWith("MAX(CASE") ||
+            line.toUpperCase().trim().startsWith("SUM(CASE")) {
 
             //Get index of WHEN
             index = line.toUpperCase().indexOf(" WHEN");

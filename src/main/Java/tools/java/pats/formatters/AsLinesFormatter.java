@@ -59,6 +59,7 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
             //The CASE and IF statements will be formatted later.
             if ((! s.trim().startsWith("CASE")) &&
                 (! s.trim().startsWith("MAX(CASE")) &&
+                (! s.trim().startsWith("SUM(CASE")) &&
                 (! s.trim().startsWith("IF")) &&
                 (! s.trim().startsWith("("))) {
 
@@ -101,6 +102,7 @@ public class AsLinesFormatter implements Serializable, ProjectStaticConstants {
             s = s.trim();
         	if ((! s.trim().startsWith("CASE")) &&
                 (! s.trim().startsWith("MAX(CASE")) &&
+                (! s.trim().startsWith("SUM(CASE")) &&
                 (! s.trim().startsWith("IF")) &&
                 (! s.trim().startsWith("("))) {
                 propLength = s.indexOf(" AS ");

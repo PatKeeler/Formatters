@@ -4,7 +4,7 @@ import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.Operators.Factory.OperatorsFormatterFactory;
 import tools.java.pats.formatters.Operators.OperatorsFormatter;
-import tools.java.pats.string.utils.GetStringWithinParens;
+import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.string.utils.sql.RejoinColumnsWithinParens;
@@ -119,7 +119,8 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
 
         //Format CASE statements
         if (s.toUpperCase().trim().startsWith("CASE ") ||
-            s.toUpperCase().trim().startsWith("MAX(CASE")) {
+            s.toUpperCase().trim().startsWith("MAX(CASE") ||
+            s.toUpperCase().trim().startsWith("SUM(CASE")) {
 
             CaseLinesFormatter caseLines = new CaseLinesFormatter();
             sb.append(caseLines.formatNode(s, tab, userIndentTab));
@@ -144,8 +145,9 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
             CheckForEmbeddedSelect cfs = new CheckForEmbeddedSelect();
             if(cfs.isEmbeddedSelect(s)) {
 
-                GetStringWithinParens getString = new GetStringWithinParens();
-                StringIndexes ind = getString.getIndexesForSqlWithinParens(s);
+                FindIndexesForStringWithinParens findIndexes =
+                        new FindIndexesForStringWithinParens();
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
 
                 String newSql = s.substring(ind.getStart(), ind.getEnd());
 

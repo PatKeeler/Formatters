@@ -33,6 +33,7 @@ public enum SqlKeywords {
 	ON("ON"),
     OR("OR"),
     OVER("OVER"),
+    SUM("SUM"),
     THEN("THEN"),
     WHEN("WHEN");
 

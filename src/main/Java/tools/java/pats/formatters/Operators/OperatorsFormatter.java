@@ -3,13 +3,12 @@ package tools.java.pats.formatters.Operators;
 import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.CaseLinesFormatter;
-import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory;
 import tools.java.pats.nodes.Node;
 import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
-import tools.java.pats.string.utils.GetStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
+import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
@@ -163,17 +162,16 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
                 String sql = myData.substring(i, myData.length());
-                GetStringWithinParens getString = new GetStringWithinParens();
-                StringIndexes ind = getString.getIndexesForSqlWithinParens(sql);
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     EmbeddedSelectsFormatter esf =
                         getFormatter(THREE_INDENTS, tab, stringIndentAmount, selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
                     if (isAnd) {
-                        formatMultiColumnsInINFourUserIndents(userIndentAmount * 2, sb, sql, ind);
+                        formatMultiColumnsInINClause(userIndentAmount * 2, sb, sql, ind);
                     } else {
-                        formatMultiColumnsInINFourUserIndents(userIndentAmount, sb, sql, ind);
+                        formatMultiColumnsInINClause(userIndentAmount, sb, sql, ind);
                     }
                 }
                 i = i + ind.getEnd();
@@ -200,9 +198,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
                     if (isAnd) {
-                        formatMultiColumnsInINFourUserIndents(userIndentAmount * 2, sb, sql, ind);
+                        formatMultiColumnsInINClause(userIndentAmount * 2, sb, sql, ind);
                     } else {
-                        formatMultiColumnsInINFourUserIndents(userIndentAmount, sb, sql, ind);
+                        formatMultiColumnsInINClause(userIndentAmount, sb, sql, ind);
                     }
                 }
                 i = i + ind.getEnd();
@@ -253,7 +251,8 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = i + ind.getEnd();
                 }
             } else if ((i + 5 < myData.length() && myData.substring(i, i + 5).equals("CASE ")) ||
-                       (i + 9 < myData.length() && myData.substring(i, i + 9).equals("MAX(CASE "))) {
+                       (i + 9 < myData.length() && myData.substring(i, i + 9).equals("MAX(CASE ")) ||
+                       (i + 9 < myData.length() && myData.substring(i, i + 9).equals("SUM(CASE "))) {
                 int startIndex = i;
                 //Find the END for this case
                 int endIndex = myData.indexOf(" END", startIndex);
@@ -289,10 +288,10 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
      * @param sql
      * @param ind
      */
-    protected void formatMultiColumnsInINFourUserIndents(int thisIndent,
-                                                         StringBuffer sb,
-                                                         String sql,
-                                                         StringIndexes ind) {
+    protected void formatMultiColumnsInINClause(int thisIndent,
+                                                StringBuffer sb,
+                                                String sql,
+                                                StringIndexes ind) {
 
         String tempParenTab = SPACES.substring(0, tabLength + (userIndentAmount * 3) + thisIndent);
         String tempDataTab = SPACES.substring(0, tabLength + (userIndentAmount * 4) + thisIndent);
