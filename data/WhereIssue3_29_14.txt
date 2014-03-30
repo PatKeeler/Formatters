@@ -1,0 +1,33 @@
+SELECT hh", hh" FROM (SELECT wl.timeworked AS AggregateTask FROM
+jira.issuetype it WHERE wl.issueid = ji.id AND it.id = ji.issuetype AND
+it.pname = 'Task 2.0' ) pivot GROUP BY WorklogDt
+
+SELECT round(SUM(NonProductionBugs)/60/60,  0) AS "+ Bugs IN non-production env,
+  hh", round(SUM(AggregateTask)/60/60,  0)     AS "- Worklogs IN Task 2.0,
+  hh" from ( SELECT wl.CREATED AS WlDate, wl.timeworked AS BusinessAnalysis, 0 AS AggregateTask
+    FROM jira.worklog wl, jira.issuetype it  WHERE  wl.issueid = ji.id AND it.id = ji.issuetype
+    UNION SELECT wl.CREATED AS WlDate, 0 AS NonProductionBugs, wl.timeworked AS AggregateTask
+    FROM jira.worklog wl, jira.jiraissue ji, jira.issuetype it WHERE wl.issueid = ji.id
+	  AND it.id = ji.issuetype AND it.pname = 'Task 2.0' ) pivot GROUP BY WorklogDt ORDER BY WlDate ASC
+
+SELECT DATE_ADD(DATE(WlDate), INTERVAL (7 - DAYOFWEEK(WlDate)) DAY) as WorklogDt, round(sum(BusinessAnalysis)/60/60, 0) as
+ "+ Business Analysis, hh", round(sum(SystemAnalysis)/60/60, 0) as "+ System Analysis, hh", round(sum(Development)/60/60, 0)
+ as "+ Development, hh", round(sum(Testing)/60/60, 0) as "+ Testing, hh", round(sum(NonProductionBugs)/60/60, 0) as "+ Bugs
+ in non-production env, hh", round(sum(AggregateTask)/60/60, 0) as "- Worklogs in Task 2.0, hh" FROM (SELECT wl.CREATED as
+ WlDate, wl.timeworked as BusinessAnalysis, 0 as SystemAnalysis, 0 as Development, 0 as Testing, 0 as NonProductionBugs, 0
+ as AggregateTask FROM jira.worklog wl, jira.jiraissue ji, jira.issuetype it WHERE wl.issueid = ji.id and it.id =
+ ji.issuetype and it.pname = 'Business analysis' union SELECT wl.CREATED as WlDate, 0 as BusinessAnalysis, wl.timeworked as
+ SystemAnalysis, 0 as Development, 0 as Testing, 0 as NonProductionBugs, 0 as AggregateTask FROM jira.worklog wl,
+ jira.jiraissue ji, jira.issuetype it WHERE wl.issueid = ji.id and it.id = ji.issuetype and it.pname = 'System analysis' union
+ SELECT wl.CREATED as WlDate, 0 as BusinessAnalysis, 0 as SystemAnalysis, wl.timeworked as Development, 0 as Testing, 0 as
+ NonProductionBugs, 0 as AggregateTask FROM jira.worklog wl, jira.jiraissue ji, jira.issuetype it WHERE wl.issueid = ji.id
+ and it.id = ji.issuetype and it.pname = 'Development' union SELECT wl.CREATED as WlDate, 0 as BusinessAnalysis, 0 as
+ SystemAnalysis, 0 as Development, wl.timeworked as Testing, 0 as NonProductionBugs, 0 as AggregateTask FROM jira.worklog wl,
+ jira.jiraissue ji, jira.issuetype it WHERE wl.issueid = ji.id and it.id = ji.issuetype and it.pname = 'Acceptance test'
+ union SELECT wl.CREATED as WlDate, 0 as BusinessAnalysis, 0 as SystemAnalysis, 0 as Development, 0 as Testing, wl.
+ timeworked as NonProductionBugs, 0 as AggregateTask FROM jira.worklog wl, jira.jiraissue ji, jira.issuetype it WHERE wl.
+ issueid = ji.id and it.id = ji.issuetype and it.pname = 'Bug' and wl.issueid not in (SELECT cfv.ISSUE FROM jira.
+ customfieldvalue cfv, jira.customfieldoption cfo where cfv.customfield = '10503' and cfo.ID = cfv.STRINGVALUE and cfo.
+ customvalue = '????') union SELECT wl.CREATED as WlDate, 0 as BusinessAnalysis, 0 as SystemAnalysis, 0 as Development, 0 as
+ Testing, 0 as NonProductionBugs, wl.timeworked as AggregateTask FROM jira.worklog wl, jira.jiraissue ji, jira.issuetype it
+ WHERE wl.issueid = ji.id and it.id = ji.issuetype and it.pname = 'Task 2.0' ) pivot GROUP BY WorklogDt ORDER BY WlDate asc
