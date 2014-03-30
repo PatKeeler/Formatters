@@ -225,10 +225,10 @@ public class SqlNodeParser implements Serializable {
             Constructor<?> constructor = null;
             if (clazz != null) {
                 constructor = clazz.getConstructor(String.class,
-                                                                  String.class,
-                                                                  String.class,
-                                                                  String.class,
-                                                                  String.class);
+                                                   String.class,
+                                                   String.class,
+                                                   String.class,
+                                                   String.class);
             }
 
             if (constructor != null) {
