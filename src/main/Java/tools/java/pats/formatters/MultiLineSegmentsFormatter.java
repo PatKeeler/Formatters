@@ -147,7 +147,7 @@ public class MultiLineSegmentsFormatter implements Serializable, ProjectStaticCo
 
                 FindIndexesForStringWithinParens findIndexes =
                         new FindIndexesForStringWithinParens();
-                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(s);
 
                 String newSql = s.substring(ind.getStart(), ind.getEnd());
 
