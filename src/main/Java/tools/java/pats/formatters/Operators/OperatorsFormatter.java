@@ -271,7 +271,18 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 //CaseLinesFormatter add comma at end, don't include it
                 sb.append(newLine.substring(0, newLine.length() - 1));
                 i = endIndex;
-            } else {
+            } else if(myData.substring(i, i + 1).equals("(")) {
+                String sql = myData.substring(i, myData.length());
+                StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
+                EmbeddedSelectsFormatter esf =
+                        EmbeddedSelectsFormatterFactory.getFormatter(
+                                FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
+                if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    sb.append(esf.formatEmbeddedSelect(sql, ind));
+                }
+                i = i + ind.getEnd();
+            }
+            else {
                 sb.append(format("%s", myData.substring(i, i + 1)));
             }
         }
