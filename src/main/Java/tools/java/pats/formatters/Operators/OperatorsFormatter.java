@@ -6,6 +6,7 @@ import tools.java.pats.formatters.CaseLinesFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory;
 import tools.java.pats.nodes.Node;
+import tools.java.pats.string.utils.FindIndexOfClosingParen;
 import tools.java.pats.string.utils.FindIndexesForStringWithinParens;
 import tools.java.pats.string.utils.StringIndexes;
 import tools.java.pats.string.utils.sql.CheckForEmbeddedSelect;
@@ -204,7 +205,20 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     }
                 }
                 i = i + ind.getEnd();
-            } else if (i + 7 < myData.length() && myData.substring(i, i + 7).equals("EXISTS ")) {
+            }
+            else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals("CONTAINS")) {
+                    sb.append("CONTAINS");
+                i = i + 8;
+                //should be open paren,
+                index = myData.indexOf("(", i);
+                if (index >= i) {
+                    FindIndexOfClosingParen fcp = new FindIndexOfClosingParen();
+                    index = fcp.findClosingIndex(index, myData);
+                    sb.append(myData.substring(i, index + 1));
+                    i = index;
+                }
+            }
+            else if (i + 7 < myData.length() && myData.substring(i, i + 7).equals("EXISTS ")) {
                 if (block) {
                     sb.append("EXISTS");
                 } else {
@@ -227,7 +241,8 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                     i = i + ind.getEnd();
                 }
-            } else if (i + 11 < myData.length() && myData.substring(i, i + 11).equals("NOT EXISTS ")) {
+            }
+            else if (i + 11 < myData.length() && myData.substring(i, i + 11).equals("NOT EXISTS ")) {
                 if (block) {
                     sb.append("NOT EXISTS");
                 } else {
