@@ -18,6 +18,7 @@ public enum SqlKeywords {
     CASE("CASE"),
     CHECK("CHECK"),
     CONSTRAINTS("CONSTRAINTS"),
+    CONTAINS("CONTAINS"),
     DESC("DESC"),
     ELSE("ELSE"),
     END("END"),
