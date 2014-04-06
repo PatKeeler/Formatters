@@ -122,7 +122,6 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         int index = 0;
 
         //TODO  Refactor this if statement
-        //todo    Determine when AND is present and set indents accordingly
 
         boolean isAnd = false;
         for (int i = 0; i < myData.length(); i++) {
