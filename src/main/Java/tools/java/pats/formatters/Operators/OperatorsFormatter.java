@@ -121,7 +121,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
 
         int index = 0;
 
-        //TODO  Refactor this if statement
+        //TODO  Refactor this if statement - in progress
 
         boolean isAnd = false;
         for (int i = 0; i < myData.length(); i++) {
