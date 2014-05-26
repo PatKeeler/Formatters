@@ -293,8 +293,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                                 FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
+                    i = i + ind.getEnd();
                 }
-                i = i + ind.getEnd();
+                sb.append(format("%s", myData.substring(i, i + 1)));
             }
             else {
                 sb.append(format("%s", myData.substring(i, i + 1)));
