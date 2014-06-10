@@ -323,7 +323,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         String tempDataTab = SPACES.substring(0, tabLength + (userIndentAmount * 4) + thisIndent);
 
         //IF sql not too long just append it and return
-        if (sql.length() < 40) {
+        if (sql.substring(ind.getStart(), ind.getEnd()).length() < 80) {
             sb.append(format("%s", sql.substring(0, ind.getEnd() + 1).trim()));
             return;
         }
