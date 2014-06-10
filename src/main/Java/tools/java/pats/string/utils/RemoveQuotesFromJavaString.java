@@ -10,6 +10,7 @@ import net.jcip.annotations.ThreadSafe;
 import tools.java.pats.constants.ProjectStaticConstants;
 
 import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import static java.lang.String.format;
 
@@ -70,6 +71,11 @@ public class RemoveQuotesFromJavaString implements Serializable, ProjectStaticCo
                 }
                 //get line
                 line = format("%s", s.trim());
+
+                //Remove connectors (quote,plus,quote) if concatenated strings
+                String regex = "\"\\s*\\+\\s*\"";
+                line = line.replaceAll(regex, " ");
+
                 //see if + first on line
                 if (line.startsWith("+")) {
                     //Yes, remove + and "
