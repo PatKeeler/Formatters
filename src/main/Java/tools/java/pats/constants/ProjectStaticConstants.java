@@ -69,6 +69,9 @@ public interface ProjectStaticConstants {
     public static String INVALID_CREATEVIEW_CMD = "CreateView cmd can not be an empty value";
     public static String INVALID_CREATEVIEW_DATA = "CreateView data can not be an empty value";
 
+    public static String INVALID_DECLARE_CMD = "Declare cmd can not be an empty value";
+    public static String INVALID_DECLARE_DATA = "Declare data can not be an empty value";
+
     public static String INVALID_DELETE_CMD = "Delete cmd can not be an empty value";
     public static String INVALID_DELETE_DATA = "Delete data can not be an empty value";
 

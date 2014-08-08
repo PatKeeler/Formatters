@@ -24,6 +24,7 @@ public enum SqlNodes
 {
     ADD("ADD", "Add"),
     ALTER_COLUMN("ALTER COLUMN", "Alter"),
+    ALTER_FUNCTION("ALTER FUNCTION", "Alter"),
     ALTER_TABLE("ALTER TABLE", "Alter"),
     BETWEEN("BETWEEN", "Between"),
     COMMENT("COMMENT", "Comment"),
@@ -33,6 +34,7 @@ public enum SqlNodes
     CREATE_TABLE("CREATE TABLE", "CreateTable"),
     CREATE_VIEW("CREATE VIEW", "CreateView"),
     CROSS_JOIN("CROSS JOIN", "Join"),
+    DECLARE("DECLARE", "Declare"),
     DELETE("DELETE", "Delete"),
     DELETE_FROM("DELETE FROM", "Delete"),
     DROP("DROP", "Drop"),
