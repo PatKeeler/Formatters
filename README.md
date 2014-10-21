@@ -8,7 +8,7 @@ This repo contains two apps, an Sql formatter and an Xml formatter.  You can use
 in action as they each have pointers to the other.  They are hosted on Google's appengine.
 
 
-* The Sql formatter currently has most of the common SQL commands, they are listed in the Nodes.java class, and will format these commands and some functions.  I've used W3Schools as a guide for the common commands.  This is a work in process, I'm adding functions, corrections and refactoring when I get the time.
+* The Sql formatter currently formats most of the common SQL commands, they are listed in the Nodes.java class, and some functions.  I've used W3Schools as a guide for the common commands.  This is a work in process, I'm adding functions, corrections and refactoring when I get the time.
 
 
 * The Xml formatter was in response to errors I would get when cutting SOAP messages from logs and trying to run them in SoapUI.
