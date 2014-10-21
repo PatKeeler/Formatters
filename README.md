@@ -1,7 +1,7 @@
 Formatters
 ==========
 
-This site and readme is under construction.
+This site, and readme, is under construction.
 
 
 This repo contains two apps, an Sql formatter and an Xml formatter.  You can use either of the two links below to see them
