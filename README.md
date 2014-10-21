@@ -15,6 +15,9 @@ in action as they each have pointers to the other.  They are hosted on Google's 
 It's a simple solution, replace all white space occurances with one space each and pretty print the result.  SoapUI is happy with this approach.
 
 
+Please send comments or suggestions to Pat@PatsTools.com.
+
+
 http://patsformatters.appspot.com/SqlFormatter.html
 
 http://patsformatters.appspot.com/XmlFormatter.html
