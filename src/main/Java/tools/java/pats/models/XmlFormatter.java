@@ -20,10 +20,10 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
- * This program converts an xml string to a cleanly formatted xml file that can
+ * This class converts an xml string to a cleanly formatted xml file that can
  * be used as input to SoapUI.
- * 
- * @author u0027507
+ *
+ * @author Pat Keeler - keelerpl@gmail.com
  * 
  */
 @ThreadSafe
