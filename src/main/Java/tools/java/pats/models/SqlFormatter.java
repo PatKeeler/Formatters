@@ -21,7 +21,7 @@ import java.util.List;
  * Feel free to contact me with comments, questions or suggestions for
  * improvements.
  * 
- * @author Pat Keeler - Pat.Keeler@level3.com
+ * @author Pat Keeler - keelerpl@gmail.com
  * 
  */
 /**
