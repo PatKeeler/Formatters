@@ -24,10 +24,6 @@ import java.util.List;
  * @author Pat Keeler - keelerpl@gmail.com
  * 
  */
-/**
- * @author Pat Keeler
- *
- */
 @ThreadSafe
 public class SqlFormatter implements Serializable {
 
