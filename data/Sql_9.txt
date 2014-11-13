@@ -1,4 +1,0 @@
-insert into smartsearch.login (user_id, access_level, password)
-values ('u0027507', 'admin', 'smart'),('u0002803', 'admin', 'smart'), ('u0029875',
-'admin', 'smart'),('u0029779', 'admin', 'smart'),('guest', 'Guest',
-'guest'),('u0049354', 'admin', 'smart');

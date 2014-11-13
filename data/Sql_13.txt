@@ -1,7 +1,0 @@
-SELECT ford, chevy
-FROM ( SELECT auto
-       FROM ( SELECT camaro, chevelle
-              FROM carDB
-			 )
-	  ) x
-WHERE x.row = 2
