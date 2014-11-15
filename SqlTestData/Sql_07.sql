@@ -12,4 +12,4 @@ fm.storeID, fm.operationID, fm.kolvo, fm.operationKolvo, fm.operationDate, fm.op
 movement.dbo.fact_movement as fm with (nolock) where fm.filID = @f and fm.sourceID = @s and fm.operationDate >= 
 @dt select fmf.filID, fmf.sourceID, fmf.lagerID, fmf.storeID, fmf.operationID, fmf.kolvo, fmf.operationKolvo, 
 fmf.operationDate, fmf.priceLastIncome from movementF_prod.dbo.fact_movement_finance as fmf with (nolock) where 
-fmf.filID = @f and fmf.sourceID = @s and fmf.operationDate >= @dt go
+fmf.filID = @f and fmf.sourceID = @s and fmf.operationDate >= @dt  go

@@ -13,7 +13,6 @@ month_list.some_month_date filled_calendar_month_date FROM itd_sum, month_list W
 month_list.some_month_date >= itd_sum.calendar_month_date AND month_list.some_month_date <
 itd_sum.next_calendar_month_date);
 
-
 WITH sum_sales AS ( select /*+ materialize */ sum(quantity) all_sales from stores ),
 number_stores AS (select /*+ materialize */ count(*) nbr_stores from stores ),
 sales_by_store AS ( select /*+ materialize */ store_name, sum(quantity) store_sales
