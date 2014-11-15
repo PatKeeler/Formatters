@@ -28,7 +28,7 @@ import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelects
  * Time: 9:32 PM
  */
 @ThreadSafe
-public class Node implements Serializable, ProjectStaticConstants {
+public class Node implements Query, Serializable, ProjectStaticConstants {
 
     /** Required serialization parameter */
     private static final long serialVersionUID = 1951L;
@@ -92,6 +92,18 @@ public class Node implements Serializable, ProjectStaticConstants {
         this.userIndentAmount = amount.get().intValue();
 		this.userIndentTab = SPACES.substring(0, amount.get());
 
+    }
+
+
+    /**
+     * The method all subclasses must over ride.
+     *
+     * @param node
+     * @return
+     */
+    @Override
+    public String processLine(Query node) {
+        return null;
     }
 
 
@@ -196,5 +208,4 @@ public class Node implements Serializable, ProjectStaticConstants {
 
         return sb.toString();
     }
-
 }
