@@ -26,7 +26,7 @@
 </head>
 
 <body>
-<div ng-app="">
+<div data-ng-app="mathApp" data-ng-controller="mathController">
     <form name="mainForm">
         <table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">
             <tr>
@@ -147,7 +147,7 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div name=divideDiv class="hide">
+                                    <div name=divideDiv data-ng-bind="divideVar">
                                         <table>
                                             <tr>
                                                 <td>
@@ -190,7 +190,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <div name="hintdiv" class="hide">
+                        <div name="hintdiv" data-ng-bind="hintVar">
                             <table border="0" width="100%" cellpadding="10">
                                 <tr>
                                     <td width="25%"></td>
@@ -265,6 +265,25 @@
             </tr>
         </table>
     </fieldset>
+    <script>
+        var app = angular.module("mathApp", []);
+
+        app.controller ("mathController", function ($scope) {
+            $scope.firstName = "John",
+            $scope.lastName = "Doe"
+
+            $scope.hintVar = false;
+            $scope.hintToggle = function() {
+                $scope.hintVar = !$scope.hintVar;
+            };
+
+            $scope.divideVar = false;
+            $scope.divideSet = function(setting) {
+                $scope.divideVar = setting;
+            };
+
+        });
+    </script>
 </div>
 </body>
 </html>

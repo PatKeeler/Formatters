@@ -262,7 +262,8 @@ function answerDisplay(display) {
 
         //Show other and hide divide
         $("[name=otherDiv]").removeClass("hide").addClass("show");
-        $("[name=divideDiv]").removeClass("show").addClass("hide");
+        //$("[name=divideDiv]").removeClass("show").addClass("hide");
+        $scope.divideSet(false);
 
         //blank answer, set focus
         $("[name=otherAnswer]").val("");
@@ -272,7 +273,8 @@ function answerDisplay(display) {
     else if (display == "divide") {
 
         $("[name=otherDiv]").removeClass("show").addClass("hide");
-        $("[name=divideDiv]").removeClass("hide").addClass("show");
+        //$("[name=divideDiv]").removeClass("hide").addClass("show");
+        $scope.divideSet(true)
 
         //blank answer, set focus
         $("[name=divideAnswer]").val("");
