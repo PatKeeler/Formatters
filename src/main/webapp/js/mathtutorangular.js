@@ -111,7 +111,7 @@ mathApp.controller ('mathController', function ($scope) {
         var answer = "other";
 
         //Set chosen number
-        $scope.chosenNumber.val($scope.selectedNumber);
+        $scope.chosenNumber = $scope.selectedNumber;
 
         //Add
         if ($scope.selectedMathFunction == 1) {
