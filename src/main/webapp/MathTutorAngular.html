@@ -35,7 +35,7 @@
                         <table border="0" width="100%" cellpadding="10">
                             <tr>
                                 <td width="15%">
-                                    <input type="button" name="About" value="User Guide" onClick="getMathAbout(this)"
+                                    <input type="button" name="About" value="User Guide" data-ng-click="getMathAbout(this)"
                                            style="font-size:.9em; height:1.8em;" />
                                 </td>
                             </tr>
@@ -105,7 +105,7 @@
             <tr>
                 <td width="25%"></td>
                 <td width="75%">
-                    <input type="button" name="Submit" value="Start" onClick="startTutor(this)"/>
+                    <input type="button" name="Submit" value="Start" data-ng-click="startTutor(this)"/>
                 </td>
             </tr>
         </table>
@@ -138,7 +138,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" name="otherAnswer" id="otherAnswer" onkeyup="checkEnterKey(event)"
+                                                            <input type="number" name="otherAnswer" id="otherAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -146,14 +146,14 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <div name=divideDiv data-ng-bind="divideVar">
+                                    <div name=divideDiv data-ng-show="divideVar">
                                         <table>
                                             <tr>
                                                 <td>
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" name="divideAnswer" id="divideAnswer" onkeyup="checkEnterKey(event)"
+                                                            <input type="number" name="divideAnswer" id="divideAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -162,7 +162,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Remainder</li>
                                                         <li>
-                                                            <input type="number" name="remainder" id="remainder" onkeyup="checkEnterKey(event)"
+                                                            <input type="number" name="remainder" id="remainder" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -181,7 +181,7 @@
                                         </tr>
                                         <tr>
                                             <td width="50%">
-                                                <input type="button" name="Submit" value="Check Answer" onClick="checkAnswer(this)"
+                                                <input type="button" name="Submit" value="Check Answer" ng-Click="checkAnswer(this)"
                                                        style="font-size:.9em; height:1.8em;" />
                                             </td>
                                         </tr>
@@ -189,12 +189,12 @@
                                 </td>
                             </tr>
                         </table>
-                        <div name="hintdiv" data-ng-bind="hintVar">
+                        <div name="hintdiv" data-ng-show="hintVar">
                             <table border="0" width="100%" cellpadding="10">
                                 <tr>
                                     <td width="25%"></td>
                                     <td width="75%">
-                                        <input type="button" name="Submit" value="Hint" onClick="getHint(this)"
+                                        <input type="button" name="Submit" value="Hint" ng-Click="getHint(this)"
                                                style="font-size:.9em; height:1.8em;" />
                                     </td>
                                 </tr>
@@ -239,7 +239,7 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    <input type="button" name="Submit" value="Reset Score" onClick="resetScore(this)"
+                                    <input type="button" name="Submit" value="Reset Score" ng-Click="resetScore(this)"
                                            style="font-size:.9em; height:1.8em;" />
                                 </td>
                             </tr>
@@ -248,6 +248,13 @@
                 </td>
             </tr>
         </table>
+
+        <script>
+            var mathApp = angular.module("mathApp", []);
+        </script>
+
+        <script src="js/mathtutorangular.js"></script>
+
     </form>
     <fieldset>
         <legend> Donations </legend>
@@ -264,13 +271,6 @@
             </tr>
         </table>
     </fieldset>
-
-    <script>
-        var app = angular.module("mathApp", []);
-    </script>
-
-    <script src="js/mathtutorangular.js"></script>
-
 </div>
 </body>
 </html>
