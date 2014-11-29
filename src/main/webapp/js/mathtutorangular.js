@@ -64,9 +64,18 @@ mathApp.controller ('mathController', function ($scope) {
 
 
     /**
+     * Radio of number selected to learn.
+     */
+    $scope.numberRadio;
+
+
+    /**
      * Validate radio buttons and start.
      */
     $scope.startTutor = function()  {
+
+        $scope.selectedNumber = $scope.numberRadio;
+        alert("selectedNumber = " + $scope.selectedNumber);
 
         $scope.selectedNumber = $("[name=numberRadio]:checked").val();
 
