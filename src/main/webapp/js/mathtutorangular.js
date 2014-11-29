@@ -60,28 +60,40 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.repetition = 1;
 
     /** Radio of selected math function. */
-    $scope.numberRadio;
+    $scope.numberRadio = 0;
 
     /** Radio of number selected to learn. */
-    $scope.functionRadio;
+    $scope.functionRadio = 0;
 
     /** Form text of number selected. */
-    $scope.chosenNumber;
+    $scope.chosenNumber = 0;
 
     /** Form text of random number. */
-    $scope.randomnumber;
+    $scope.randomnumber = 0;
 
     /** Form text character of selected math function (+ - * /). */
-    $scope.operator;
+    $scope.operator = "";
 
     /** Form text of non-division answer. */
-    $scope.otherAnswer;
+    $scope.otherAnswer = 0;
 
     /** Form text of division answer. */
-    $scope.divideAnswer;
+    $scope.divideAnswer = 0;
 
     /** Form text of division remainder. */
-    $scope.remainder;
+    $scope.remainder = 0;
+
+    /** Form text of division remainder. */
+    $scope.responseText = "";
+
+    /** Form text of division remainder. */
+    $scope.numberRight = 0;
+
+    /** Form text of division remainder. */
+    $scope.numberWrong = 0;
+
+    /** Form text of division remainder. */
+    $scope.percentage = 0;
 
 
     /**
@@ -90,9 +102,6 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.startTutor = function()  {
 
         $scope.selectedNumber = $scope.numberRadio;
-        //alert("selectedNumber = " + $scope.selectedNumber);
-
-        //$scope.selectedNumber = $("[name=numberRadio]:checked").val();
 
         if ($scope.selectedNumber == null) {
             alert($scope.notStarted);
@@ -155,14 +164,14 @@ mathApp.controller ('mathController', function ($scope) {
         }
 
         // blank responseText and background color to white.
-        $("[name=responseText]").val("");
+        $scope.responseText = "";
         $("[name=responseText]").css("background", "#FFFFFF");
 
         //set scores to zero if counts are zero
         if (parseInt($scope.rightCount) == 0 && parseInt($scope.wrongCount) == 0) {
-            $("[name=numberRight]").val(0);
-            $("[name=numberWrong]").val(0);
-            $("[name=percentage]").val(0);
+            $scope.numberRight = 0;
+            $scope.numberWrong = 0;
+            $scope.percentage = 0;
             $scope.remainder = 0;
             $("[name=percentage]").css("background", "#FFFFFF");
         }
@@ -306,7 +315,7 @@ mathApp.controller ('mathController', function ($scope) {
 
             //blank answer, set focus
             $scope.otherAnswer = "";
-            $("[name=otherAnswer]").focus();
+            document.getElementById('otherAnswer').focus();
         }
         //Display divide answer boxes
         else if (display == "divide") {
@@ -319,7 +328,7 @@ mathApp.controller ('mathController', function ($scope) {
             //blank answer, set focus
             $scope.divideAnswer = "";
             $scope.remainder = 0;
-            $("[name=divideAnswer]").focus();
+            document.getElementById('divideAnswer').focus();
         }
         //Doh!
         else {
@@ -340,9 +349,9 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.resetScore = function() {
 
         //set score to blanks.
-        $("[name=numberWrong]").val(0);
-        $("[name=numberRight]").val(0);
-        $("[name=percentage]").val(0);
+        $scope.numberWrong = 0;
+        $scope.numberRight = 0;
+        $scope.percentage = 0;
 
         //set counts to zero
         $scope.wrongCount = 0;
@@ -350,7 +359,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Reset background color to white
         $("[name=percentage]").css("background", "#FFFFFF");
-        $("[name=responseText]").val("");
+        $scope.responseText = "";
         $("[name=responseText]").css("background", "#FFFFFF");
 
     }
@@ -361,7 +370,7 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.correctAnswer = function() {
 
         //Signal correct
-        $("[name=responseText]").val("Correct");
+        $scope.responseText = "Correct";
         $("[name=responseText]").css("background", "#40FF00");
 
         if ($scope.selectedMathFunction != 4) {
@@ -379,7 +388,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Increment number correct
         $scope.rightCount += 1;
-        $("[name=numberRight]").val($scope.rightCount);
+        $scope.numberRight = $scope.rightCount;
 
         //Compute new percentage
         $scope.computePercentage();
@@ -400,7 +409,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         if ($scope.repetition == 2) {
             //Signal wrong answer
-            $("[name=responseText]").val("Wrong");
+            $scope.responseText = "Wrong";
             $("[name=responseText]").css("background", "#FF0000");
 
             if ($scope.selectedMathFunction != 4) {
@@ -416,7 +425,7 @@ mathApp.controller ('mathController', function ($scope) {
 
             //Increment number incorrect
             $scope.wrongCount += 1;
-            $("[name=numberWrong]").val($scope.wrongCount);
+            $scope.numberWrong = $scope.wrongCount;
 
             //reset
             $scope.repetition = 1;
@@ -430,7 +439,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.repetition += 1;
 
             //Signal wrong answer
-            $("[name=responseText]").val("Try again");
+            $scope.responseText = "Try again";
             $("[name=responseText]").css("background", "#FFFF00");
 
             //show hint button
@@ -473,7 +482,7 @@ mathApp.controller ('mathController', function ($scope) {
         }
 
         //show percentage
-        $("[name=percentage]").val(percentage);
+        $scope.percentage = percentage;
 
         //Set color for score
         if (percentage >= 90) {

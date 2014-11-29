@@ -138,7 +138,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" name="otherAnswer" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number" id="otherAnswer" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -153,7 +153,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" name="divideAnswer" ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number" id="divideAnswer" ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -175,7 +175,7 @@
                                     <table>
                                         <tr>
                                             <td width="50%">
-                                                <input type="text" name="responseText" id="responseText" readonly="readonly"
+                                                <input type="text" ng-bind="responseText" readonly="readonly"
                                                        style="font-size:1em; text-align:center; vertical-align:9px; width:4.4em; height:1em;" />
                                             </td>
                                         </tr>
