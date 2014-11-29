@@ -64,6 +64,12 @@ mathApp.controller ('mathController', function ($scope) {
 
 
     /**
+     * Radio of selected math function.
+     */
+    $scope.numberRadio;
+
+
+    /**
      * Radio of number selected to learn.
      */
     $scope.numberRadio;
@@ -84,7 +90,7 @@ mathApp.controller ('mathController', function ($scope) {
             return false;
         }
 
-        $scope.selectedMathFunction = $("[name=functionRadio]:checked").val();
+        $scope.selectedMathFunction = $scope.functionRadio;
 
         if ($scope.selectedMathFunction == null) {
             alert($scope.notStarted);
