@@ -27,6 +27,14 @@ mathApp.controller ('mathController', function ($scope) {
     };
 
     /**
+     * boolean setting to SHOW non-division function.
+     */
+    $scope.otherVar = false;
+    $scope.otherSet = function(setting) {
+        $scope.otherVar = setting;
+    };
+
+    /**
      * Default message if start sequence not followed.
      */
     $scope.notStarted = "You must select a number, a math function and click on the \"Start\" " +
@@ -57,17 +65,23 @@ mathApp.controller ('mathController', function ($scope) {
     /** Radio of number selected to learn. */
     $scope.functionRadio;
 
-    /** Radio of number selected to learn. */
+    /** Form text of number selected. */
     $scope.chosenNumber;
 
-    /** Radio of number selected to learn. */
+    /** Form text of random number. */
     $scope.randomnumber;
 
-    /** Radio of number selected to learn. */
+    /** Form text character of selected math function (+ - * /). */
     $scope.operator;
 
-    /** Radio of number selected to learn. */
+    /** Form text of non-division answer. */
     $scope.otherAnswer;
+
+    /** Form text of division answer. */
+    $scope.divideAnswer;
+
+    /** Form text of division remainder. */
+    $scope.remainder;
 
 
     /**
@@ -149,7 +163,7 @@ mathApp.controller ('mathController', function ($scope) {
             $("[name=numberRight]").val(0);
             $("[name=numberWrong]").val(0);
             $("[name=percentage]").val(0);
-            $("[name=remainder]").val(0);
+            $scope.remainder = 0;
             $("[name=percentage]").css("background", "#FFFFFF");
         }
 
@@ -186,14 +200,14 @@ mathApp.controller ('mathController', function ($scope) {
             }
         }
         else {
-            if (! $scope.verifyNumber($("[name=divideAnswer]").val())) {
+            if (! $scope.verifyNumber == $scope.divideAnswer) {
                 alert($scope.invalidNumber);
                 return false;
             }
         }
         //Make sure remainder is blank or a number
-        if ($("[name=remainder]").val() != "") {
-            if (! $scope.verifyNumber($("[name=remainder]").val())) {
+        if ($scope.remainder != "") {
+            if (! $scope.verifyNumber($scope.remainder)) {
                 alert($scope.invalidNumber);
                 return false;
             }
@@ -248,11 +262,11 @@ mathApp.controller ('mathController', function ($scope) {
             var remainder;
             var mod;
 
-            if ($("[name=remainder]").val() == "") {
+            if ($scope.remainder == "") {
                 remainder = parseInt(0);
             }
             else {
-                remainder = parseInt($("[name=remainder]").val());
+                remainder = parseInt($scope.remainder);
             }
 
             answer = parseInt($scope.selectedNumber) / parseInt($scope.randomNumber);
@@ -260,8 +274,7 @@ mathApp.controller ('mathController', function ($scope) {
 
             mod = parseInt($scope.selectedNumber) % parseInt($scope.randomNumber);
 
-            if ( answer == $("[name=divideAnswer]").val() &&
-                mod == $("[name=remainder]").val() ) {
+            if ( answer == $scope.divideAnswer && mod == $scope.remainder) {
 
                 $scope.correctAnswer();
 
@@ -288,8 +301,7 @@ mathApp.controller ('mathController', function ($scope) {
         if (display == "other") {
 
             //Show other and hide divide
-            $("[name=otherDiv]").removeClass("hide").addClass("show");
-            //$("[name=divideDiv]").removeClass("show").addClass("hide");
+            $scope.otherSet(true);
             $scope.divideSet(false);
 
             //blank answer, set focus
@@ -299,13 +311,14 @@ mathApp.controller ('mathController', function ($scope) {
         //Display divide answer boxes
         else if (display == "divide") {
 
-            $("[name=otherDiv]").removeClass("show").addClass("hide");
-            //$("[name=divideDiv]").removeClass("hide").addClass("show");
+            //hide non-divide
+            $scope.otherSet(false);
+            //show divide
             $scope.divideSet(true)
 
             //blank answer, set focus
-            $("[name=divideAnswer]").val("");
-            $("[name=remainder]").val("0");
+            $scope.divideAnswer = "";
+            $scope.remainder = 0;
             $("[name=divideAnswer]").focus();
         }
         //Doh!
@@ -357,10 +370,10 @@ mathApp.controller ('mathController', function ($scope) {
             $("[name=otherAnswer]").focus();
         }
         else {
+            $scope.remainder = 0;
             //Set divideAnswer to blank and focus
-            $("[name=divideAnswer]").val("");
+            $scope.divideAnswer= "";
             $("[name=divideAnswer]").focus();
-            $("[name=remainder]").val("0");
         }
 
 
@@ -397,7 +410,7 @@ mathApp.controller ('mathController', function ($scope) {
             }
             else {
                 //Set divideAnswer to blank and focus
-                $("[name=divideAnswer]").val("");
+                $scope.divideAnswer = "";
                 $("[name=divideAnswer]").focus();
             }
 
