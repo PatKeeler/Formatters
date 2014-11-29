@@ -135,11 +135,13 @@ mathApp.controller ('mathController', function ($scope) {
         $("[name=responseText]").css("background", "#FFFFFF");
 
         //set scores to zero if counts are zero
-        $("[name=numberRight]").val(0);
-        $("[name=numberWrong]").val(0);
-        $("[name=percentage]").val(0);
-        $("[name=remainder]").val(0);
-        $("[name=percentage]").css("background", "#FFFFFF");
+        if (parseInt($scope.rightCount) == 0 && parseInt($scope.wrongCount) == 0) {
+            $("[name=numberRight]").val(0);
+            $("[name=numberWrong]").val(0);
+            $("[name=percentage]").val(0);
+            $("[name=remainder]").val(0);
+            $("[name=percentage]").css("background", "#FFFFFF");
+        }
 
         //set the answer display
         $scope.answerDisplay(answer);
@@ -295,7 +297,6 @@ mathApp.controller ('mathController', function ($scope) {
             $("[name=divideAnswer]").val("");
             $("[name=remainder]").val("0");
             $("[name=divideAnswer]").focus();
-            $("[name=divideAnswer]").focus();
         }
         //Doh!
         else {
@@ -315,23 +316,19 @@ mathApp.controller ('mathController', function ($scope) {
      */
     $scope.resetScore = function() {
 
-        ////set score to blanks.
-        //$("[name=numberWrong]").val(0);
-        //$("[name=numberRight]").val(0);
-        //$("[name=percentage]").val(0);
-        //
-        ////set counts to zero
-        //$scope.wrongCount = 0;
-        //$scope.rightCount = 0;
-        //
-        ////Reset background color to white
-        //$("[name=percentage]").css("background", "#FFFFFF");
-        //$("[name=responseText]").val("");
-        //$("[name=responseText]").css("background", "#FFFFFF");
+        //set score to blanks.
+        $("[name=numberWrong]").val(0);
+        $("[name=numberRight]").val(0);
+        $("[name=percentage]").val(0);
 
-        $scope.initializeTestItems();
+        //set counts to zero
+        $scope.wrongCount = 0;
+        $scope.rightCount = 0;
 
-        $scope.startTutor();
+        //Reset background color to white
+        $("[name=percentage]").css("background", "#FFFFFF");
+        $("[name=responseText]").val("");
+        $("[name=responseText]").css("background", "#FFFFFF");
 
     }
 
@@ -612,8 +609,8 @@ mathApp.controller ('mathController', function ($scope) {
         var newLine = "\n";
 
         for (var i = 0; i < 12; i++) {
-            display += newLine + $scope.selectedNumber + " x " + parseInt(i + 1) + " = " +
-            (parseInt($scope.selectedNumber) * parseInt(i + 1));
+            display += newLine + parseInt(i + 1) + " x " + $scope.selectedNumber + " = " +
+            (parseInt(parseInt(i + 1) * $scope.selectedNumber));
         }
 
         alert("Hint: " + display);
