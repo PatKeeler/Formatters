@@ -117,15 +117,15 @@
                         <table width="60%">
                             <tr>
                                 <td width="15%">
-                                    <input type="text" name="chosenNumber" id="chosenNumber" readonly="readonly"
+                                    <input type="text" ng-model="chosenNumber"readonly="readonly"
                                            style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
                                 </td>
                                 <td width="15%">
-                                    <input type="text" name="operator" id="operator" readonly="readonly"
+                                    <input type="text" ng-model="operator" readonly="readonly"
                                            style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
                                 </td>
                                 <td width="15%">
-                                    <input type="text" name="randomNumber" id="randomNumber" readonly="readonly"
+                                    <input type="text" ng-model="randomNumber" readonly="readonly"
                                            style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
                                 </td>
                                 <td width="15%"	 readonly="readonly" style="font-size:3em; text-align:center;
@@ -138,7 +138,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" name="otherAnswer" id="otherAnswer" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>

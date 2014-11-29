@@ -32,47 +32,42 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.notStarted = "You must select a number, a math function and click on the \"Start\" " +
         "button before using this funtion, \nPlease do that now.";
 
-    /**
-     * Variable to hold selected number
+    /** Variable to hold selected number
      * Default to 0 for validation check when answer button pressed.
      */
-    $scope.selectedNumber = "";
+    $scope.selectedNumber = 0;
 
-    /**
-     * Variable to hold math function
+    /** Variable to hold math function
      * Default to 0 for validation check when answer button pressed.
      */
-    $scope.selectedMathFunction = "";
+    $scope.selectedMathFunction = "0";
 
-
-    /**
-     * Keep count of number correct
-     */
+    /** Keep count of number correct */
     $scope.rightCount = 0;
 
-
-    /**
-     * Keep count of number correct
-     */
+    /** Keep count of number correct */
     $scope.wrongCount = 0;
 
-
-    /**
-     * Boolean to keep count of incorrect guesses.
-     */
+    /** Boolean to keep count of incorrect guesses. */
     $scope.repetition = 1;
 
-
-    /**
-     * Radio of selected math function.
-     */
+    /** Radio of selected math function. */
     $scope.numberRadio;
 
+    /** Radio of number selected to learn. */
+    $scope.functionRadio;
 
-    /**
-     * Radio of number selected to learn.
-     */
-    $scope.numberRadio;
+    /** Radio of number selected to learn. */
+    $scope.chosenNumber;
+
+    /** Radio of number selected to learn. */
+    $scope.randomnumber;
+
+    /** Radio of number selected to learn. */
+    $scope.operator;
+
+    /** Radio of number selected to learn. */
+    $scope.otherAnswer;
 
 
     /**
@@ -116,27 +111,27 @@ mathApp.controller ('mathController', function ($scope) {
         var answer = "other";
 
         //Set chosen number
-        $("[name=chosenNumber]").val($scope.selectedNumber);
+        $scope.chosenNumber.val($scope.selectedNumber);
 
         //Add
         if ($scope.selectedMathFunction == 1) {
-            $("[name=operator]").val("+");
-            $("[name=randomNumber]").val($scope.getRandomInteger(12));
+            $scope.operator = "+";
+            $scope.randomNumber = $scope.getRandomInteger(12);
         }
         //Subtract
         else if ($scope.selectedMathFunction == 2) {
-            $("[name=operator]").val("-");
-            $("[name=randomNumber]").val($scope.getRandomInteger($scope.selectedNumber));
+            $scope.operator = "-";
+            $scope.randomNumber = $scope.getRandomInteger($scope.selectedNumber);
         }
         //Multiply
         else if ($scope.selectedMathFunction == 3) {
-            $("[name=operator]").val("x");
-            $("[name=randomNumber]").val($scope.getRandomInteger(12));
+            $scope.operator = "x";
+            $scope.randomNumber = $scope.getRandomInteger(12);
         }
         //Divide
         else if ($scope.selectedMathFunction == 4) {
-            $("[name=operator]").val("/");
-            $("[name=randomNumber]").val($scope.getRandomInteger($scope.selectedNumber));
+            $scope.operator = "/";
+            $scope.randomNumber = $scope.getRandomInteger($scope.selectedNumber);
 
             //set answer = divide
             answer = "divide";
@@ -185,7 +180,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Make sure there is an answer to check.
         if ($scope.selectedMathFunction != 4) {
-            if (! $scope.verifyNumber($("[name=otherAnswer]").val())) {
+            if (! $scope.verifyNumber($scope.otherAnswer)) {
                 alert($scope.invalidNumber);
                 return false;
             }
@@ -207,13 +202,13 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Addition
         if ($scope.selectedMathFunction == 1) {
-            answer = parseInt($scope.selectedNumber) + parseInt($("[name=randomNumber]").val());
+            answer = parseInt($scope.selectedNumber) + parseInt($scope.randomNumber);
 
-            if (answer == $("[name=otherAnswer]").val()) {
+            if (answer == $scope.otherAnswer) {
                 $scope.correctAnswer();
 
                 //Reset random number
-                $("[name=randomNumber]").val($scope.getRandomInteger(12));
+                $scope.randomNumber = $scope.getRandomInteger(12);
             }
             else {
                 $scope.wrongAnswer();
@@ -221,13 +216,13 @@ mathApp.controller ('mathController', function ($scope) {
         }
         //Subtraction
         else if ($scope.selectedMathFunction == 2) {
-            answer = parseInt($scope.selectedNumber) - parseInt($("[name=randomNumber]").val());
+            answer = parseInt($scope.selectedNumber) - parseInt($scope.randomNumber);
 
-            if (answer == $("[name=otherAnswer]").val()) {
+            if (answer == $scope.otherAnswer) {
                 $scope.correctAnswer();
 
                 //Reset random number
-                $("[name=randomNumber]").val($scope.getRandomInteger($scope.selectedNumber));
+                $scope.randomNumber = $scope.getRandomInteger($scope.selectedNumber);
             }
             else {
                 $scope.wrongAnswer();
@@ -235,13 +230,13 @@ mathApp.controller ('mathController', function ($scope) {
         }
         //Multiplication
         else if ($scope.selectedMathFunction == 3) {
-            answer = parseInt($scope.selectedNumber) * parseInt($("[name=randomNumber]").val());
+            answer = parseInt($scope.selectedNumber) * parseInt($scope.randomNumber);
 
-            if (answer == $("[name=otherAnswer]").val()) {
+            if (answer == $scope.otherAnswer) {
                 $scope.correctAnswer();
 
                 //Reset random number
-                $("[name=randomNumber]").val($scope.getRandomInteger(12));
+                $scope.randomNumber = $scope.getRandomInteger(12);
             }
             else {
                 $scope.wrongAnswer();
@@ -260,10 +255,10 @@ mathApp.controller ('mathController', function ($scope) {
                 remainder = parseInt($("[name=remainder]").val());
             }
 
-            answer = parseInt($scope.selectedNumber) / parseInt($("[name=randomNumber]").val());
+            answer = parseInt($scope.selectedNumber) / parseInt($scope.randomNumber);
             answer = Math.floor(answer);
 
-            mod = parseInt($scope.selectedNumber) % parseInt($("[name=randomNumber]").val());
+            mod = parseInt($scope.selectedNumber) % parseInt($scope.randomNumber);
 
             if ( answer == $("[name=divideAnswer]").val() &&
                 mod == $("[name=remainder]").val() ) {
@@ -271,7 +266,7 @@ mathApp.controller ('mathController', function ($scope) {
                 $scope.correctAnswer();
 
                 //For division get a number that gives mod zero
-                $("[name=randomNumber]").val($scope.getRandomInteger($scope.selectedNumber));
+                $scope.randomNumber = $scope.getRandomInteger($scope.selectedNumber);
 
             }
             else {
@@ -298,7 +293,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.divideSet(false);
 
             //blank answer, set focus
-            $("[name=otherAnswer]").val("");
+            $scope.otherAnswer = "";
             $("[name=otherAnswer]").focus();
         }
         //Display divide answer boxes
@@ -358,7 +353,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         if ($scope.selectedMathFunction != 4) {
             //Set otherAnswer to blank and focus
-            $("[name=otherAnswer]").val("");
+            $scope.otherAnswer = "";
             $("[name=otherAnswer]").focus();
         }
         else {
@@ -397,7 +392,7 @@ mathApp.controller ('mathController', function ($scope) {
 
             if ($scope.selectedMathFunction != 4) {
                 //Set otherAnswer to blank and focus
-                $("[name=otherAnswer]").val("");
+                $scope.otherAnswer = "";
                 $("[name=otherAnswer]").focus();
             }
             else {
