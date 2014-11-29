@@ -75,9 +75,9 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.startTutor = function()  {
 
         $scope.selectedNumber = $scope.numberRadio;
-        alert("selectedNumber = " + $scope.selectedNumber);
+        //alert("selectedNumber = " + $scope.selectedNumber);
 
-        $scope.selectedNumber = $("[name=numberRadio]:checked").val();
+        //$scope.selectedNumber = $("[name=numberRadio]:checked").val();
 
         if ($scope.selectedNumber == null) {
             alert($scope.notStarted);
