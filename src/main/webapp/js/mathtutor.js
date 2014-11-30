@@ -11,7 +11,7 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.invalidNumber = "You must enter valid numbers for your answer, please try again!";
 
     /**
-     * boolean setting for Hint function.mathController
+     * boolean setting for Hint function
      */
     $scope.hintVar = false;
     $scope.hintSet = function(setting) {
@@ -106,6 +106,7 @@ mathApp.controller ('mathController', function ($scope) {
 
     /** Percentage styling. */
     $scope.percentStyle = "";
+
 
 
     /**
