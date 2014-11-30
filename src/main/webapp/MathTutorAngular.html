@@ -4,6 +4,7 @@
     <title>Pat's Elementary Math Tutor</title>
     <script type="text/javascript" src="js/jquery-1.6.4.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript" src="js/mathtutordirectives.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <meta name="description" content="A simple math tutor to help learn multiplication, division, addition and subtraction of numbers from 1 through 12." />
     <meta name="robots" content="index, follow" />
@@ -138,7 +139,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" id="otherAnswer" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number" ng-focus="otherFocus" id="otherAnswer" name="otherAnswer" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>
@@ -153,7 +154,7 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" id="divideAnswer" ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number" ng-focus="divideFocus" name="divideAnswer" id="divideAnswer" ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
                                                         </li>
                                                     </ul>

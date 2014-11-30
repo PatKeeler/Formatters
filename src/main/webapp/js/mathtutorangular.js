@@ -1,5 +1,5 @@
 /**
- * Modified by Pat on 11/27/2014.
+ * Modified by Pat Keeler on 11/27/2014.
  */
 
 
@@ -80,6 +80,12 @@ mathApp.controller ('mathController', function ($scope) {
     /** Form text of division answer. */
     $scope.divideAnswer = 0;
 
+    /** Form text of non-division answer. */
+    $scope.otherFocus = "";
+
+    /** Form text of division answer. */
+    $scope.divideFocus = "";
+
     /** Form text of division remainder. */
     $scope.remainder = 0;
 
@@ -96,10 +102,10 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.percentage = 0;
 
     /** Response Styling. */
-    $scope.responseStyle = "#FF0000";
+    $scope.responseStyle = "";
 
     /** Percentage styling. */
-    $scope.percentStyle = "#FF0000";
+    $scope.percentStyle = "";
 
 
     /**
@@ -208,18 +214,21 @@ mathApp.controller ('mathController', function ($scope) {
         }
 
         //Make sure there is an answer to check.
+        //  check non-division
         if ($scope.selectedMathFunction != 4) {
             if (! $scope.verifyNumber($scope.otherAnswer)) {
                 alert($scope.invalidNumber);
                 return false;
             }
         }
+        //  check division
         else {
             if (! $scope.verifyNumber($scope.divideAnswer)) {
                 alert($scope.invalidNumber);
                 return false;
             }
         }
+
         //Make sure remainder is blank or a number
         if ($scope.remainder != "") {
             if (! $scope.verifyNumber($scope.remainder)) {
@@ -321,7 +330,8 @@ mathApp.controller ('mathController', function ($scope) {
 
             //blank answer, set focus
             $scope.otherAnswer = "";
-            document.getElementById('otherAnswer').focus();
+            $scope.otherFocus = {"isFocus": "true"};
+            //document.getElementById('otherAnswer').focus();
         }
         //Display divide answer boxes
         else if (display == "divide") {
@@ -334,7 +344,8 @@ mathApp.controller ('mathController', function ($scope) {
             //blank answer, set focus
             $scope.divideAnswer = "";
             $scope.remainder = 0;
-            document.getElementById('divideAnswer').focus();
+            //document.getElementById('divideAnswer').focus();
+            $scope.divideFocus = {"isFocus": "true"};
         }
         //Doh!
         else {
@@ -403,12 +414,14 @@ mathApp.controller ('mathController', function ($scope) {
             //Set otherAnswer to blank and focus
             $scope.otherAnswer = "";
             $("[name=otherAnswer]").focus();
+            $scope.otherFocus = {"isFocus":"true"};
         }
         else {
             $scope.remainder = 0;
             //Set divideAnswer to blank and focus
             $scope.divideAnswer= "";
             $("[name=divideAnswer]").focus();
+            $scope.divideFocus = {"isFocus":"true"};
         }
 
     }
@@ -431,7 +444,7 @@ mathApp.controller ('mathController', function ($scope) {
             //reset
             $scope.repetition = 1;
 
-            //show hint button
+            //hide hint button
             $scope.hintDisplay(false);
 
         }
