@@ -95,6 +95,12 @@ mathApp.controller ('mathController', function ($scope) {
     /** Form text of division remainder. */
     $scope.percentage = 0;
 
+    /** Response Styling. */
+    $scope.responseStyle = "#FF0000";
+
+    /** Percentage styling. */
+    $scope.percentStyle = "#FF0000";
+
 
     /**
      * Validate radio buttons and start.
@@ -165,7 +171,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         // blank responseText and background color to white.
         $scope.responseText = "";
-        $("[name=responseText]").css("background", "#FFFFFF");
+        $scope.responseStyle = {"background-color": "#FFFFFF"};
 
         //set scores to zero if counts are zero
         if (parseInt($scope.rightCount) == 0 && parseInt($scope.wrongCount) == 0) {
@@ -173,7 +179,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.numberWrong = 0;
             $scope.percentage = 0;
             $scope.remainder = 0;
-            $("[name=percentage]").css("background", "#FFFFFF");
+            $scope.percentStyle = {"background-color": "#FFFFFF"};
         }
 
         //set the answer display
@@ -209,7 +215,7 @@ mathApp.controller ('mathController', function ($scope) {
             }
         }
         else {
-            if (! $scope.verifyNumber == $scope.divideAnswer) {
+            if (! $scope.verifyNumber($scope.divideAnswer)) {
                 alert($scope.invalidNumber);
                 return false;
             }
@@ -337,6 +343,11 @@ mathApp.controller ('mathController', function ($scope) {
     }
 
 
+    /**
+     * Set the Hint visibility
+     *
+     * @param display
+     */
     $scope.hintDisplay = function(display) {
 
         $scope.hintSet(display);
@@ -358,9 +369,9 @@ mathApp.controller ('mathController', function ($scope) {
         $scope.rightCount = 0;
 
         //Reset background color to white
-        $("[name=percentage]").css("background", "#FFFFFF");
+        $scope.percentStyle = {"background-color": "#FFFFFF"};
         $scope.responseText = "";
-        $("[name=responseText]").css("background", "#FFFFFF");
+        $scope.responseStyle = {"background-color": "#FFFFFF"};
 
     }
 
@@ -371,20 +382,7 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Signal correct
         $scope.responseText = "Correct";
-        $("[name=responseText]").css("background", "#40FF00");
-
-        if ($scope.selectedMathFunction != 4) {
-            //Set otherAnswer to blank and focus
-            $scope.otherAnswer = "";
-            $("[name=otherAnswer]").focus();
-        }
-        else {
-            $scope.remainder = 0;
-            //Set divideAnswer to blank and focus
-            $scope.divideAnswer= "";
-            $("[name=divideAnswer]").focus();
-        }
-
+        $scope.responseStyle =  {"background-color": "#40FF00"};
 
         //Increment number correct
         $scope.rightCount += 1;
@@ -399,6 +397,20 @@ mathApp.controller ('mathController', function ($scope) {
         //hide hint button
         $scope.hintDisplay(false);
 
+
+        //clear answer and set focus
+        if ($scope.selectedMathFunction != 4) {
+            //Set otherAnswer to blank and focus
+            $scope.otherAnswer = "";
+            $("[name=otherAnswer]").focus();
+        }
+        else {
+            $scope.remainder = 0;
+            //Set divideAnswer to blank and focus
+            $scope.divideAnswer= "";
+            $("[name=divideAnswer]").focus();
+        }
+
     }
 
 
@@ -410,18 +422,7 @@ mathApp.controller ('mathController', function ($scope) {
         if ($scope.repetition == 2) {
             //Signal wrong answer
             $scope.responseText = "Wrong";
-            $("[name=responseText]").css("background", "#FF0000");
-
-            if ($scope.selectedMathFunction != 4) {
-                //Set otherAnswer to blank and focus
-                $scope.otherAnswer = "";
-                $("[name=otherAnswer]").focus();
-            }
-            else {
-                //Set divideAnswer to blank and focus
-                $scope.divideAnswer = "";
-                $("[name=divideAnswer]").focus();
-            }
+            $scope.responseStyle = {"background-color": "#FF0000"};
 
             //Increment number incorrect
             $scope.wrongCount += 1;
@@ -440,7 +441,7 @@ mathApp.controller ('mathController', function ($scope) {
 
             //Signal wrong answer
             $scope.responseText = "Try again";
-            $("[name=responseText]").css("background", "#FFFF00");
+            $scope.responseStyle = {"background-color": "#FFFF00"};
 
             //show hint button
             $scope.hintDisplay(true);
@@ -449,6 +450,19 @@ mathApp.controller ('mathController', function ($scope) {
 
         //Compute new percentage
         $scope.computePercentage();
+
+
+        //clear answer and set focus
+        if ($scope.selectedMathFunction != 4) {
+            //Set otherAnswer to blank and focus
+            $scope.otherAnswer = "";
+            $("[name=otherAnswer]").focus();
+        }
+        else {
+            //Set divideAnswer to blank and focus
+            $scope.divideAnswer = "";
+            $("[name=divideAnswer]").focus();
+        }
 
     }
 
@@ -487,23 +501,23 @@ mathApp.controller ('mathController', function ($scope) {
         //Set color for score
         if (percentage >= 90) {
             //Green
-            $("[name=percentage]").css("background", "#40FF00");
+            $scope.percentStyle = {"background-color": "#40FF00"};
         }
         else if(percentage >= 80) {
             //Yellow
-            $("[name=percentage]").css("background", "#FFFF00");
+            $scope.percentStyle = {"background-color": "#FFFF00"};
         }
         else if(percentage >= 70) {
             //Orange
-            $("[name=percentage]").css("background", "#FF6600");
+            $scope.percentStyle = {"background-color": "#FF6600"};
         }
         else if(percentage >= 1) {
             //Red
-            $("[name=percentage]").css("background", "#FF0000");
+            $scope.percentStyle = {"background-color": "#FF0000"};
         }
         else {
             //White
-            $("[name=percentage]").css("background", "#FFFFFF");
+            $scope.percentStyle = {"background-color": "#FFFFFF"};
         }
     }
 
@@ -587,10 +601,6 @@ mathApp.controller ('mathController', function ($scope) {
             //Set focus on answer
             $("[name=divideAnswer]").focus();
         }
-
-        //Set focus on answer
-        $("[name=otherAnswer]").focus();
-
     }
 
 
