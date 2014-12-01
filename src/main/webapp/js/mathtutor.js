@@ -48,7 +48,7 @@ mathApp.controller ('mathController', function ($scope) {
     /** Variable to hold math function
      * Default to 0 for validation check when answer button pressed.
      */
-    $scope.selectedMathFunction = "0";
+    $scope.selectedMathFunction = 0;
 
     /** Keep count of number correct */
     $scope.rightCount = 0;
@@ -80,12 +80,6 @@ mathApp.controller ('mathController', function ($scope) {
     /** Form text of division answer. */
     $scope.divideAnswer = 0;
 
-    /** Form text of non-division answer. */
-    $scope.otherFocus = "";
-
-    /** Form text of division answer. */
-    $scope.divideFocus = "";
-
     /** Form text of division remainder. */
     $scope.remainder = 0;
 
@@ -107,7 +101,7 @@ mathApp.controller ('mathController', function ($scope) {
     /** Percentage styling. */
     $scope.percentStyle = "";
 
-    /** Non divide answer focus. */
+    /** Non divide answer focus (Add, Subtract, Multiply). */
     $scope.focusOtherAnswer = false;
 
     /** Divide answer focus. */
