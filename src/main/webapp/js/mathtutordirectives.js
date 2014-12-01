@@ -4,19 +4,16 @@
 
 
 /**
- * Directive to set non-divide focus.
+ * Directive to focus on answer control.
  */
-mathApp.directive('otherFocus', function(elem) {
-    return function(scope, element){
-        element[0].focus();
-    };
-});
-
-/**
- * Directive to set divide focus.
- */
-mathApp.directive('divideFocus', function(elem) {
-    return function (scope, element) {
-        element[0].focus();
-    };
-});
+mathApp.directive('focusIf', [function () {
+    return function focusIf(scope, element, attr) {
+        scope.$watch(attr.focusIf, function (newVal) {
+            if (newVal) {
+                scope.$evalAsync(function() {
+                    element[0].focus();
+                });
+            }
+        });
+    }
+}]);

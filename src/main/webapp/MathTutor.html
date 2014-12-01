@@ -138,8 +138,12 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" ng-focus="otherFocus" id="otherAnswer" name="otherAnswer" ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
-                                                                   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
+                                                            <div ng-show="focusNonDivideAnswer">
+                                                                <input type="number" focus-if="focusNonDivideAnswer"
+                                                                       id="otherAnswer" name="otherAnswer"
+                                                                       ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
+                                                                       style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -153,8 +157,12 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
-                                                            <input type="number" ng-focus="divideFocus" name="divideAnswer" id="divideAnswer" ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
-                                                                   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
+                                                            <div ng-show="focusDivideAnswer">
+                                                                <input type="number" focus-if="focusDivideAnswer"
+                                                                       name="divideAnswer" id="divideAnswer"
+                                                                       ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
+                                                                       style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
+                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </td>
@@ -162,7 +170,9 @@
                                                     <ul>
                                                         <li style="font-size:1em;">Remainder</li>
                                                         <li>
-                                                            <input type="number" ng-model="remainder" ng-Keyup="checkEnterKey(event)"
+                                                            <input type="number"
+                                                                   ng-model="remainder"
+                                                                   ng-Keyup="checkEnterKey(event)"
                                                                    style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2em; height:1.5em;" />
                                                         </li>
                                                     </ul>
