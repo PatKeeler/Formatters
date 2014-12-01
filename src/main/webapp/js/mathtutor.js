@@ -108,7 +108,7 @@ mathApp.controller ('mathController', function ($scope) {
     $scope.percentStyle = "";
 
     /** Non divide answer focus. */
-    $scope.focusNonDivideAnswer = false;
+    $scope.focusOtherAnswer = false;
 
     /** Divide answer focus. */
     $scope.focusDivideAnswer = false;
@@ -341,7 +341,7 @@ mathApp.controller ('mathController', function ($scope) {
             /*
              * Set focus on other answer control.
              */
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
 
             /* this is what works */
             //document.getElementById('otherAnswer').focus();
@@ -359,7 +359,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.remainder = 0;
 
             /*
-             * Set focus on other answer control.
+             * Set focus on divide answer control.
              */
             $scope.focusDivideAnswer = true;
 
@@ -433,7 +433,7 @@ mathApp.controller ('mathController', function ($scope) {
             //Set otherAnswer to blank and focus
             $scope.otherAnswer = "";
 
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
             //$("[name=otherAnswer]").focus();
         }
         else {
@@ -490,7 +490,7 @@ mathApp.controller ('mathController', function ($scope) {
             //Set otherAnswer to blank and focus
             $scope.otherAnswer = "";
 
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
             //$("[name=otherAnswer]").focus();
         }
         else {
@@ -619,7 +619,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.getAdditionHints();
 
             //Set focus on answer
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
             //$("[name=otherAnswer]").focus();
         }
         //Subtraction
@@ -627,7 +627,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.getSubtractionHints();
 
             //Set focus on answer
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
             //$("[name=otherAnswer]").focus();
         }
         //Multiplication
@@ -635,7 +635,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.getMultiplicationHints();
 
             //Set focus on answer
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusOtherAnswer = true;
             //$("[name=otherAnswer]").focus();
         }
         //Division
@@ -643,7 +643,7 @@ mathApp.controller ('mathController', function ($scope) {
             $scope.getDivisionHints();
 
             //Set focus on division answer
-            $scope.focusNonDivideAnswer = true;
+            $scope.focusDivideAnswer = true;
             //$("[name=divideAnswer]").focus();
         }
     }
