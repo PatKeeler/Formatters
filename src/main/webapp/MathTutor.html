@@ -139,7 +139,7 @@
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
                                                             <div ng-show="focusOtherAnswer">
-                                                                <input type="number" focus-if="focusNonDivideAnswer"
+                                                                <input type="number" focus-if-other="focusOtherAnswer"
                                                                        id="otherAnswer" name="otherAnswer"
                                                                        ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
                                                                        style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
@@ -158,7 +158,7 @@
                                                         <li style="font-size:1em;">Answer</li>
                                                         <li>
                                                             <div ng-show="focusDivideAnswer">
-                                                                <input type="number" focus-if="focusDivideAnswer"
+                                                                <input type="number" focus-if-divide="focusDivideAnswer"
                                                                        name="divideAnswer" id="divideAnswer"
                                                                        ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
                                                                        style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
