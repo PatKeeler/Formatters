@@ -565,7 +565,9 @@ mathApp.controller ('mathController', function ($scope) {
 
 
     /**
+     * Check for keyUP on enter key.
      *
+     * @param e element
      */
     $scope.checkEnterKey = function(e) {
 
