@@ -290,6 +290,13 @@ function resetScore() {
 	//set counts to zero
 	numberInCorrect = 0;
 	numberCorrect = 0;
+
+	if (selectedMathFunction == 4) {
+		answerDisplay("divide");
+	} else {
+		answerDisplay("other");
+	}
+
 }
 
 /**
