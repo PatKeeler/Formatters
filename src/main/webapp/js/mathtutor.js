@@ -1,47 +1,44 @@
- 
-/**
- * Default invalidNumber error return message.
- */
-var invalidNumber = "You must enter valid numbers for your answer, please try again!";
-
 
 /**
- * Default message if start sequence not followed.
+ * The Tutor prototype.
  */
-var notStarted = "You must select a number, a math function and click on the \"Start\" " +
-		"button before using this funtion, \nPlease do that now.";
+function Tutor(number, mathFunction, maxRandom) {
+
+	/** The number to practice */
+	this.number = number;
+
+	/** The math function (add, subtract, multiply, divide) */
+	this.mathFunction = mathFunction;
+
+	/** The max random number to use */
+	this.maxRandom = maxRandom;
+
+};
 
 
-/**
- * Variable to hold selected number
- * Default to 0 for validation check when answer button pressed.
- */
+/** Variable to hold selected number.
+ * Default to 0 for validation check when answer button pressed. */
 var selectedNumber;
 
+/** Variable to hold math function.
+ * Default to 0 for validation check when answer button pressed. */
+var selectedMathFunction;
 
-/**
- * Variable to hold math function
- * Default to 0 for validation check when answer button pressed.
- */
-var SelectedMathFunction;
+/** Count of number correct. */
+var numberCorrect = 0;
 
+/** Count of number wrong. */
+var numberInCorrect = 0;
 
-/** 
- * Keep count of number correct
- */
-var rightCount = 0;
-
-
-/** 
- * Keep count of number correct
- */
-var wrongCount = 0;
-
-
-/**
- * Boolean to keep count of incorrect guesses.
- */
+/** Keep count of incorrect guesses. */
 var repetition = 1;
+
+/** Default invalidNumber error return message. */
+var invalidNumber = "You must enter valid numbers for your answer, please try again!";
+
+/** Default message if start sequence not followed. */
+var notStarted = "You must select a number, a math function and click on the \"Start\" " +
+	"button before using this funtion, \nPlease do that now.";
 
 
 /**
@@ -50,33 +47,19 @@ var repetition = 1;
 function startTutor() {
 
 	selectedNumber = $("[name=numberRadio]:checked").val();
-	
+
 	if (selectedNumber == null) {
 		alert(notStarted);
 		return false;
 	}
-	
+
 	selectedMathFunction = $("[name=functionRadio]:checked").val();
-	
+
 	if (selectedMathFunction == null) {
 		alert(notStarted);
 		return false;
 	}
-	
-	//Set up the test entries
-	initializeTestItems();
-	
-}
 
-
-/**
- * Populate the test variables for the user to begin
- * 
- * @param a
- * @param b
- */
-function initializeTestItems() {
-	
 	//Holder for divide or other "answer" display
 	// answer = other - default for add, subtract and multiply.
 	var answer = "other";
@@ -116,7 +99,7 @@ function initializeTestItems() {
 	$("[name=responseText]").css("background", "#FFFFFF"); 
 	
 	//set scores to zero if counts are zero
-	if (parseInt(rightCount) == 0 && parseInt(wrongCount) == 0) {
+	if (parseInt(numberCorrect) == 0 && parseInt(numberInCorrect) == 0) {
 		$("[name=numberRight]").val(0);
 		$("[name=numberWrong]").val(0);
 		$("[name=percentage]").val(0);
@@ -305,8 +288,8 @@ function resetScore() {
 	$("[name=percentage]").val(0);
 	
 	//set counts to zero
-	wrongCount = 0;
-	rightCount = 0;
+	numberInCorrect = 0;
+	numberCorrect = 0;
 	
 	//Reset background color to white
 	$("[name=percentage]").css("background", "#FFFFFF"); 
@@ -336,8 +319,8 @@ function correctAnswer() {
 	
 	
 	//Increment number correct
-	rightCount += 1;
-	$("[name=numberRight]").val(rightCount);
+	numberCorrect += 1;
+	$("[name=numberRight]").val(numberCorrect);
 	
 	//Compute new percentage
 	computePercentage();
@@ -373,8 +356,8 @@ function wrongAnswer() {
 		}
 		
 		//Increment number incorrect
-		wrongCount += 1;
-		$("[name=numberWrong]").val(wrongCount);
+		numberInCorrect += 1;
+		$("[name=numberWrong]").val(numberInCorrect);
 	
 		//reset 
 		repetition = 1;		
@@ -409,7 +392,7 @@ function computePercentage() {
 	
 	var percentage;
 	
-	if (rightCount == 0) {
+	if (numberCorrect == 0) {
 		
 		//Set percentage = 0
 		percentage = 0;		
@@ -417,10 +400,10 @@ function computePercentage() {
 	else {
 		
 		//Get total
-		var total = parseInt(rightCount) + parseInt(wrongCount);
+		var total = parseInt(numberCorrect) + parseInt(numberInCorrect);
 		
 		//Get percentage
-		percentage = parseInt(rightCount) / total;
+		percentage = parseInt(numberCorrect) / total;
 
 		//Move decimal 2 positions to make percentage
 		percentage = percentage * 100;
