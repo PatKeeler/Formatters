@@ -60,8 +60,12 @@ function startTutor() {
 		return false;
 	}
 
-	//Holder for divide or other "answer" display
-	// answer = other - default for add, subtract and multiply.
+	/**
+	 * answer is Holder for divide or other display:
+	 *  divide = division
+	 *  other = add, subtract, multiply
+	 */
+
 	var answer = "other";
 
 	//Set chosen number
@@ -95,15 +99,13 @@ function startTutor() {
 	}
 	
 	// blank responseText and background color to white.
-	$("[name=responseText]").val("");
-	$("[name=responseText]").css("background", "#FFFFFF"); 
+	$("[name=responseText]").val("").css("background", "#FFFFFF");
 	
 	//set scores to zero if counts are zero
 	if (parseInt(numberCorrect) == 0 && parseInt(numberInCorrect) == 0) {
 		$("[name=numberRight]").val(0);
 		$("[name=numberWrong]").val(0);
-		$("[name=percentage]").val(0);
-		$("[name=percentage]").css("background", "#FFFFFF"); 
+		$("[name=percentage]").val(0).css("background", "#FFFFFF");
 	}
 	
 	//set the answer display
@@ -245,8 +247,7 @@ function answerDisplay(display) {
 		$("[name=divideDiv]").removeClass("show").addClass("hide");
 
 		//blank answer, set focus 
-		$("[name=otherAnswer]").val("");
-		$("[name=otherAnswer]").focus();
+		$("[name=otherAnswer]").val("").focus();
 	}
 	//Display divide answer boxes
 	else if (display == "divide") {
@@ -255,8 +256,7 @@ function answerDisplay(display) {
 		$("[name=divideDiv]").removeClass("hide").addClass("show");
 
 		//blank answer, set focus 
-		$("[name=divideAnswer]").val("");
-		$("[name=divideAnswer]").focus();
+		$("[name=divideAnswer]").val("").focus();
 		$("[name=remainder]").val("0");
 	}
 	//Doh!
@@ -285,15 +285,11 @@ function resetScore() {
 	//set score to blanks.
 	$("[name=numberWrong]").val(0);
 	$("[name=numberRight]").val(0);
-	$("[name=percentage]").val(0);
+	$("[name=percentage]").val(0).css("background", "#FFFFFF");
 	
 	//set counts to zero
 	numberInCorrect = 0;
 	numberCorrect = 0;
-	
-	//Reset background color to white
-	$("[name=percentage]").css("background", "#FFFFFF"); 
-
 }
 
 /**
@@ -302,18 +298,15 @@ function resetScore() {
 function correctAnswer() {
 	
 	//Signal correct
-	$("[name=responseText]").val("Correct");	
-	$("[name=responseText]").css("background", "#40FF00"); 
+	$("[name=responseText]").val("Correct").css("background", "#40FF00");
 	
 	if (selectedMathFunction != 4) {
 		//Set otherAnswer to blank and focus
-		$("[name=otherAnswer]").val("");		
-		$("[name=otherAnswer]").focus();
+		$("[name=otherAnswer]").val("").focus();
 	}
 	else {
 		//Set divideAnswer to blank and focus
-		$("[name=divideAnswer]").val("");
-		$("[name=divideAnswer]").focus();
+		$("[name=divideAnswer]").val("").focus();
 		$("[name=remainder]").val("0");
 	}
 	
@@ -341,18 +334,15 @@ function wrongAnswer() {
 
 	if (repetition == 2) {
 		//Signal wrong answer
-		$("[name=responseText]").val("Wrong");	
-		$("[name=responseText]").css("background", "#FF0000"); 
+		$("[name=responseText]").val("Wrong").css("background", "#FF0000");
 		
 		if (selectedMathFunction != 4) {
 			//Set otherAnswer to blank and focus
-			$("[name=otherAnswer]").val("");		
-			$("[name=otherAnswer]").focus();
+			$("[name=otherAnswer]").val("").focus();
 		}
 		else {
 			//Set divideAnswer to blank and focus
-			$("[name=divideAnswer]").val("");		
-			$("[name=divideAnswer]").focus();
+			$("[name=divideAnswer]").val("").focus();
 		}
 		
 		//Increment number incorrect
@@ -371,8 +361,7 @@ function wrongAnswer() {
 		repetition += 1;
 
 		//Signal wrong answer
-		$("[name=responseText]").val("Try again");	
-		$("[name=responseText]").css("background", "#FFFF00");
+		$("[name=responseText]").val("Try again").css("background", "#FFFF00");
 		
 		//hide hint button
 		hintDisplay("show");
@@ -521,10 +510,6 @@ function  getHint() {
 		//Set focus on answer
 		$("[name=divideAnswer]").focus();
 	}
-	
-	//Set focus on answer
-	$("[name=otherAnswer]").focus();
-	
 }
 
 
