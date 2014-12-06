@@ -2,7 +2,7 @@
 /**
  * The Tutor prototype.
  */
-function Tutor(number, mathFunction, maxRandom) {
+function Tutor(number, mathFunction, maxRandom, display) {
 
 	/** The number to practice */
 	this.number = number;
@@ -13,15 +13,22 @@ function Tutor(number, mathFunction, maxRandom) {
 	/** The max random number to use */
 	this.maxRandom = maxRandom;
 
+	/** The display to use */
+	this.display = display;
+
+	/** The tutors check answer function */
+	var checkAnswer;
+
+	/** The tutors reset score function */
+	var resetScore;
+
 };
 
 
-/** Variable to hold selected number.
- * Default to 0 for validation check when answer button pressed. */
+/** Variable to hold selected number. */
 var selectedNumber;
 
-/** Variable to hold math function.
- * Default to 0 for validation check when answer button pressed. */
+/** Variable to hold math function. */
 var selectedMathFunction;
 
 /** Count of number correct. */
@@ -44,7 +51,7 @@ var notStarted = "You must select a number, a math function and click on the \"S
 /**
  * Validate radio buttons and start.
  */
-function startTutor() {
+function initializeTutor() {
 
 	selectedNumber = $("[name=numberRadio]:checked").val();
 
@@ -75,29 +82,34 @@ function startTutor() {
 	if (selectedMathFunction == 1) {
 		$("[name=operator]").val("+");
 		$("[name=randomNumber]").val(getRandomInteger(12));
+
+		buildTest(selectedNumber, "+", 12, "other");
 	}
 	//Subtract
 	else if (selectedMathFunction == 2) {
 		$("[name=operator]").val("-");
 		$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
+
+		buildTest(selectedNumber, "-", selectedNumber, "other");
 	}
 	//Multiply
 	else if (selectedMathFunction == 3) {
 		$("[name=operator]").val("x");
 		$("[name=randomNumber]").val(getRandomInteger(12));
+
+		buildTest(selectedNumber, "x", 12, "other");
 	}
 	//Divide
-	else if (selectedMathFunction == 4) {
+	else {
 		$("[name=operator]").val("/");
 		$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
-		
-		//set answer = divide
+
+		buildTest(selectedNumber, "/", selectedNumber, "divide");
+
+		//set answer to divide
 		answer = "divide";
 	}
-	else {
-		alert("Doh!");
-	}
-	
+
 	// blank responseText and background color to white.
 	$("[name=responseText]").val("").css("background", "#FFFFFF");
 	
@@ -115,6 +127,20 @@ function startTutor() {
 	$("[name=hintdiv]").removeClass("show").addClass("hide");
 
 }
+
+
+/** Function to build the prototype for users selected math function */
+function buildTest(selectedNumber, mathFunction, maxRandom, display) {
+
+	Tutor.prototype.test = function() {
+
+		this.number = selectedNumber;
+		this.mathFunction = mathFunction;
+		this.maxRandom = maxRandom;
+		this.display = display;
+	}
+}
+
 
 
 /**
