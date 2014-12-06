@@ -48,7 +48,7 @@ var repetition = 1;
  * Validate radio buttons and start.
  */
 function startTutor() {
-	
+
 	selectedNumber = $("[name=numberRadio]:checked").val();
 	
 	if (selectedNumber == null) {
