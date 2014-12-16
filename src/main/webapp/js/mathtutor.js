@@ -43,12 +43,12 @@ mathApp.controller ('mathController', function ($scope) {
 	/** Variable to hold selected number
 	 * Default to 0 for validation check when answer button pressed.
 	 */
-	$scope.selectedNumber = 0;
+	$scope.selectedNumber = -1;
 
 	/** Variable to hold math function
 	 * Default to 0 for validation check when answer button pressed.
 	 */
-	$scope.selectedMathFunction = 0;
+	$scope.selectedMathFunction = -1;
 
 	/** Keep count of number correct */
 	$scope.rightCount = 0;
@@ -116,14 +116,14 @@ mathApp.controller ('mathController', function ($scope) {
 
 		$scope.selectedNumber = $scope.numberRadio;
 
-		if ($scope.selectedNumber == null) {
+		if ($scope.selectedNumber == 0) {
 			alert($scope.notStarted);
 			return false;
 		}
 
 		$scope.selectedMathFunction = $scope.functionRadio;
 
-		if ($scope.selectedMathFunction == null) {
+		if ($scope.selectedMathFunction == 0) {
 			alert($scope.notStarted);
 			return false;
 		}
@@ -204,7 +204,7 @@ mathApp.controller ('mathController', function ($scope) {
 		var answer = -1;
 
 		//Make sure the tutor has been started correctly first.
-		if ($scope.selectedNumber == null || $scope.selectedMathFunction == null) {
+		if ($scope.selectedNumber == 0 || $scope.selectedMathFunction == 0) {
 			alert(notStarted);
 			return false;
 		}
