@@ -557,7 +557,10 @@ mathApp.controller ('mathController', function ($scope) {
 	 */
 	$scope.getRandomInteger = function(range) {
 
-		return $scope.randomnumber = Math.floor(Math.random() * range + 1);
+		var num = Math.floor(Math.random() * range + 1);
+		$scope.randomnumber = num;
+
+		return num;
 	}
 
 
