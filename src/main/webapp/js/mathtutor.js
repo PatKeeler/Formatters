@@ -754,3 +754,7 @@ mathApp.controller ('mathController', function ($scope) {
 	}
 
 });
+
+//angular.element(document).ready(function() {
+//	angular.bootstrap(document, ['mathApp']);
+//});
