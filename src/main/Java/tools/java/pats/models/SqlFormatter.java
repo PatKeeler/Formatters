@@ -36,6 +36,7 @@ public class SqlFormatter implements Serializable {
      * Default constructor
      */
 	public SqlFormatter() {
+
 		super();
 	}
 
