@@ -332,7 +332,7 @@ mathApp.controller ('mathController', function ($scope) {
 			/* Set focus on other answer control. */
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		//Display divide answer boxes
 		else if (display == "divide") {
@@ -351,7 +351,7 @@ mathApp.controller ('mathController', function ($scope) {
 			 */
 			//$scope.focusDivideAnswer = "true";
 			//$("[name=divideAnswer]").focus();
-			document.getElementById('divideAnswer').focus();
+			document.getElementById('divideAnswerControl').focus();
 		}
 		//Doh!
 		else {
@@ -422,7 +422,7 @@ mathApp.controller ('mathController', function ($scope) {
 
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		else {
 			$scope.remainder = 0;
@@ -431,7 +431,7 @@ mathApp.controller ('mathController', function ($scope) {
 
 			//$scope.focusDivideAnswer = "true";
 			//$("[name=divideAnswer]").focus();
-			document.getElementById('divideAnswer').focus();
+			document.getElementById('divideAnswerControl').focus();
 		}
 	}
 
@@ -481,7 +481,7 @@ mathApp.controller ('mathController', function ($scope) {
 
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		else {
 			//Set divideAnswer to blank and focus
@@ -489,7 +489,7 @@ mathApp.controller ('mathController', function ($scope) {
 
 			//$scope.focusDivideAnswer = "true";
 			//$("[name=divideAnswer]").focus();
-			document.getElementById('divideAnswer').focus();
+			document.getElementById('divideAnswerControl').focus();
 		}
 
 	}
@@ -617,7 +617,7 @@ mathApp.controller ('mathController', function ($scope) {
 			//Set focus on answer
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		//Subtraction
 		else if ($scope.selectedMathFunction == 2) {
@@ -626,7 +626,7 @@ mathApp.controller ('mathController', function ($scope) {
 			//Set focus on answer
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		//Multiplication
 		else if ($scope.selectedMathFunction == 3) {
@@ -635,7 +635,7 @@ mathApp.controller ('mathController', function ($scope) {
 			//Set focus on answer
 			//$scope.focusOtherAnswer = "true";
 			//$("[name=otherAnswer]").focus();
-			document.getElementById('otherAnswer').focus();
+			document.getElementById('otherAnswerControl').focus();
 		}
 		//Division
 		else if ($scope.selectedMathFunction == 4) {
@@ -644,7 +644,7 @@ mathApp.controller ('mathController', function ($scope) {
 			//Set focus on division answer
 			//$scope.focusDivideAnswer = "true";
 			//$("[name=divideAnswer]").focus();
-			document.getElementById('divideAnswer').focus();
+			document.getElementById('divideAnswerControlControl').focus();
 		}
 	}
 
