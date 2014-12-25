@@ -125,6 +125,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
 
         boolean isAnd = false;
         for (int i = 0; i < myData.length(); i++) {
+            String sql = myData.substring(i, myData.length());
             if (i + 5 < myData.length() && myData.substring(i, i + 5).equals(" AND ")) {
                 isAnd = true;
                 if (block) {
@@ -161,11 +162,10 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append((format(myData.substring(i, index))));
                     i = index;
                 }
-                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                    EmbeddedSelectsFormatter esf =
-                        getFormatter(THREE_INDENTS, tab, stringIndentAmount, selectedStyle);
+                    EmbeddedSelectsFormatter esf = getFormatter(
+                            THREE_INDENTS, tab, stringIndentAmount, selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
                     if (isAnd) {
@@ -189,12 +189,10 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append((format(myData.substring(i, index))));
                     i = index;
                 }
-                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
-                EmbeddedSelectsFormatter esf =
-                        EmbeddedSelectsFormatterFactory.getFormatter(
-                                FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    EmbeddedSelectsFormatter esf = EmbeddedSelectsFormatterFactory.getFormatter(
+                            FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                 } else {
                     if (isAnd) {
@@ -232,7 +230,6 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                    String sql = myData.substring(i, myData.length());
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                     EmbeddedSelectsFormatter esf =
                             EmbeddedSelectsFormatterFactory.getFormatter(
@@ -256,7 +253,6 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
-                    String sql = myData.substring(i, myData.length());
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                     EmbeddedSelectsFormatter esf =
                             EmbeddedSelectsFormatterFactory.getFormatter(
@@ -286,12 +282,10 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 sb.append(newLine.substring(0, newLine.length() - 1));
                 i = endIndex;
             } else if(myData.substring(i, i + 1).equals("(")) {
-                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
-                EmbeddedSelectsFormatter esf =
-                        EmbeddedSelectsFormatterFactory.getFormatter(
-                                FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    EmbeddedSelectsFormatter esf = EmbeddedSelectsFormatterFactory.getFormatter(
+                        FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                     i = i + ind.getEnd();
                 }

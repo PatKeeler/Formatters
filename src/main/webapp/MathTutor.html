@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Pat's Elementary Math Tutor</title>
+	<script type="text/javascript" src="js/mathtutor.js"></script>
 	<script type="text/javascript" src="js/jquery-1.6.4.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta name="description" content="A simple math tutor to help learn multiplication, division, addition and subtraction of numbers from 1 through 12." />
 	<meta name="robots" content="index, follow" />
@@ -25,266 +25,243 @@
 </head>
 
 <body>
-<div ng-app="mathApp" ng-controller="mathController">
-	<form name="mainForm">
-		<table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">
-			<tr>
-				<td>
-					<h1 align="center">Pat's Elementary Math Tutor</h1>
-					<h4>
-						<table border="0" width="100%" cellpadding="10">
-							<tr>
-								<td width="15%">
-									<input type="button" name="About" value="User Guide" ng-click="getMathAbout(this)"
-										   style="font-size:.9em; height:1.8em;" />
-								</td>
-							</tr>
-							<tr>
-								<td width="15%"
-									style="font-size:.9em; height:1.7em;">Email errors, comments or suggestions to
-									<a href="mailto:pat@patstools.com">Pat@patstools.com</a>.
-								</td>
-							</tr>
-						</table>
-					</h4>
-				</td>
-			</tr>
-		</table>
-		<br />
-		<table border="0" width="100%">
-			<tr>
-				<td>
-					<fieldset>
-						<legend> Number: </legend>
-						<table border="0" width="100%" cellpadding="10">
-							<tr>
-								<td width="40%">
-									<p> Pick number to learn.</p>
-								</td>
-								<td width="20%">
-									<input type="radio" ng-model="numberRadio" value="1">1<br>
-									<input type="radio" ng-model="numberRadio" value="2">2<br>
-									<input type="radio" ng-model="numberRadio" value="3">3<br>
-									<input type="radio" ng-model="numberRadio" value="4">4<br>
-								</td>
-								<td width="20%">
-									<input type="radio" ng-model="numberRadio" value="5">5<br>
-									<input type="radio" ng-model="numberRadio" value="6">6<br>
-									<input type="radio" ng-model="numberRadio" value="7">7<br>
-									<input type="radio" ng-model="numberRadio" value="8">8<br>
-								</td>
-								<td width="20%">
-									<input type="radio" ng-model="numberRadio" value="9">9<br>
-									<input type="radio" ng-model="numberRadio" value="10">10<br>
-									<input type="radio" ng-model="numberRadio" value="11">11<br>
-									<input type="radio" ng-model="numberRadio" value="12">12<br>
-								</td>
-							</tr>
-						</table>
-					</fieldset>
-					<fieldset>
-						<legend> Math function: </legend>
-						<table border="0" width="100%" cellpadding="10">
-							<tr>
-								<td width="40%">
-									<p> Pick math function.</p>
-								</td>
-								<td width="60%">
-									<input type="radio" ng-model="functionRadio" value="1">Add<br>
-									<input type="radio" ng-model="functionRadio" value="2">Subtract<br>
-									<input type="radio" ng-model="functionRadio" value="3">Multiply<br>
-									<input type="radio" ng-model="functionRadio" value="4">Divide<br>
-								</td>
-							</tr>
-						</table>
-					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<table border="0" width="100%" cellpadding="10">
-			<tr>
-				<td width="25%"></td>
-				<td width="75%">
-					<input type="button" name="Submit" value="Start" ng-click="startTutor(this)"/>
-				</td>
-			</tr>
-		</table>
-		<table border="0" width="100%">
-			<tr>
-				<td>
-					<fieldset>
-						<legend> The problem: </legend>
-						<table width="60%">
-							<tr>
-								<td width="15%">
-									<input type="text" ng-model="chosenNumber"readonly="readonly"
-										   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
-								</td>
-								<td width="15%">
-									<input type="text" ng-model="operator" readonly="readonly"
-										   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
-								</td>
-								<td width="15%">
-									<input type="text" ng-model="randomNumber" readonly="readonly"
-										   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
-								</td>
-								<td width="15%"	 readonly="readonly" style="font-size:3em; text-align:center;
-                                                    width:1.5em; height:1.5em;">=</td>
-								<td width="15%">
-									<div name=otherDiv ng-show="otherVar">
-										<table>
-											<tr>
-												<td>
-													<ul>
-														<li style="font-size:1em;">Answer</li>
-														<li>
-															<input type="number"
-																   id="otherAnswerControl" name="otherAnswerControl"
-																   ng-model="otherAnswer" ng-Keyup="checkEnterKey(event)"
-																   style="font-size:2em; -wap-input-format: 'N';
-																   text-align:center;; width:3.5em; height:1.5em;" />
-														</li>
-													</ul>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<div name=divideDiv ng-show="divideVar">
-										<table>
-											<tr>
-												<td>
-													<ul>
-														<li style="font-size:1em;">Answer</li>
-														<li>
-															<input type="number"
-																   name="divideAnswerControl" id="divideAnswerControl"
-																   ng-model="divideAnswer" ng-Keyup="checkEnterKey(event)"
-																   style="font-size:2em; -wap-input-format: 'N';
-																   text-align:center;; width:2.5em; height:1.5em;" />
-														</li>
-													</ul>
-												</td>
-												<td>
-													<ul>
-														<li style="font-size:1em;">Remainder</li>
-														<li>
-															<input type="number"
-																   ng-model="remainder"
-																   ng-Keyup="checkEnterKey(event)"
-																   style="font-size:2em; -wap-input-format: 'N';
-																   text-align:center;; width:2em; height:1.5em;" />
-														</li>
-													</ul>
-												</td>
-											</tr>
-										</table>
-									</div>
-								</td>
-								<td width="25%">
+<form name="mainForm">
+	<table bgcolor="#66FFFF" border="0" width="100%" cellpadding="10">
+		<tr>
+			<td>
+				<h1 align="center">Pat's Elementary Math Tutor</h1>
+				<h4>
+					<table border="0" width="100%" cellpadding="10">
+						<tr>
+							<td width="15%">
+								<input type="button" name="About" value="User Guide" onClick="getMathAbout(this)"
+									   style="font-size:.9em; height:1.8em;" />
+							</td>
+						</tr>
+						<tr>
+							<td width="15%"
+								style="font-size:.9em; height:1.7em;">Email errors, comments or suggestions to
+								<a href="mailto:pat@patstools.com">Pat@patstools.com</a>.
+							</td>
+						</tr>
+					</table>
+				</h4>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<table border="0" width="100%">
+		<tr>
+			<td>
+				<fieldset>
+					<legend> Number: </legend>
+					<table border="0" width="100%" cellpadding="10">
+						<tr>
+							<td width="40%">
+								<label for="numberRadio"> Pick number to learn.</label>
+							</td>
+							<td width="20%">
+								<input type="radio" name="numberRadio" value="1">1<br>
+								<input type="radio" name="numberRadio" value="2">2<br>
+								<input type="radio" name="numberRadio" value="3">3<br>
+								<input type="radio" name="numberRadio" value="4">4<br>
+							</td>
+							<td width="20%">
+								<input type="radio" name="numberRadio" value="5">5<br>
+								<input type="radio" name="numberRadio" value="6">6<br>
+								<input type="radio" name="numberRadio" value="7">7<br>
+								<input type="radio" name="numberRadio" value="8">8<br>
+							</td>
+							<td width="20%">
+								<input type="radio" name="numberRadio" value="9">9<br>
+								<input type="radio" name="numberRadio" value="10">10<br>
+								<input type="radio" name="numberRadio" value="11">11<br>
+								<input type="radio" name="numberRadio" value="12">12<br>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend> Math function: </legend>
+					<table border="0" width="100%" cellpadding="10">
+						<tr>
+							<td width="40%">
+								<label for="functionRadio"> Pick math function.</label>
+							</td>
+							<td width="60%">
+								<input type="radio" name="functionRadio" value="1">Add<br>
+								<input type="radio" name="functionRadio" value="2">Subtract<br>
+								<input type="radio" name="functionRadio" value="3">Multiply<br>
+								<input type="radio" name="functionRadio" value="4">Divide<br>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</td>
+		</tr>
+	</table>
+	<table border="0" width="100%" cellpadding="10">
+		<tr>
+			<td width="25%"></td>
+			<td width="75%">
+				<input type="button" name="Submit" value="Start" onClick="startTutor(this)"/>
+			</td>
+		</tr>
+	</table>
+	<table border="0" width="100%">
+		<tr>
+			<td>
+				<fieldset>
+					<legend> The problem: </legend>
+					<table width="60%">
+						<tr>
+							<td width="15%">
+								<input type="text" name="chosenNumber" id="chosenNumber" readonly="readonly"
+									   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
+							</td>
+							<td width="15%">
+								<input type="text" name="operator" id="operator" readonly="readonly"
+									   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
+							</td>
+							<td width="15%">
+								<input type="text" name="randomNumber" id="randomNumber" readonly="readonly"
+									   style="font-size:2em; text-align:center; width:1.5em; height:1.5em;" />
+							</td>
+							<td width="15%"	 readonly="readonly" style="font-size:3em; text-align:center;
+												width:1.5em; height:1.5em;">=</td>
+							<td width="15%">
+								<div name=otherDiv class="show">
 									<table>
 										<tr>
-											<td width="50%">
-												<input type="text" ng-model="responseText"
-													   ng-style="responseStyle" readonly="readonly"
-													   style="font-size:1em; text-align:center; vertical-align:9px;
-													   width:4.4em; height:1em;" />
-											</td>
-										</tr>
-										<tr>
-											<td width="50%">
-												<input type="button" name="Submit" value="Check Answer"
-													   ng-Click="checkAnswer(this)"
-													   style="font-size:.9em; height:1.8em;" />
+											<td>
+												<ul>
+													<li style="font-size:1em;">Answer</li>
+													<li>
+														<input type="number" name="otherAnswer" id="otherAnswer" onkeyup="checkEnterKey(event)"
+															   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:3.5em; height:1.5em;" />
+													</li>
+												</ul>
 											</td>
 										</tr>
 									</table>
-								</td>
-							</tr>
-						</table>
-						<div name="hintdiv" ng-show="hintVar">
-							<table border="0" width="100%" cellpadding="10">
-								<tr>
-									<td width="25%"></td>
-									<td width="75%">
-										<input type="button" name="Submit" value="Hint" ng-Click="getHint(this)"
-											   style="font-size:.9em; height:1.8em;" />
-									</td>
-								</tr>
-							</table>
-						</div>
-					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<table border="0" width="100%">
-			<tr>
-				<td>
-					<fieldset>
-						<legend> Score: </legend>
-						<table width="75%">
+								</div>
+								<div name=divideDiv class="hide">
+									<table>
+										<tr>
+											<td>
+												<ul>
+													<li style="font-size:1em;">Answer</li>
+													<li>
+														<input type="number" name="divideAnswer" id="divideAnswer" onkeyup="checkEnterKey(event)"
+															   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2.5em; height:1.5em;" />
+													</li>
+												</ul>
+											</td>
+											<td>
+												<ul>
+													<li style="font-size:1em;">Remainder</li>
+													<li>
+														<input type="number" name="remainder" id="remainder" onkeyup="checkEnterKey(event)"
+															   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2em; height:1.5em;" />
+													</li>
+												</ul>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+							<td width="25%">
+								<table>
+									<tr>
+										<td width="50%">
+											<input type="text" name="responseText" id="responseText" readonly="readonly"
+												   style="font-size:1em; text-align:center; vertical-align:9px; width:4.4em; height:1em;" />
+										</td>
+									</tr>
+									<tr>
+										<td width="50%">
+											<input type="button" name="Submit" value="Check Answer" onClick="checkAnswer(this)"
+												   style="font-size:.9em; height:1.8em;" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<div name="hintdiv" class="hide">
+						<table border="0" width="100%" cellpadding="10">
 							<tr>
-								<td>
-									<ul>
-										<li style="font-size:1em;">Wrong:</li>
-										<li>
-											<input type="text" ng-model="numberWrong" id="numberWrong"
-												   style="font-size:2em; -wap-input-format: 'N';
-												   text-align:center;; width:1.5em; height:1.5em;" />
-										</li>
-									</ul>
-								</td>
-								<td>
-									<ul>
-										<li style="font-size:1em;">Right:</li>
-										<li>
-											<input type="text" ng-model="numberRight" id="numberRight"
-												   style="font-size:2em; -wap-input-format: 'N';
-												   text-align:center;; width:1.5em; height:1.5em;" />
-										</li>
-									</ul>
-								</td>
-								<td>
-									<ul>
-										<li style="font-size:1em;"><b>Percent:</b></li>
-										<li><input type="text" ng-model="percentage" name="percentage" ng-style="percentStyle"
-												   style="font-size:2em; -wap-input-format: 'N';
-												   text-align:center;; width:2em; height:1.5em;" />
-										</li>
-									</ul>
-								</td>
-								<td>
-									<input type="button" name="Submit" value="Reset Score" ng-Click="resetScore(this)"
+								<td width="25%"></td>
+								<td width="75%">
+									<input type="button" name="Submit" value="Hint" onClick="getHint(this)"
 										   style="font-size:.9em; height:1.8em;" />
 								</td>
 							</tr>
 						</table>
-					</fieldset>
-				</td>
-			</tr>
-		</table>
-
-		<script>
-			var mathApp = angular.module("mathApp", []);
-		</script>
-
-		<script src="js/mathtutor.js"></script>
-
-	</form>
-	<fieldset>
-		<legend> Donations </legend>
-		<table border="0" width="100%" cellpadding="10">
-			<tr>
-				<td>
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-						<input type="hidden" name="cmd" value="_s-xclick">
-						<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
-						<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-					</form>
-				</td>
-			</tr>
-		</table>
-	</fieldset>
-</div>
+					</div>
+				</fieldset>
+			</td>
+		</tr>
+	</table>
+	<table border="0" width="100%">
+		<tr>
+			<td>
+				<fieldset>
+					<legend> Score: </legend>
+					<table width="75%">
+						<tr>
+							<td>
+								<ul>
+									<li style="font-size:1em;">Wrong:</li>
+									<li>
+										<input type="text" name="numberWrong" id="numberWrong"
+											   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:1.5em; height:1.5em;" />
+									</li>
+								</ul>
+							</td>
+							<td>
+								<ul>
+									<li style="font-size:1em;">Right:</li>
+									<li>
+										<input type="text" name="numberRight" id="numberRight"
+											   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:1.5em; height:1.5em;" />
+									</li>
+								</ul>
+							</td>
+							<td>
+								<ul>
+									<li style="font-size:1em;"><b>Percent:</b></li>
+									<li>
+										<input type="text" name="percentage" id="percentage"
+											   style="font-size:2em; -wap-input-format: 'N'; text-align:center;; width:2em; height:1.5em;" />
+									</li>
+								</ul>
+							</td>
+							<td>
+								<input type="button" name="Submit" value="Reset Score" onClick="resetScore(this)"
+									   style="font-size:.9em; height:1.8em;" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</td>
+		</tr>
+	</table>
+</form>
+<fieldset>
+	<legend> Donations </legend>
+	<table border="0" width="100%" cellpadding="10">
+		<tr>
+			<td>
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<input type="hidden" name="cmd" value="_s-xclick">
+					<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>
+			</td>
+		</tr>
+	</table>
+</fieldset>
 </body>
 </html>
