@@ -7,7 +7,7 @@
 "UNITS, "    + 
 "IS_ACTIVE, "    + 
 "DESCRIPTION, "    + 
-"EFFECTIVE_DATE, "    + 
+"EFFECTIVE_DATE,  "    +
 "TERM_DATE, "    + 
 "REPLACE_DATE, "    + 
 "LAST_UPDATED_BY, "    + 
@@ -16,5 +16,5 @@
 "TO_DATE( ?, 'mm/dd/yyyy'), "    + 
 "TO_DATE(?, 'mm/dd/yyyy'), "    + 
 "TO_DATE(?, 'mm/dd/yyyy'), "    + 
-"?, "    + 
+"?, "    +
 "SYSDATE );"
