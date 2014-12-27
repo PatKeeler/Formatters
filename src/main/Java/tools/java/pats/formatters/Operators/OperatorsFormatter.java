@@ -96,13 +96,16 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
      * Format the following in this routine:
      *  AND,
      *  OR,
+     *  ON,
      *  IN,
      *  NOT IN,
-     *  ON,
+     *  CONTAINS,
      *  EXISTS,
-     *  NOT EXISTS.
+     *  NOT EXISTS,
+     *  CASE,
+     *  MAX(CASE,
+     *  SUM(CASE.
      */
-
     public String formatOperators(String data) {
 
         StringBuffer sb = new StringBuffer();
@@ -119,13 +122,21 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
 
         FindIndexesForStringWithinParens findIndexes = new FindIndexesForStringWithinParens();
 
+        // Loop index pointer
         int index = 0;
 
-        //TODO  Refactor this if statement - in progress
-
+        // If AND operator format accordingly
         boolean isAnd = false;
+
+        // Current sql string - from index to end
+        String sql = "";
+
+        // Loop through data looking for operators
         for (int i = 0; i < myData.length(); i++) {
-            String sql = myData.substring(i, myData.length());
+
+            //Get the current sql string to work on.
+            sql = myData.substring(i, myData.length());
+            // AND
             if (i + 5 < myData.length() && myData.substring(i, i + 5).equals(" AND ")) {
                 isAnd = true;
                 if (block) {
@@ -136,7 +147,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                         tab, userIndentTab, extraTabs));
                 i = i + 4;
                 }
-            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" OR ")) {
+            }
+            // OR
+            else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" OR ")) {
                 if (block) {
                     sb.append(format("\n%s%s%sOR  ", tab, userIndentTab, extraTabs));
                     i = i + 3;
@@ -145,10 +158,14 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                          tab, userIndentTab, extraTabs));
                 i = i + 3;
                 }
-            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" ON ")) {
+            }
+            // ON
+            else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" ON ")) {
                 sb.append(format("\n%s%sON ", tab, twoTabs));
                 i = i + 3;
-            } else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" IN ")) {
+            }
+            // IN
+            else if (i + 4 < myData.length() && myData.substring(i, i + 4).equals(" IN ")) {
                 if (isAnd) {
                     sb.append(format("\n%s%sIN ", tab, fourTabs));
                 } else {
@@ -175,7 +192,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     }
                 }
                 i = i + ind.getEnd();
-            } else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals(" NOT IN ")) {
+            }
+            // NOT IN
+            else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals(" NOT IN ")) {
                 if (isAnd) {
                     sb.append(format("\n%s%sNOT IN ", tab, fourTabs));
                 } else {
@@ -203,6 +222,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 }
                 i = i + ind.getEnd();
             }
+            // CONTAINS
             else if (i + 8 < myData.length() && myData.substring(i, i + 8).equals("CONTAINS")) {
                     sb.append("CONTAINS");
                 i = i + 8;
@@ -215,6 +235,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
             }
+            // EXISTS
             else if (i + 7 < myData.length() && myData.substring(i, i + 7).equals("EXISTS ")) {
                 if (block) {
                     sb.append("EXISTS");
@@ -238,6 +259,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = i + ind.getEnd();
                 }
             }
+            // NOT EXISTS
             else if (i + 11 < myData.length() && myData.substring(i, i + 11).equals("NOT EXISTS ")) {
                 if (block) {
                     sb.append("NOT EXISTS");
@@ -260,7 +282,9 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                     i = i + ind.getEnd();
                 }
-            } else if ((i + 5 < myData.length() && myData.substring(i, i + 5).equals("CASE ")) ||
+            }
+            // CASE statements
+            else if ((i + 5 < myData.length() && myData.substring(i, i + 5).equals("CASE ")) ||
                        (i + 9 < myData.length() && myData.substring(i, i + 9).equals("MAX(CASE ")) ||
                        (i + 9 < myData.length() && myData.substring(i, i + 9).equals("SUM(CASE "))) {
                 int startIndex = i;
@@ -277,11 +301,12 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 System.out.println("   temp: " + temp);
                 CaseLinesFormatter clf = new CaseLinesFormatter();
                 String newLine = clf.formatNode(temp, oneTab, userIndentTab);
-                System.out.println("newLine: " + newLine);
-                //CaseLinesFormatter add comma at end, don't include it
+                //CaseLinesFormatter adds comma at end, don't include it
                 sb.append(newLine.substring(0, newLine.length() - 1));
                 i = endIndex;
-            } else if(myData.substring(i, i + 1).equals("(")) {
+            }
+            // Embedded Select
+            else if(myData.substring(i, i + 1).equals("(")) {
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     EmbeddedSelectsFormatter esf = EmbeddedSelectsFormatterFactory.getFormatter(
@@ -291,6 +316,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                 }
                 sb.append(format("%s", myData.substring(i, i + 1)));
             }
+            // No operators, just append the data.
             else {
                 sb.append(format("%s", myData.substring(i, i + 1)));
             }
