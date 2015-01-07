@@ -128,14 +128,8 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
         // If AND operator format accordingly
         boolean isAnd = false;
 
-        // Current sql string - from index to end
-        String sql = "";
-
         // Loop through data looking for operators
         for (int i = 0; i < myData.length(); i++) {
-
-            //Get the current sql string to work on.
-            sql = myData.substring(i, myData.length());
             // AND
             if (i + 5 < myData.length() && myData.substring(i, i + 5).equals(" AND ")) {
                 isAnd = true;
@@ -179,6 +173,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append((format(myData.substring(i, index))));
                     i = index;
                 }
+                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     EmbeddedSelectsFormatter esf = getFormatter(
@@ -208,6 +203,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     sb.append((format(myData.substring(i, index))));
                     i = index;
                 }
+                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     EmbeddedSelectsFormatter esf = EmbeddedSelectsFormatterFactory.getFormatter(
@@ -251,6 +247,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    String sql = myData.substring(i, myData.length());
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                     EmbeddedSelectsFormatter esf =
                             EmbeddedSelectsFormatterFactory.getFormatter(
@@ -275,6 +272,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                     i = index;
                 }
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
+                    String sql = myData.substring(i, myData.length());
                     StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                     EmbeddedSelectsFormatter esf =
                             EmbeddedSelectsFormatterFactory.getFormatter(
@@ -307,6 +305,7 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
             }
             // Embedded Select
             else if(myData.substring(i, i + 1).equals("(")) {
+                String sql = myData.substring(i, myData.length());
                 StringIndexes ind = findIndexes.getIndexesForSqlWithinParens(sql);
                 if (cfs.isEmbeddedSelect(myData.substring(i, myData.length()))) {
                     EmbeddedSelectsFormatter esf = EmbeddedSelectsFormatterFactory.getFormatter(
