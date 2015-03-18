@@ -21,3 +21,6 @@ Please send comments or suggestions to Pat@PatsTools.com.
 http://patsformatters.appspot.com/SqlFormatter.html
 
 http://patsformatters.appspot.com/XmlFormatter.html
+
+You can view me on LinkedIn at:
+https://www.linkedin.com/profile/public-profile-settings?trk=prof-edit-edit-public_profile
