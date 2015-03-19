@@ -1,4 +1,5 @@
-"insert into NWX_CHARGE_DEF (  "    + 
+-- use this sql to test remove quotes
+"insert into NWX_CHARGE_DEF (  "    +
 "CHARGE_DEF_ID,"   + 
 "CHARGE_SET_ID, "    + 
 "TYPE, "    + 
