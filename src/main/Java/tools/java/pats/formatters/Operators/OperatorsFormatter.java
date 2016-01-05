@@ -312,9 +312,11 @@ public class OperatorsFormatter implements Serializable, ProjectStaticConstants 
                         FOUR_INDENTS, tab,stringIndentAmount,selectedStyle);
                     sb.append(esf.formatEmbeddedSelect(sql, ind));
                     i = i + ind.getEnd();
+                } else {
+                    // 03Jan16 - commented out line causing double parens in where statement.
+                    // 05Jan16 - changed to else so we don't drop open paren.
+                      sb.append(format("%s", myData.substring(i, i + 1)));
                 }
-                // 03Jan16 - commented out line causing double parens in where statement.
-                //  sb.append(format("%s", myData.substring(i, i + 1)));
             }
             // No operators, just append the data.
             else {
