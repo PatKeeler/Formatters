@@ -28,7 +28,7 @@ public class SqlFormatter implements Serializable {
 
     private static final long serialVersionUID = 1951L;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(SqlFormatter.class);
 
 
 
