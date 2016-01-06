@@ -4,7 +4,7 @@
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n</pattern>
+            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level [%file:%line] - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -22,7 +22,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n</pattern>
+            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level [%file:%line] - %msg%n</pattern>
         </encoder>
     </appender>
 
