@@ -153,7 +153,6 @@ public class SqlNodeParser implements Serializable {
                         String cmdParen = format("%s%s%s", " ", s, "(");
                         if (sql.substring(i).startsWith(cmdParen)) {
                         	//If it's a "WITH(NOLOCK)" skip - it's part of "FROM".
-                        	System.out.println(sql.substring(i, i + 13));
                         	if (sql.substring(i).startsWith(" WITH(NOLOCK)")) {
                         		continue loop;
                         	}

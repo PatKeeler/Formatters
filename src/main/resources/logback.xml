@@ -1,25 +1,10 @@
-<configuration scan="true" scanPeriod="1 minute">
-    <variable
-            name="logPattern"
-            value="%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n" />
-
-    <!--
-      The base name of the log file. For "example.log" this would
-      simply be "example". Or if it were "logs/example.log" then
-      "logs/example".
-
-      The default is set to write to Tomcat's logging directory in a file
-      named after the IntelliJ IDEA project.
-    -->
-    <variable
-            name="logs/formattersLog"
-            value="\${catalina.base}/logs/${PROJECT_NAME}" />
+<configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>\${logPattern}</pattern>
+            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -27,9 +12,9 @@
         <!--
           See http://logback.qos.ch/manual/appenders.html for details.
         -->
-        <file>\${logname}.log</file>
+        <file>/logs/formatters.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>\${logname}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>/logs/formatters-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -37,7 +22,7 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>\${logPattern}</pattern>
+            <pattern>%-30(%d{MMM dd YYYY HH:mm:ss.SSS} [%thread]) %-5level %logger{5} [%file:%line] - %msg%n</pattern>
         </encoder>
     </appender>
 
