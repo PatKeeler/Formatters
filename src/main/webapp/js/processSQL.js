@@ -30,7 +30,7 @@ function getFormattedSql() {
 
  	if ($("[name=addQuotesAndReformatCheckBox]").is(":checked")) {
 		 parameters.addQuotesAndReformat=true;
-	}
+    }
 
 	if ($("[name=addQuotesOnlyCheckBox]").is(":checked")) {
 		 parameters.addQuotesOnly=true;
@@ -44,14 +44,20 @@ function getFormattedSql() {
         parameters.removeQuotesOnly=true;
    }
 
-   $.post("ReformatSql",
-        parameters ,
-        function(data){
+    $.ajax({
+        url: "ReformatSql",
+        type: "POST",
+        data: parameters,
+        dataType: "html",
+        success: function (result) {
             clearInterval(t);
-            updatePage(data);
+            updatePage(result);
         },
-        "html"
-   );
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status);
+            alert(thrownError);
+        }
+    });
 }
 
 function updatePage(data) {
