@@ -71,7 +71,6 @@ public class SqlFormatter implements Serializable {
 
         // Log the one line sql string.
         logger.info("Sql = " + tab + sql);
-        System.out.println("Sql = " + tab + sql);
 
 		// Upper case all commands.
 		SqlKeywordsToUpperCase upper = new SqlKeywordsToUpperCase();
