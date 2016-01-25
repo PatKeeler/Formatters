@@ -4,7 +4,9 @@
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%-25(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+            <pattern>%-24(%d{dd MMM YYYY HH:mm:ss.SSS}) %-5level %logger{36}:%line - %msg%n</pattern>
+            <!--<pattern>%-24(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>-->
         </encoder>
     </appender>
 
@@ -14,20 +16,22 @@
         -->
         <file>/logs/formatters.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/formatters-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/logs/formatters-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>5MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%-25(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+            <pattern>%-24(%d{dd MMM YYYY HH:mm:ss.SSS}) %-5level %logger{36}:%line -> %msg%n</pattern>
+            <!--<pattern>%-24(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>-->
         </encoder>
     </appender>
 
     <root level="debug">
-        <!-- <appender-ref ref="STDOUT" /> -->
+        <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
 </configuration>
