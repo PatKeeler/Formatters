@@ -1,19 +1,13 @@
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
             <charset>UTF-8</charset>
             <pattern>%-24(%d{dd MMM YYYY HH:mm:ss.SSS}) %-5level %logger{36}:%line - %msg%n</pattern>
-            <!--<pattern>%-24(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>-->
         </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--
-          See http://logback.qos.ch/manual/appenders.html for details.
-        -->
         <file>/logs/formatters.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/logs/formatters-%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -26,7 +20,6 @@
         <encoder>
             <charset>UTF-8</charset>
             <pattern>%-24(%d{dd MMM YYYY HH:mm:ss.SSS}) %-5level %logger{36}:%line -> %msg%n</pattern>
-            <!--<pattern>%-24(%d{MMM dd YYYY HH:mm:ss.SSS}) %-5level %file:%line - %msg%n</pattern>-->
         </encoder>
     </appender>
 
