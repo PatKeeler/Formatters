@@ -53,6 +53,7 @@ public enum SqlNodes
     LEFT_JOIN("LEFT JOIN", "Join"),
     LEFT_OUTER_JOIN("LEFT OUTER JOIN", "Join"),
     MODIFY("MODIFY", "Modify"),
+    NATURAL_JOIN("NATURAL JOIN", "Join"),
     ORDER_BY("ORDER BY", "OrderBy"),
     RENAME_COLUMN("RENAME COLUMN","Rename"),
     RENAME_TO("RENAME TO","Rename"),
