@@ -6,7 +6,7 @@
 /**
  * The range of characters to make up the password.
  *
- * @type {string[]}
+ * @type { string[] }
  */
 var PasswordImage = [
             // 16 chars - Hex
