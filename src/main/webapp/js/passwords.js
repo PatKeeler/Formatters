@@ -26,16 +26,26 @@ var PasswordImage = [
             "!","@","#","$","%","^","*","(",")","_","+","="
     ];
 	
-function getPasswords(pwdLen) {
+function getPasswords() {
 
-    var num = $("[name=pwdLength]").val();
-    var test = parseInt(num);
-    alert("test = " + test);
+    if (isNaN($("[name=pwdLength]").val())) {
+        alert("You may only enter a password length between 1 and 99!");
+        $("[name=pwdLength]").css('background-color', 'yellow');
+        $("[name=pwdLength]").focus();
+        return;
+    } else {
+        $("[name=pwdLength]").css('background-color', 'white');
+    }
 
-    //set pwdLen for testing
-    pwdLen = 16;
+    var exclusions = $("[name=excludeChars]").val();
+
+    //var temp = exclusions.split('');
+    //alert("exclusions: " + temp);
+
+    var pwdLen = parseInt($("[name=pwdLength]").val());
 
     var range = 0;
+    var pwds = ["","","",""];
 
     //Loop and generate a password for each depth level.
     for (var n = 0; n < 4; n++) {
@@ -55,13 +65,20 @@ function getPasswords(pwdLen) {
 
         var buffer = "";
 
-        for (var i = 0; i < pwdLen; i++) {
+        for (var i = 0; buffer.length < pwdLen; i++) {
 
-            buffer += PasswordImage[getRandomInteger(range)];
+            var karacter = PasswordImage[getRandomInteger(range)];
+
+            if (isExcludedChar(exclusions, karacter)) {
+                continue;
+            }
+            buffer += karacter;
         }
 
-        alert(buffer);
+        pwds[n] = buffer;
     }
+
+    setPassowrdsOnPage(pwds);
 
 	return true;
 }
@@ -73,8 +90,66 @@ function getPasswords(pwdLen) {
  * Range is depth into PasswordImage array.
  */
 function getRandomInteger(range) {
-	
-	//alert("two");
 
 	return randomnumber = Math.floor(Math.random() * range + 1);
+}
+
+
+/**
+ * Load the passwords onto the page forms.
+ *
+ * @param pwds
+ */
+function setPassowrdsOnPage(pwds) {
+
+    $("[name=hexOnly]").val(pwds[0]);
+    $("[name=hexAllUpper]").val(pwds[1]);
+    $("[name=hexUpperLower]").val(pwds[2]);
+    $("[name=hexAllSpecial]").val(pwds[3]);
+}
+
+
+/**
+ * Return true if character is excluded.
+ *
+ * @param excluded
+ * @param a
+ * @returns {boolean}
+ */
+function isExcludedChar(excluded, a) {
+
+    for (var i = 0; i < excluded.length; i++) {
+        if (excluded[i] == a) {
+            return true;
+        }
+    }
+}
+
+
+/*
+ * This is the user information for Password Generator.
+ */
+function getPasswordAbout() {
+
+    alert("This Password Generator creates 4 levels of password strength "
+        + "\n   which are defined in the table under the \"Generate\" button. "
+        + "\n"
+        + "\n  First - enter the password length you want. "
+        + "\n     The default is 16, you can change it to any length less "
+        + "\n     than 100. "
+        + "\n"
+        + "\n  Next - Add in any characters you do not want in the passwords. "
+        + "\n     This space is used if some of the special characters are not "
+        + "\n     allowed in passwords for the system you are logging into."
+        + "\n"
+        + "\n  Next - Select the \"Generate\" button to generate the passwords, "
+        + "\n     you can select this button as many times as you want until "
+        + "\n     you get a password you like. "
+        + "\n"
+        + "\n  Finally - Select the password you want and paste it into your "
+        + "\n     systems new password settings. "
+        + "\n"
+        + "\n  Have fun! ");
+
+    return true;
 }
