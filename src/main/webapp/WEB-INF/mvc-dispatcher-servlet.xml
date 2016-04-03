@@ -18,6 +18,6 @@
 	</bean>
 
 
-    <context:component-scan base-package="tools.java.pats.controllers" />
+    <context:component-scan base-package="tools.java.pats.controllers sms.controller" />
 
 </beans>

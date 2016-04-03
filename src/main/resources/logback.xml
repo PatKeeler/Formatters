@@ -28,6 +28,12 @@
 
     <!--logger names are given in class files-->
     <logger name="SqlFormatter" level="debug">
-        <appender-ref ref="ROLLING_FILE" />
+        <!--<appender-ref ref="ROLLING_FILE" />-->
         <appender-ref ref="STDOUT" />
-    </logger></configuration>
+    </logger>
+
+    <logger name="SmsController" level="debug">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+</configuration>
