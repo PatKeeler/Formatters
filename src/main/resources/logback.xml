@@ -32,8 +32,4 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="SmsController" level="debug">
-        <appender-ref ref="STDOUT" />
-    </logger>
-
 </configuration>
