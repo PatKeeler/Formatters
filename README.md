@@ -22,7 +22,7 @@ http://patsformatters.appspot.com/MathTutor.html
 http://patsformatters.appspot.com/R-44_WB.html
 
 
-Please send comments or suggestions to Pat@PatsTools.com.
+Please send comments or suggestions to keelerpl@gmail.com.
 
 
 You can view me on LinkedIn at:
