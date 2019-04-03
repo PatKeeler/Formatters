@@ -7,6 +7,8 @@
 						   http://www.springframework.org/schema/context
 						   http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
+	<context:component-scan base-package="tools.java.pats.controllers" />
+
 	<bean id="viewResolver"
 		class=" org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -16,8 +18,4 @@
 			<value>.html</value>
 		</property>
 	</bean>
-
-
-    <context:component-scan base-package="tools.java.pats.controllers, sms.controller" />
-
 </beans>

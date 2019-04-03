@@ -1,8 +1,6 @@
 package tools.java.pats.models;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,10 +31,8 @@ public class SqlFormatterTest {
 
         SqlFormatter formatter = new SqlFormatter();
 
-//        String actual = formatter.formatSql(inputSql,"", "2", "block");
-
-//        System.out.println(actual);
-        assertEquals("Sql is not formatted correctly!", expectedSql, formatter.formatSql(inputSql,"", "2", "block"));
+        assertEquals("Sql is not formatted correctly!",
+                expectedSql, formatter.formatSql(inputSql,"", "2", "block"));
     }
 
 }
