@@ -1,5 +1,11 @@
 package tools.java.pats.test.utils;
 
+import tools.java.pats.string.utils.sql.SortCommandsByLength;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static java.lang.String.format;
 
 
@@ -20,20 +26,30 @@ public class CreateSortedOutputForTest {
          * inserted into SortCommandsByLengthTest.java.
          *
          */
-        String input = "CREATE UNIQUE INDEX, RIGHT OUTER JOIN, " +
-                "CREATE DATABASE, LEFT OUTER JOIN, SELECT DISTINCT, TRUNCATE TABLE, " +
-                "DROP DATABASE, RENAME COLUMN, ALTER COLUMN, CREATE INDEX, " +
-                "CREATE TABLE, ALTER TABLE, CREATE VIEW, DELETE FROM, DROP COLUMN, " +
-                "INSERT INTO, DROP INDEX, INNER JOIN, RIGHT JOIN, SELECT TOP, " +
-                "LEFT JOIN, RENAME TO, UNION ALL, GROUP BY, ORDER BY, BETWEEN, DELETE, " +
-                "HAVING, MODIFY, SELECT, UPDATE, VALUES, UNION, WHERE, DROP, FROM, " +
-                "INTO, JOIN, ADD, SET";
+        String input = "ADD, ALTER COLUMN, ALTER FUNCTION, ALTER TABLE, BETWEEN, " +
+                "COMMENT, CREATE DATABASE, CREATE INDEX, CREATE UNIQUE INDEX, " +
+                "CREATE TABLE, CREATE VIEW, CROSS JOIN, DECLARE, DELETE, DELETE FROM, " +
+                "DROP, DROP COLUMN, DROP DATABASE, DROP INDEX, FROM, FULL JOIN, " +
+                "FULL OUTER JOIN, GROUP BY, HAVING, INSERT INTO, INNER JOIN, INTO, " +
+                "JOIN, LEFT JOIN, LEFT OUTER JOIN, MODIFY, NATURAL JOIN, ORDER BY, " +
+                "RENAME COLUMN, RENAME TO, RIGHT JOIN, RIGHT OUTER JOIN, SELECT, " +
+                "SELECT DISTINCT, SELECT TOP, SET, TRUNCATE TABLE, UNION, UNION ALL, " +
+                "UPDATE, VALUES, WHERE, WITH";
 
         String start = "expected.add(\"";
         String end = "\");";
+        int count = 0;
 
-        for (String s : input.split(",")) {
-            System.out.println(format("%s%s%s", start, s.trim(), end));
+        //Get List of commands sorted by length.
+        List<String> sqlCommands = Arrays.asList(input.split(","));
+        Collections.sort(sqlCommands, new SortCommandsByLength());
+
+
+        for (String sql : sqlCommands) {
+            System.out.println(format("%s%s%s", start, sql.trim(), end));
+            count++;
         }
+
+        System.out.println("count: " + count);
     }
 }
