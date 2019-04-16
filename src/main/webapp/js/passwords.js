@@ -25,16 +25,19 @@ var PasswordImage = [
             // 74 chars - all.
             "!","@","#","$","%","^","*","(",")","_","+","="
     ];
-	
+
+
 function getPasswords() {
 
-    if (isNaN($("[name=pwdLength]").val())) {
+    var pwdLength = $("[name=pwdLength]");
+
+    if (isNaN(pwdLength.val())) {
         alert("You may only enter a password length between 1 and 99!");
-        $("[name=pwdLength]").css('background-color', 'yellow');
-        $("[name=pwdLength]").focus();
+        pwdLength.css('background-color', 'yellow');
+        pwdLength.focus();
         return;
     } else {
-        $("[name=pwdLength]").css('background-color', 'white');
+        pwdLength.css('background-color', 'white');
     }
 
     var exclusions = $("[name=excludeChars]").val();
@@ -42,22 +45,22 @@ function getPasswords() {
     //var temp = exclusions.split('');
     //alert("exclusions: " + temp);
 
-    var pwdLen = parseInt($("[name=pwdLength]").val());
+    var pwdLen = parseInt(pwdLength.val());
 
     var range = 0;
     var pwds = ["","","",""];
 
     //Loop and generate a password for each depth level.
-    for (var n = 0; n < 4; n++) {
+    for (var n = 0; n < 3; n++) {
         switch(n) {
             case 0:
-                range = 15
+                range = 15;
                 break;
             case 1:
-                range = 35
-                break;
-            case 2:
-                range = 61
+            //     range = 35;
+            //     break;
+            // case 2:
+                range = 61;
                 break;
             default:
                 range = 73
@@ -103,9 +106,9 @@ function getRandomInteger(range) {
 function setPassowrdsOnPage(pwds) {
 
     $("[name=hexOnly]").val(pwds[0]);
-    $("[name=hexAllUpper]").val(pwds[1]);
-    $("[name=hexUpperLower]").val(pwds[2]);
-    $("[name=hexAllSpecial]").val(pwds[3]);
+    // $("[name=hexAllUpper]").val(pwds[1]);
+    $("[name=hexUpperLower]").val(pwds[1]);
+    $("[name=hexAllSpecial]").val(pwds[2]);
 }
 
 
@@ -131,7 +134,7 @@ function isExcludedChar(excluded, a) {
  */
 function getPasswordAbout() {
 
-    alert("This Password Generator creates 4 levels of password strength "
+    alert("This Password Generator creates 3 levels of password strength "
         + "\n   which are defined in the table under the \"Generate\" button. "
         + "\n"
         + "\n  First - enter the password length you want. "
