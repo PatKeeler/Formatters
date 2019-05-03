@@ -42,9 +42,6 @@ function getPasswords() {
 
     var exclusions = $("[name=excludeChars]").val();
 
-    //var temp = exclusions.split('');
-    //alert("exclusions: " + temp);
-
     var pwdLen = parseInt(pwdLength.val());
 
     var range = 0;
@@ -57,9 +54,6 @@ function getPasswords() {
                 range = 15;
                 break;
             case 1:
-            //     range = 35;
-            //     break;
-            // case 2:
                 range = 61;
                 break;
             default:
@@ -106,7 +100,6 @@ function getRandomInteger(range) {
 function setPassowrdsOnPage(pwds) {
 
     $("[name=hexOnly]").val(pwds[0]);
-    // $("[name=hexAllUpper]").val(pwds[1]);
     $("[name=hexUpperLower]").val(pwds[1]);
     $("[name=hexAllSpecial]").val(pwds[2]);
 }
