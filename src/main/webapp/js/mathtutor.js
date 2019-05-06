@@ -13,7 +13,7 @@ var tryCount = 1;         // Count of incorrect guesses.
 
 /* Pointers to elements on UI */
 divideAnswer = $("[name=divideAnswer]");
-hintDiv      = $("[name=hintdiv]");
+hintDiv      = $("[name=hintDiv]");
 numberRight  = $("[name=numberRight]");
 numberWrong  = $("[name=numberWrong]");
 operator     = $("[name=operator]");
@@ -63,22 +63,22 @@ function initializeTestItems() {
 	$("[name=chosenNumber]").val(selectedNumber);
 
 	//Add
-	if (selectedMathFunction === 1) {
+	if (selectedMathFunction == 1) {
 		operator.val("+");
 		randomNumber.val(getRandomInteger(12));
 	}
 	//Subtract
-	else if (selectedMathFunction === 2) {
+	else if (selectedMathFunction == 2) {
 		operator.val("-");
 		randomNumber.val(getRandomInteger(selectedNumber));
 	}
 	//Multiply
-	else if (selectedMathFunction === 3) {
+	else if (selectedMathFunction == 3) {
 		operator.val("x");
 		randomNumber.val(getRandomInteger(12));
 	}
 	//Divide
-	else if (selectedMathFunction === 4) {
+	else if (selectedMathFunction == 4) {
 		operator.val("/");
 		randomNumber.val(getRandomInteger(selectedNumber));
 
