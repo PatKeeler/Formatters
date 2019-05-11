@@ -1,28 +1,47 @@
+
 /**
- * Default error messages.
+ * Default invalidNumber error return message.
  */
-const invalidNumber = "You must enter valid numbers for your answer, please try again!";
-const notStarted = "You must select a number, a math function and click on the \"Start\" " +
-    "button before using this funtion, \nPlease do that now.";
+var invalidNumber = "You must enter valid numbers for your answer, please try again!";
 
-var selectedNumber;       // Local variable - number to learn
-var selectedMathFunction; // Default to 0 for validation check when answer button pressed.
+
+/**
+ * Default message if start sequence not followed.
+ */
+var notStarted = "You must select a number, a math function and click on the \"Start\" " +
+	"button before using this funtion, \nPlease do that now.";
+
+
+/**
+ * Variable to hold selected number
+ * Default to 0 for validation check when answer button pressed.
+ */
+var selectedNumber;
+
+
+/**
+ * Variable to hold math function
+ * Default to 0 for validation check when answer button pressed.
+ */
+var SelectedMathFunction;
+
+
+/**
+ * Keep count of number correct
+ */
 var rightCount = 0;
-var wrongCount = 0;
-var tryCount = 1;         // Count of incorrect guesses.
 
-/* Pointers to elements on UI */
-divideAnswer = $("[name=divideAnswer]");
-hintDiv      = $("[name=hintDiv]");
-numberRight  = $("[name=numberRight]");
-numberWrong  = $("[name=numberWrong]");
-operator     = $("[name=operator]");
-otherAnswer  = $("[name=otherAnswer]");
-otherDiv     = $("[name=otherDiv]");
-percentage   = $("[name=percentage]");
-remainder    = $("[name=remainder]");
-responseText = $("[name=responseText]");
-randomNumber = $("[name=randomNumber]");
+
+/**
+ * Keep count of number correct
+ */
+var wrongCount = 0;
+
+
+/**
+ * Boolean to keep count of incorrect guesses.
+ */
+var repetition = 1;
 
 
 /**
@@ -32,14 +51,14 @@ function startTutor() {
 
 	selectedNumber = $("[name=numberRadio]:checked").val();
 
-	if (selectedNumber === null) {
+	if (selectedNumber == null) {
 		alert(notStarted);
 		return false;
 	}
 
 	selectedMathFunction = $("[name=functionRadio]:checked").val();
 
-	if (selectedMathFunction === null) {
+	if (selectedMathFunction == null) {
 		alert(notStarted);
 		return false;
 	}
@@ -52,6 +71,9 @@ function startTutor() {
 
 /**
  * Populate the test variables for the user to begin
+ *
+ * @param a
+ * @param b
  */
 function initializeTestItems() {
 
@@ -59,28 +81,28 @@ function initializeTestItems() {
 	// answer = other - default for add, subtract and multiply.
 	var answer = "other";
 
-	//Set chosen number in UI
+	//Set chosen number
 	$("[name=chosenNumber]").val(selectedNumber);
 
 	//Add
 	if (selectedMathFunction == 1) {
-		operator.val("+");
-		randomNumber.val(getRandomInteger(12));
+		$("[name=operator]").val("+");
+		$("[name=randomNumber]").val(getRandomInteger(12));
 	}
 	//Subtract
 	else if (selectedMathFunction == 2) {
-		operator.val("-");
-		randomNumber.val(getRandomInteger(selectedNumber));
+		$("[name=operator]").val("-");
+		$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
 	}
 	//Multiply
 	else if (selectedMathFunction == 3) {
-		operator.val("x");
-		randomNumber.val(getRandomInteger(12));
+		$("[name=operator]").val("x");
+		$("[name=randomNumber]").val(getRandomInteger(12));
 	}
 	//Divide
 	else if (selectedMathFunction == 4) {
-		operator.val("/");
-		randomNumber.val(getRandomInteger(selectedNumber));
+		$("[name=operator]").val("/");
+		$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
 
 		//set answer = divide
 		answer = "divide";
@@ -90,22 +112,22 @@ function initializeTestItems() {
 	}
 
 	// blank responseText and background color to white.
-	responseText.val("");
-	responseText.css("background", "#FFFFFF");
+	$("[name=responseText]").val("");
+	$("[name=responseText]").css("background", "#FFFFFF");
 
 	//set scores to zero if counts are zero
-	if (parseInt(rightCount) === 0 && parseInt(wrongCount) === 0) {
-		numberRight.val(0);
-		numberWrong.val(0);
-		percentage.val(0);
-		percentage.css("background", "#FFFFFF");
+	if (parseInt(rightCount) == 0 && parseInt(wrongCount) == 0) {
+		$("[name=numberRight]").val(0);
+		$("[name=numberWrong]").val(0);
+		$("[name=percentage]").val(0);
+		$("[name=percentage]").css("background", "#FFFFFF");
 	}
 
 	//set the answer display
 	answerDisplay(answer);
 
 	//hide the Hint button
-	hintDiv.removeClass("show").addClass("hide");
+	$("[name=hintDiv]").removeClass("show").addClass("hide");
 
 }
 
@@ -121,27 +143,27 @@ function checkAnswer() {
 	var answer = -1;
 
 	//Make sure the tutor has been started correctly first.
-	if (selectedNumber === null || selectedMathFunction === null) {
+	if (selectedNumber == null || selectedMathFunction == null) {
 		alert(notStarted);
 		return false;
 	}
 
 	//Make sure there is an answer to check.
-	if (selectedMathFunction !== 4) {
-		if (! verifyNumber(otherAnswer.val())) {
+	if (selectedMathFunction != 4) {
+		if (! verifyNumber($("[name=otherAnswer]").val())) {
 			alert(invalidNumber);
 			return false;
 		}
 	}
 	else {
-		if (! verifyNumber(divideAnswer.val())) {
+		if (! verifyNumber($("[name=divideAnswer]").val())) {
 			alert(invalidNumber);
 			return false;
 		}
 	}
 	//Make sure remainder is blank or a number
-	if (remainder.val() !== "") {
-		if (! verifyNumber(remainder.val())) {
+	if ($("[name=remainder]").val() != "") {
+		if (! verifyNumber($("[name=remainder]").val())) {
 			alert(invalidNumber);
 			return false;
 		}
@@ -149,64 +171,72 @@ function checkAnswer() {
 	//Compute answer based on math function
 
 	//Addition
-	if (selectedMathFunction === 1) {
-		answer = parseInt(selectedNumber) + parseInt(randomNumber.val());
+	if (selectedMathFunction == 1) {
+		answer = parseInt(selectedNumber) + parseInt($("[name=randomNumber]").val());
 
-		if (answer === otherAnswer.val()) {
+		if (answer == $("[name=otherAnswer]").val()) {
 			correctAnswer();
 
 			//Reset random number
-			randomNumber.val(getRandomInteger(12));
+			$("[name=randomNumber]").val(getRandomInteger(12));
 		}
 		else {
 			wrongAnswer();
 		}
 	}
 	//Subtraction
-	else if (selectedMathFunction === 2) {
-		answer = parseInt(selectedNumber) - parseInt(randomNumber.val());
+	else if (selectedMathFunction == 2) {
+		answer = parseInt(selectedNumber) - parseInt($("[name=randomNumber]").val());
 
-		if (answer === otherAnswer.val()) {
+		if (answer == $("[name=otherAnswer]").val()) {
 			correctAnswer();
 
 			//Reset random number
-			randomNumber.val(getRandomInteger(selectedNumber));
+			$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
 		}
 		else {
 			wrongAnswer();
 		}
 	}
 	//Multiplication
-	else if (selectedMathFunction === 3) {
-		answer = parseInt(selectedNumber) * parseInt(randomNumber.val());
+	else if (selectedMathFunction == 3) {
+		answer = parseInt(selectedNumber) * parseInt($("[name=randomNumber]").val());
 
-		if (answer === otherAnswer.val()) {
+		if (answer == $("[name=otherAnswer]").val()) {
 			correctAnswer();
 
 			//Reset random number
-			randomNumber.val(getRandomInteger(12));
+			$("[name=randomNumber]").val(getRandomInteger(12));
 		}
 		else {
 			wrongAnswer();
 		}
 	}
 	//Division
-	else if (selectedMathFunction === 4) {
+	else if (selectedMathFunction == 4) {
 
+		var remainder;
 		var mod;
 
-		answer = parseInt(selectedNumber) / parseInt(randomNumber.val());
+		if ($("[name=remainder]").val() == "") {
+			remainder = parseInt(0);
+		}
+		else {
+			remainder = parseInt($("[name=remainder]").val());
+		}
+
+		answer = parseInt(selectedNumber) / parseInt($("[name=randomNumber]").val());
 		answer = Math.floor(answer);
 
-		mod = parseInt(selectedNumber) % parseInt(randomNumber.val());
+		mod = parseInt(selectedNumber) % parseInt($("[name=randomNumber]").val());
 
-		if ( answer === divideAnswer.val() &&
-			mod === remainder.val() ) {
+		if ( answer == $("[name=divideAnswer]").val() &&
+			mod == $("[name=remainder]").val() ) {
 
 			correctAnswer();
 
 			//For division get a number that gives mod zero
-			randomNumber.val(getRandomInteger(selectedNumber));
+			$("[name=randomNumber]").val(getRandomInteger(selectedNumber));
 
 		}
 		else {
@@ -224,29 +254,27 @@ function checkAnswer() {
  */
 function answerDisplay(display) {
 
-    var divideDiv = $("[name=divideDiv]");
-
-    //Display for all but divide
-	if (display === "other") {
+	//Display for all but divide
+	if (display == "other") {
 
 		//Show other and hide divide
-		otherDiv.removeClass("hide").addClass("show");
-		divideDiv.removeClass("show").addClass("hide");
+		$("[name=otherDiv]").removeClass("hide").addClass("show");
+		$("[name=divideDiv]").removeClass("show").addClass("hide");
 
 		//blank answer, set focus 
-		otherAnswer.val("");
-		otherAnswer.focus();
+		$("[name=otherAnswer]").val("");
+		$("[name=otherAnswer]").focus();
 	}
 	//Display divide answer boxes
-	else if (display === "divide") {
+	else if (display == "divide") {
 
-		otherDiv.removeClass("show").addClass("hide");
-        divideDiv.removeClass("hide").addClass("show");
+		$("[name=otherDiv]").removeClass("show").addClass("hide");
+		$("[name=divideDiv]").removeClass("hide").addClass("show");
 
 		//blank answer, set focus 
-		divideAnswer.val("");
-		divideAnswer.focus();
-		remainder.val("0");
+		$("[name=divideAnswer]").val("");
+		$("[name=divideAnswer]").focus();
+		$("[name=remainder]").val("0");
 	}
 	//Doh!
 	else {
@@ -257,11 +285,11 @@ function answerDisplay(display) {
 
 function hintDisplay(display) {
 
-	if (display === "hide") {
-		hintDiv.removeClass("show").addClass("hide");
+	if (display == "hide") {
+		$("[name=hintDiv]").removeClass("show").addClass("hide");
 	}
 	else {
-		hintDiv.removeClass("hide").addClass("show");
+		$("[name=hintDiv]").removeClass("hide").addClass("show");
 	}
 }
 
@@ -272,16 +300,16 @@ function hintDisplay(display) {
 function resetScore() {
 
 	//set score to blanks.
-	numberWrong.val(0);
-	numberRight.val(0);
-	percentage.val(0);
+	$("[name=numberWrong]").val(0);
+	$("[name=numberRight]").val(0);
+	$("[name=percentage]").val(0);
 
 	//set counts to zero
 	wrongCount = 0;
 	rightCount = 0;
 
 	//Reset background color to white
-	percentage.css("background", "#FFFFFF");
+	$("[name=percentage]").css("background", "#FFFFFF");
 
 }
 
@@ -291,31 +319,31 @@ function resetScore() {
 function correctAnswer() {
 
 	//Signal correct
-	responseText.val("Correct");
-	responseText.css("background", "#40FF00");
+	$("[name=responseText]").val("Correct");
+	$("[name=responseText]").css("background", "#40FF00");
 
-	if (selectedMathFunction !== 4) {
+	if (selectedMathFunction != 4) {
 		//Set otherAnswer to blank and focus
-		otherAnswer.val("");
-		otherAnswer.focus();
+		$("[name=otherAnswer]").val("");
+		$("[name=otherAnswer]").focus();
 	}
 	else {
 		//Set divideAnswer to blank and focus
-		divideAnswer.val("");
-		divideAnswer.focus();
-		remainder.val("0");
+		$("[name=divideAnswer]").val("");
+		$("[name=divideAnswer]").focus();
+		$("[name=remainder]").val("0");
 	}
 
 
 	//Increment number correct
 	rightCount += 1;
-	numberRight.val(rightCount);
+	$("[name=numberRight]").val(rightCount);
 
 	//Compute new percentage
 	computePercentage();
 
 	//reset
-	tryCount = 1;
+	repetition = 1;
 
 	//hide hint button
 	hintDisplay("hide");
@@ -328,28 +356,28 @@ function correctAnswer() {
  */
 function wrongAnswer() {
 
-	if (tryCount === 2) {
+	if (repetition == 2) {
 		//Signal wrong answer
-		responseText.val("Wrong");
-		responseText.css("background", "#FF0000");
+		$("[name=responseText]").val("Wrong");
+		$("[name=responseText]").css("background", "#FF0000");
 
-		if (selectedMathFunction !== 4) {
+		if (selectedMathFunction != 4) {
 			//Set otherAnswer to blank and focus
-			otherAnswer.val("");
-			otherAnswer.focus();
+			$("[name=otherAnswer]").val("");
+			$("[name=otherAnswer]").focus();
 		}
 		else {
 			//Set divideAnswer to blank and focus
-			divideAnswer.val("");
-			divideAnswer.focus();
+			$("[name=divideAnswer]").val("");
+			$("[name=divideAnswer]").focus();
 		}
 
 		//Increment number incorrect
 		wrongCount += 1;
-        numberWrong.val(wrongCount);
+		$("[name=numberWrong]").val(wrongCount);
 
 		//reset 
-		tryCount = 1;
+		repetition = 1;
 
 		//show hint button
 		hintDisplay("hide");
@@ -357,11 +385,11 @@ function wrongAnswer() {
 	}
 	else {
 		//bump by one
-		tryCount += 1;
+		repetition += 1;
 
 		//Signal wrong answer
-		responseText.val("Try again");
-		responseText.css("background", "#FFFF00");
+		$("[name=responseText]").val("Try again");
+		$("[name=responseText]").css("background", "#FFFF00");
 
 		//hide hint button
 		hintDisplay("show");
@@ -381,7 +409,7 @@ function computePercentage() {
 
 	var percentage;
 
-	if (rightCount === 0) {
+	if (rightCount == 0) {
 
 		//Set percentage = 0
 		percentage = 0;
@@ -403,28 +431,28 @@ function computePercentage() {
 	}
 
 	//show percentage
-	percentage.val(percentage);
+	$("[name=percentage]").val(percentage);
 
 	//Set color for score
 	if (percentage >= 90) {
 		//Green
-		percentage.css("background", "#40FF00");
+		$("[name=percentage]").css("background", "#40FF00");
 	}
 	else if(percentage >= 80) {
 		//Yellow
-		percentage.css("background", "#FFFF00");
+		$("[name=percentage]").css("background", "#FFFF00");
 	}
 	else if(percentage >= 70) {
 		//Orange
-		percentage.css("background", "#FF6600");
+		$("[name=percentage]").css("background", "#FF6600");
 	}
 	else if(percentage >= 1) {
 		//Red
-		percentage.css("background", "#FF0000");
+		$("[name=percentage]").css("background", "#FF0000");
 	}
 	else {
 		//White
-		percentage.css("background", "#FFFFFF");
+		$("[name=percentage]").css("background", "#FFFFFF");
 	}
 
 
@@ -438,7 +466,7 @@ function computePercentage() {
  */
 function getRandomInteger(range) {
 
-	return Math.floor(Math.random() * range + 1);
+	return randomnumber=Math.floor(Math.random() * range + 1);
 }
 
 
@@ -448,12 +476,12 @@ function getRandomInteger(range) {
 function checkEnterKey(e) {
 
 	//See if event populated
-	if (typeof e === undefined && window.event) {
+	if (typeof e == undefined && window.event) {
 
 		e = window.event;
 	}
 
-	if (e.keyCode === 13)
+	if (e.keyCode == 13)
 	{
 		checkAnswer();
 	}
@@ -468,9 +496,11 @@ function checkEnterKey(e) {
  */
 function verifyNumber(a) {
 
-	return a >= 0 && a <= 999;
+	if (a >= 0 && a <= 999) {
+		return true;
+	}
 
-
+	return false;
 }
 
 
@@ -479,38 +509,38 @@ function verifyNumber(a) {
  */
 function  getHint() {
 
-	if (selectedNumber === null || selectedMathFunction === null) {
+	if (selectedNumber == null || selectedMathFunction == null) {
 		alert(notStarted);
 		return false;
 	}
 
 	//Addition
-	if (selectedMathFunction === 1) {
+	if (selectedMathFunction == 1) {
 		getAdditionHints();
 		//Set focus on answer
-		otherAnswer.focus();
+		$("[name=otherAnswer]").focus();
 	}
 	//Subtraction
-	else if (selectedMathFunction === 2) {
+	else if (selectedMathFunction == 2) {
 		getSubtractionHints();
 		//Set focus on answer
-		otherAnswer.focus();
+		$("[name=otherAnswer]").focus();
 	}
 	//Multiplication
-	else if (selectedMathFunction === 3) {
+	else if (selectedMathFunction == 3) {
 		getMultiplicationHints();
 		//Set focus on answer
-		otherAnswer.focus();
+		$("[name=otherAnswer]").focus();
 	}
 	//Division
-	else if (selectedMathFunction === 4) {
+	else if (selectedMathFunction == 4) {
 		getDivisionHints();
 		//Set focus on answer
-		divideAnswer.focus();
+		$("[name=divideAnswer]").focus();
 	}
 
 	//Set focus on answer
-	otherAnswer.focus();
+	$("[name=otherAnswer]").focus();
 
 }
 

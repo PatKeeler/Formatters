@@ -29,7 +29,7 @@ var PasswordImage = [
 
 function getPasswords() {
 
-    var pwdLength = $("[name=pwdLength]");
+    const pwdLength = $("[name=pwdLength]");
 
     if (isNaN(pwdLength.val())) {
         alert("You may only enter a password length between 1 and 99!");
@@ -88,7 +88,7 @@ function getPasswords() {
  */
 function getRandomInteger(range) {
 
-	return randomnumber = Math.floor(Math.random() * range + 1);
+	return Math.floor(Math.random() * range + 1);
 }
 
 
@@ -115,7 +115,7 @@ function setPassowrdsOnPage(pwds) {
 function isExcludedChar(excluded, a) {
 
     for (var i = 0; i < excluded.length; i++) {
-        if (excluded[i] == a) {
+        if (excluded[i] === a) {
             return true;
         }
     }
