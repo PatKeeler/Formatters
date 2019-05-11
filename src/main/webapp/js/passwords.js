@@ -63,10 +63,8 @@ function getPasswords() {
         var buffer = "";
 
         for (var i = 0; buffer.length < pwdLen; i++) {
-
             var karacter = PasswordImage[getRandomInteger(range)];
-
-            if (isExcludedChar(exclusions, karacter)) {
+            if (exclusions.includes(karacter)) {
                 continue;
             }
             buffer += karacter;
@@ -102,23 +100,6 @@ function setPassowrdsOnPage(pwds) {
     $("[name=hexOnly]").val(pwds[0]);
     $("[name=hexUpperLower]").val(pwds[1]);
     $("[name=hexAllSpecial]").val(pwds[2]);
-}
-
-
-/**
- * Return true if character is excluded.
- *
- * @param excluded
- * @param a
- * @returns {boolean}
- */
-function isExcludedChar(excluded, a) {
-
-    for (var i = 0; i < excluded.length; i++) {
-        if (excluded[i] === a) {
-            return true;
-        }
-    }
 }
 
 
