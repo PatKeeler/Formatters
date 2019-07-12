@@ -43,11 +43,12 @@ public class SqlFormatterTest {
 
         assertEquals("Sql is not formatted correctly!", expectedSql, formattedSql);
 
-        logger.info("Formatted Sql below: ");
+        logger.info("Formatted Sql: ");
         List<String> myList = Arrays.asList(formattedSql.split("\\n"));
         for (String s : myList) {
-            logger.info(format("   %s", s));
+            logger.info(format("     %s", s));
         }
+        logger.info("");
     }
 
 }
