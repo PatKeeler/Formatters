@@ -63,7 +63,7 @@ public class Add extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(format("\n%s%s", tab, cmd.trim()));
 

@@ -1,8 +1,3 @@
-/**
- * SqlNodes
- * 10/7/11 10:45 AM
- * $Id:$
- */
 package tools.java.pats.enums;
 
 
@@ -12,6 +7,8 @@ import java.util.List;
 
 /**
  * SqlNodes
+ * created 10/7/11 10:45 AM
+ *
  * <br/>
  * List of all Nodes found in Sql Script.
  * <br/>
@@ -73,14 +70,14 @@ public enum SqlNodes
     ;
 
     // Type represents the Sql Command type.
-    public String type;
+    String type;
 
     // ClassName defines the Class to process this Node type.
-    public String className;
+    String className;
 
     /* Constructor - Node name and it's corresponding
     *   Class name. */
-    private SqlNodes(String node, String className) {
+    SqlNodes(String node, String className) {
         this.type = node;
         this.className = className;
     }
@@ -100,6 +97,6 @@ public enum SqlNodes
     // Return Class name representing the Node type.
     public String getClassName() {
 
-        return className.toString();
+        return className;
     }
 }

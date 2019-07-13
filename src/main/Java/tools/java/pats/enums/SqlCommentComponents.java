@@ -25,7 +25,7 @@ public enum SqlCommentComponents {
 	
 	private String comment;
 	
-	private SqlCommentComponents(String comment) {
+	SqlCommentComponents(String comment) {
 		this.comment = comment;
 	}
 	

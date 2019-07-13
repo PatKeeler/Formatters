@@ -55,13 +55,13 @@ public enum SqlKeywords {
 
 	private String cmd;
 	
-	private SqlKeywords(String cmd) {
+	SqlKeywords(String cmd) {
 		this.cmd = cmd;
 	}
 	
 	public static List<String> getCommands() {
 		
-		List<String> cmdList = new ArrayList<String>();
+		List<String> cmdList = new ArrayList<>();
 		
 		for (SqlKeywords s : SqlKeywords.values()) {
 			cmdList.add(s.cmd);
