@@ -101,9 +101,9 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-					<url>http://localhost/manager</url>  
+					<url>http://localhost/manager/text</url>
 					<server>Tomcat 8.0</server>
-					<username>maven</username>  
+					<username>admin</username>
 					<password>deploy</password>   				
                     <path>/Formatters</path>
                     <update>true</update>
