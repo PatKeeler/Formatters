@@ -102,9 +102,9 @@
                 <version>2.2</version>
                 <configuration>
 					<url>http://localhost/manager/text</url>
-					<server>Tomcat 8.0</server>
+					<server>Tomcat 8.5</server>
 					<username>admin</username>
-					<password>deploy</password>   				
+					<password>deploy</password>
                     <path>/Formatters</path>
                     <update>true</update>
                 </configuration>

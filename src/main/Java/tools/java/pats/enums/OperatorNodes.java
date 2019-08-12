@@ -59,7 +59,7 @@ public enum OperatorNodes {
      */
     public String getFormatString() {
 
-        return formatString.toString();
+        return formatString;
     }
 
 }
