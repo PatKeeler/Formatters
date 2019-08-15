@@ -72,11 +72,12 @@ public class SqlFormatter implements Serializable {
 		sql = cleaner.cleanString(sql, comments);
 
         // Log the one line sql string.
-        logger.info("Sql:");
-        logger.info("  " + sql);
+		logger.info("");
+        logger.info(tab + "Sql:");
+        logger.info("  " + tab + sql);
 
         //Log each node - printed in each node
-		logger.info("Nodes:");
+		logger.info(tab + "Nodes:");
 
 		// Upper case all commands.
 		SqlKeywordsToUpperCase upper = new SqlKeywordsToUpperCase();

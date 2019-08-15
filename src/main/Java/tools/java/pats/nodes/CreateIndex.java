@@ -61,7 +61,7 @@ public class CreateIndex extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        printCmdData(this.cmd, this.data);
+        printCmdData(this.tab, this.cmd, this.data);
 
         //semi colon marker.
         boolean semi_colon = false;

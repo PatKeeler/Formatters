@@ -70,7 +70,7 @@ public class Comment extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        printCmdData("", this.data);
+        printCmdData(this.tab, "", this.data);
 
         StringBuffer sb = new StringBuffer();
 

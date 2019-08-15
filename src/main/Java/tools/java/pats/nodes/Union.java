@@ -59,7 +59,7 @@ public class Union extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        printCmdData(this.cmd, "");
+        printCmdData(this.tab, this.cmd, "");
 
         StringBuffer sb = new StringBuffer();
         sb.append(format("\n\n%s%s\n", tab, cmd.trim()));
