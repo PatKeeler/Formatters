@@ -219,6 +219,6 @@ public class Node implements Query, Serializable, ProjectStaticConstants {
 
     protected void printCmdData(String cmd, String data) {
 
-        logger.info(format("       %s %s", cmd, data));
+        logger.info(format("         %s %s", cmd, data));
     }
 }
