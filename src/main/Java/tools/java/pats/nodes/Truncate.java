@@ -61,8 +61,9 @@ public class Truncate extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuffer sb = new StringBuffer();
+        printCmdData(this.cmd, this.data);
 
+        StringBuffer sb = new StringBuffer();
         sb.append(format("\n%s%s\n%s%s%s", tab, cmd.trim(),
                 tab, userIndentTab, data.trim()));
 

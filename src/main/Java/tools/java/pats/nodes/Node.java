@@ -1,6 +1,8 @@
 package tools.java.pats.nodes;
 
 import net.jcip.annotations.ThreadSafe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tools.java.pats.constants.ProjectStaticConstants;
 import tools.java.pats.formatters.ColumnsWithinParensFormatter;
 import tools.java.pats.formatters.EmbeddedSelects.EmbeddedSelectsFormatter;
@@ -16,6 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static java.lang.String.format;
 import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelectsFormatterFactory.getFormatter;
 
 /**
@@ -29,6 +32,10 @@ import static tools.java.pats.formatters.EmbeddedSelects.Factory.EmbeddedSelects
  */
 @ThreadSafe
 public class Node implements Query, Serializable, ProjectStaticConstants {
+
+
+    private static final Logger logger = LoggerFactory.getLogger("SqlFormatter");
+
 
     /** Required serialization parameter */
     private static final long serialVersionUID = 1951L;
@@ -207,5 +214,11 @@ public class Node implements Query, Serializable, ProjectStaticConstants {
         sb.append(formatOperators.formatOperators(element));
 
         return sb.toString();
+    }
+
+
+    protected void printCmdData(String cmd, String data) {
+
+        logger.info(format("       %s %s", cmd, data));
     }
 }

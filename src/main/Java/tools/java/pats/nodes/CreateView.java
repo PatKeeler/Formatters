@@ -61,6 +61,8 @@ public class CreateView extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
 
         //add space to end of data

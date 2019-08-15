@@ -63,10 +63,10 @@ public class Between extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
-
         sb.append(format("\n%s%s%s%s", userIndentTab, userIndentTab, tab, cmd.trim()));
-
         sb.append(format("\n%s%s%s%s%s", userIndentTab, userIndentTab,
                 tab, userIndentTab, formatForAndOrInString(data)));
 

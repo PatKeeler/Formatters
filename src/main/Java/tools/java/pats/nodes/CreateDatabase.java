@@ -61,11 +61,10 @@ public class CreateDatabase extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
-
         sb.append(format("\n%s%s %s", tab, cmd.trim(), data.trim()));
-
-        //sb.append(getMultiLineSegments(data));
 
         return sb.toString();
     }

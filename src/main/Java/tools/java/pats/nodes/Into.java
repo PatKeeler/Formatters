@@ -63,15 +63,14 @@ public class Into extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuffer sb = new StringBuffer();
+        printCmdData(this.cmd, this.data);
 
+        StringBuffer sb = new StringBuffer();
         sb.append(format("\n%s%s\n%s%s", tab, cmd.trim(), tab, userIndentTab));
 
         int indents = 0;
-
         OperatorsFormatter formatOperators =
                 OperatorsFormatterFactory.getFormatter(indents, tab, stringIndentAmount, selectedStyle);
-
         sb.append(formatOperators.formatOperators(data));
 
         return sb.toString();

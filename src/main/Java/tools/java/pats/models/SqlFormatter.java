@@ -3,6 +3,7 @@ package tools.java.pats.models;
 import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.java.pats.nodes.Node;
 import tools.java.pats.nodes.Query;
 import tools.java.pats.string.utils.StringCleaner;
 import tools.java.pats.string.utils.sql.SqlKeywordsToUpperCase;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import static java.lang.String.format;
 
 /**
  * SQL statement formatter.

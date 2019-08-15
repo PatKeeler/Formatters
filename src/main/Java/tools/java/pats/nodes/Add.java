@@ -63,8 +63,9 @@ public class Add extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuilder sb = new StringBuilder();
+        printCmdData(this.cmd, this.data);
 
+        StringBuilder sb = new StringBuilder();
         sb.append(format("\n%s%s", tab, cmd.trim()));
 
         //Look for open paren in data (it's optional and present when multiple columns).

@@ -63,8 +63,9 @@ public class Modify extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuffer sb = new StringBuffer();
+        printCmdData(this.cmd, this.data);
 
+        StringBuffer sb = new StringBuffer();
         //Append the command.
         sb.append(format("\n%s%s", tab, cmd.trim()));
 
