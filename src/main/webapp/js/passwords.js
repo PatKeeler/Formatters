@@ -29,7 +29,7 @@ var PasswordImage = [
 
 function getPasswords() {
 
-    const pwdLength = $("[name=pwdLength]");
+    var pwdLength = $("[name=pwdLength]");
 
     if (isNaN(pwdLength.val())) {
         alert("You may only enter a password length between 1 and 99!");
