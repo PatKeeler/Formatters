@@ -66,6 +66,8 @@ public class Where extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.tab, this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
 
         if(block) {

@@ -3,6 +3,7 @@ package tools.java.pats.models;
 import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.java.pats.nodes.Node;
 import tools.java.pats.nodes.Query;
 import tools.java.pats.string.utils.StringCleaner;
 import tools.java.pats.string.utils.sql.SqlKeywordsToUpperCase;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import static java.lang.String.format;
 
 /**
  * SQL statement formatter.
@@ -70,7 +72,12 @@ public class SqlFormatter implements Serializable {
 		sql = cleaner.cleanString(sql, comments);
 
         // Log the one line sql string.
-        logger.info("Sql = " + tab + sql);
+		logger.info("");
+        logger.info(tab + "Sql:");
+        logger.info("  " + tab + sql);
+
+        //Log each node - printed in each node
+		logger.info(tab + "Nodes:");
 
 		// Upper case all commands.
 		SqlKeywordsToUpperCase upper = new SqlKeywordsToUpperCase();

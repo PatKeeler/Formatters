@@ -63,8 +63,9 @@ public class Drop extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
-        StringBuffer sb = new StringBuffer();
+        printCmdData(this.tab, this.cmd, this.data);
 
+        StringBuffer sb = new StringBuffer();
         sb.append(format("\n%s%s %s", tab, cmd.trim(), data.trim()));
 
         return sb.toString();

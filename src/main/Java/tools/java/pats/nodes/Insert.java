@@ -64,6 +64,8 @@ public class Insert extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.tab, this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
 
         //Look for open paren in data

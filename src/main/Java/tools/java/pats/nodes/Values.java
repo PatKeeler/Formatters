@@ -61,10 +61,10 @@ public class Values extends Node implements Query, Serializable {
      */
     public String processLine(Query node) {
 
+        printCmdData(this.tab, this.cmd, this.data);
+
         StringBuffer sb = new StringBuffer();
-
         sb.append(format("\n%s%s", tab, cmd.trim()));
-
         sb.append(formatValuesColumns(data.trim()));
 
         return sb.toString();
