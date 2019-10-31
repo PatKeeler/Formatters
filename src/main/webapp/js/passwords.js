@@ -89,8 +89,6 @@ function getRandomInteger(range) {
 	return Math.floor(Math.random() * range + 1);
 }
 
-//Added comment for testing
-
 
 /**
  * Load the passwords onto the page forms.

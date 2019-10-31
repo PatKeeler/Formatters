@@ -9,8 +9,6 @@ var dots = ".....";
  */
 var numberOfDots = 0;
 
-//Added comment for testing
-
 
 function getFormattedSql() {
 
