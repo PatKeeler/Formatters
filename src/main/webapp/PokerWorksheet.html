@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Pat's Poker Tournament</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <style type="text/css">
+            body {
+                font-size: 15px;
+                font-family: arial;
+                background: #f4f4f4;
+                line-height: 1.5em;
+            }
+
+            header {
+                background: #66FFFF;
+                color: #000;
+                padding: 20px;
+                text-align: center;
+                border-bottom: 4px #000 solid;
+                margin-bottom: 10px;
+            }
+
+            #myHeaders {
+                font-size: 20px;
+                font-family: arial;
+                background: #f4f4f4;
+                line-height: 1em;
+            }
+
+            #container {
+                width: 90%;
+                margin: auto;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <header>
+        <h1>Pat's Poker Tournament Worksheet</h1>
+    </header>
+    <div id="container">
+        <div id="myHeaders" align="left" width="100%">
+            Enter Player Names & Set amounts for game:
+        </div>
+        <table border="0" width="100%" cellpadding="5">
+            <tr>
+                <th align="left">Player Name</th>
+                <th align="left">BuyIn</th>
+                <th align="left">Bounty</th>
+                <th align="left">Last Man</th>
+                <th align="left">AddOn</th>
+            </tr>
+            <tr>
+                <td><input size="20" type='text' id='player_name' name='player_name[]'/></td>
+                <td><input size="7" type='text' id='buyIn' name='buyIn[]'/></td>
+                <td><input size="7" type='text' id='bounty' name='bounty[]'/></td>
+                <td><input size="7" type='text' id='lastMan' name='lastMan[]'/></td>
+                <td><input size="7" type='text' id='addOn' name='addOn[]'/></td>
+                <td><input type="button" id="savePlayer" value="Save Player"></input></td>
+            </tr>
+        </table>
+        <br/>
+        <div id="players">
+            <table border="0" width="100%" cellpadding="5" id="playersTable">
+                <thead>
+                <tr>
+                    <th size="4" align="left">Select</th>
+                    <th size="15" align="left">Player</th>
+                    <th size="4" align="left">BuyIn</th>
+                    <th size="4" align="left">Bounty</th>
+                    <th size="4" align="left">Last Man</th>
+                    <th size="4" align="left">AddOn</th>
+                </tr>
+                </thead>
+                <tbody id="tbodyRow">
+                </tbody>
+            </table>
+            <button type="button" id="delete-row">Delete</button>
+            <button type="button" id="btnRebuy">Rebuy</button>
+            <button type="button" id="btnAddOn">AddOn</button>
+        </div>
+        <br/>
+        <br/>
+        <div id="myHeaders" align="left" width="50%">
+            Running Totals:
+        </div>
+        <table border="0" width="100%" cellpadding="5">
+            <tr>
+                <th align="left" width="20%">Players</th>
+                <th align="left" width="20%">BuyIn</th>
+                <th align="left" width="20%">Bounty</th>
+                <th align="left" width="20%">Last Man</th>
+                <th align="left" width="20%">AddOn</th>
+                <th width="20%"></th>
+            </tr>
+            <tr>
+                <td><input size="7" maxwidth="10" type="text" id="totalPlayers"></td>
+                <td><input size="7" maxwidth="10" type="text" id="buyInTotal"></td>
+                <td><input size="7" maxwidth="10" type="text" id="bountyTotal"></td>
+                <td><input size="7" maxwidth="10" type="text" id="lastManTotal"></td>
+                <td><input size="7" maxwidth="10" type="text" id="addOnTotal"></td>
+                <td maxwidth="10"></td>
+                <td></td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <div align="left" width="50%">
+            <h1>Winners:</h1>
+        </div>
+        <div id="myHeaders" align="left" width="50%">
+            Chop Counts:
+        </div>
+        <table border="0" width="100%" cellpadding="5">
+            <tr>
+                <th align="left" width="25%">BuyIn & AddOn</th>
+                <th align="left" width="25%">Chop Amount</th>
+                <th align="left" width="20%">Last Man</th>
+                <th align="left" width="30%">Chop Amount</th>
+            </tr>
+            <tr>
+                <td><input size="7" maxwidth="10" type="text" id="chopPlayers"></td>
+                <td><input size="7" maxwidth="10" type="text" id="chopAmount"></td>
+                <td><input size="7" maxwidth="10" type="text" id="lastManPlayers"></td>
+                <td><input size="7" maxwidth="10" type="text" id="lastManAmount"></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" width="25%" id="chopBtn">Chop BuyIn & AddOn</button>
+                </td>
+                <td>
+                    <button type="button" width="25%" id="chopAllBtn">Chop + Last Man</button>
+                </td>
+                <td>
+                    <button type="button" width="50%" id="chopLastManBtn">Chop Last Man</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+        <div>
+            <table>
+            </table>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <button type="button" id="addWinnerBtn">Add</button>
+        <button type="button" id="deleteWinnerBtn">Delete</button>
+        <button type="button" id="computeBtn">Compute BuyIn & AddOn</button>
+        <button type="button" id="computeLastManBtn">Compute + Last Man</button>
+        <table border="0" width="100%" cellpadding="5">
+            <thead>
+            <tr>
+                <th align="left" width="20%">Winners</th>
+                <th align="left" width="20%">Percentage</th>
+                <th align="left" width="60%">Amount</th>
+            </tr>
+            </thead>
+            <tbody id="winners">
+            </tbody>
+        </table>
+        <br/>
+    </div>
+    </body>
+</html>
