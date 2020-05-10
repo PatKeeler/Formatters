@@ -12,7 +12,26 @@
     <url>http://maven.apache.org</url>
 
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- G Suite -->
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>libraries-bom</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
+        <!-- G Suite -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-bigquery</artifactId>
+        </dependency>
         <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -158,8 +177,8 @@
         <javax-servlet-version>2.4</javax-servlet-version>
         <junit-version>4.8.2</junit-version>
         <logback-version>1.1.3</logback-version>
-        <maven.compile.source>1.8</maven.compile.source>
-        <maven.compile.target>1.8</maven.compile.target>
+        <maven.compile.source>1.7</maven.compile.source>
+        <maven.compile.target>1.7</maven.compile.target>
         <org.springframework.version>4.3.18.RELEASE</org.springframework.version>
     </properties>
 
