@@ -144,7 +144,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("AddOn skipped: " + name + " has already done an AddOn!");
+                alert("Addon skipped: " + name + " has already done an Addon!");
 
                 row.cells[0].children[0].checked = false;
             }
@@ -166,7 +166,7 @@ $(document).ready(function() {
             let row = $(this).closest("tr")[0];
             buyIn  = ($('#buyIn')).val();
             newBuyIn  = row.cells[2].innerHTML;
-            if (newBuyIn > buyIn) {
+            if (parseFloat(newBuyIn) > parseFloat(buyIn)) {
                 total  = parseFloat(newBuyIn) - parseFloat(buyIn);
                 row.cells[2].innerHTML = total.toFixed(2);
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("Nothing to remove: " + name + " has not done a rebuy!");
+                alert("No change: " + name + " has not done a rebuy!");
 
                 row.cells[0].children[0].checked = false;
             }
@@ -207,7 +207,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("Nothing to remove: " + name + " has not done an AddOn!")
+                alert("No change: " + name + " has not done an AddOn!")
 
                 row.cells[0].children[0].checked = false;
             }
