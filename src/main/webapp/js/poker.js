@@ -19,22 +19,22 @@ $(document).ready(function() {
 
     function emptyAllFields() {
         $('#player_name').val('');
-        $('#buyIn').val('');
-        $('#bounty').val('');
-        $('#lastMan').val('');
-        $('#addOn').val('');
-        $('.playerBuyIn').val('');
-        $('.playerBounty').val('');
-        $('.playerAddOn').val('');
-        $('#totalPlayers').val('');
-        $('#buyInTotal').val('');
-        $('#bountyTotal').val('');
-        $('#lastManTotal').val('');
-        $('#addOnTotal').val('');
-        $('#chopPlayers').val('');
-        $('#chopAmount').val('');
-        $('#lastManPlayers').val('');
-        $('#lastManAmount').val('');
+        $('#buyIn').val();
+        $('#bounty').val();
+        $('#lastMan').val();
+        $('#addOn').val();
+        $('.playerBuyIn').val();
+        $('.playerBounty').val();
+        $('.playerAddOn').val();
+        $('#totalPlayers').val();
+        $('#buyInTotal').val();
+        $('#bountyTotal').val();
+        $('#lastManTotal').val();
+        $('#addOnTotal').val();
+        $('#chopPlayers').val();
+        $('#chopAmount').val();
+        $('#lastManPlayers').val();
+        $('#lastManAmount').val();
     }
 
 
@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 
     function addToPlayers() {
-        let name = $('#player_name').val();
+        let name = $('#player_name');
         let buyIn = $('#buyIn').val();
         let bounty = $('#bounty').val();
         let lastMan = $('#lastMan').val();
@@ -54,7 +54,7 @@ $(document).ready(function() {
         let markup =
             "<tr class='item'>" +
             "<td><input id='checker' type='checkbox' name='record'></td>" +
-            "<td type='text'>" + name + "</td>" +
+            "<td type='text'>" + name.val() + "</td>" +
             "<td type='text' class='playerBuyIn'>" + buyIn + "</td>" +
             "<td type='text' class='playerBounty'>" + bounty + "</td>" +
             "<td type='text' class='playerLastMan'>" + lastMan + "</td>" +
@@ -63,8 +63,10 @@ $(document).ready(function() {
         $('#tbodyRow').append(markup);
         $('#players').show();
         players ++;
-        $('#player_name').val('');
-        $('#player_name').focus();
+        name.val('');
+        name.focus();
+        // $('#player_name').val('');
+        // $('#player_name').focus();
     };
 
 
@@ -98,11 +100,11 @@ $(document).ready(function() {
 
     // Add BuyIn amount to selected table rows
     $("#btnRebuy").click(function() {
-        let buyIn  = 0;
+        let buyIn     = 0;
         let newBuyIn  = 0;
-        let bounty = 0;
+        let bounty    = 0;
         let newBounty = 0;
-        let total  = 0;
+        let total     = 0;
 
         //Loop through all checked CheckBoxes in GridView.
         $("#tbodyRow input[type=checkbox]:checked").each(function () {
@@ -219,7 +221,7 @@ $(document).ready(function() {
     });
 
 
-    //Compute chop amount
+    //Add winner row
     $('#addWinnerBtn').click(function() {
         let markup =
             "<tr class='item'>" +
@@ -245,8 +247,8 @@ $(document).ready(function() {
     $('#computeBtn').click(function() {
         let buyInTotal = $('#buyInTotal').val();
         let addOnTotal = $('#addOnTotal').val();
-        let total = parseInt(buyInTotal) + parseInt(addOnTotal);
-        let each  = parseInt(total / 10);
+        let total = parseFloat(buyInTotal) + parseFloat(addOnTotal);
+        let each  = parseFloat(total / 10);
 
         //Loop through all checked CheckBoxes in GridView.
         $("#winners").find('tr').each(function () {
@@ -264,10 +266,10 @@ $(document).ready(function() {
         let buyInTotal = $('#buyInTotal').val();
         let addOnTotal = $('#addOnTotal').val();
         let lastManTotal = $('#lastManTotal').val();
-        let total = parseInt(buyInTotal) +
-            parseInt(addOnTotal) +
-            parseInt(lastManTotal);
-        let each  = parseInt(total / 10);
+        let total = parseFloat(buyInTotal) +
+            parseFloat(addOnTotal) +
+            parseFloat(lastManTotal);
+        let each  = parseFloat(total / 10);
 
         //Loop through all checked CheckBoxes in GridView.
         $("#winners").find('tr').each(function () {
