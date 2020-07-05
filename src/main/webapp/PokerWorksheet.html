@@ -54,10 +54,10 @@
             </tr>
             <tr>
                 <td><input size="20" type='text' id='player_name' name='player_name[]'/></td>
-                <td><input size="7" type='text' id='buyIn' name='buyIn[]'/></td>
-                <td><input size="7" type='text' id='bounty' name='bounty[]'/></td>
-                <td><input size="7" type='text' id='lastMan' name='lastMan[]'/></td>
-                <td><input size="7" type='text' id='addOn' name='addOn[]'/></td>
+                <td><input size="7" type='text' value="0.00" id='buyIn' name='buyIn[]'/></td>
+                <td><input size="7" type='text' value="0.00" id='bounty' name='bounty[]'/></td>
+                <td><input size="7" type='text' value="0.00" id='lastMan' name='lastMan[]'/></td>
+                <td><input size="7" type='text' value="0.00" id='addOn' name='addOn[]'/></td>
             </tr>
                 <td><input type="button" id="savePlayer" value="Save Player"></input></td>
             <tr>
@@ -80,9 +80,13 @@
                 <tbody id="tbodyRow">
                 </tbody>
             </table>
-            <button type="button" id="delete-row">Delete</button>
-            <button type="button" id="btnRebuy">Rebuy</button>
-            <button type="button" id="btnAddOn">AddOn</button>
+            <button type="button" id="delete-row">Delete Player</button>
+            &nbsp
+            <button type="button" id="btnPlusRebuy">+ Rebuy</button>
+            <button type="button" id="btnPlusAddOn">+ AddOn</button>
+            &nbsp &nbsp Mistakes:
+            <button type="button" id="btnMinusRebuy">- Rebuy</button>
+            <button type="button" id="btnMinusAddOn">- AddOn</button>
         </div>
         <br/>
         <br/>

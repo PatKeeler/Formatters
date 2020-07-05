@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 
     // Add BuyIn amount to selected table rows
-    $("#btnRebuy").click(function() {
+    $("#btnPlusRebuy").click(function() {
         let buyIn     = 0;
         let newBuyIn  = 0;
         let bounty    = 0;
@@ -126,7 +126,7 @@ $(document).ready(function() {
 
 
     // Add the AddOn amount to selected table rows
-    $("#btnAddOn").click(function(){
+    $("#btnPlusAddOn").click(function(){
         let addOn  = 0;
         let newAddOn  = 0;
         let total  = 0;
@@ -136,10 +136,81 @@ $(document).ready(function() {
             let row = $(this).closest("tr")[0];
             addOn  = ($('#addOn')).val();
             newAddOn  = row.cells[5].innerHTML;
-            total  = parseFloat(addOn) + parseFloat(newAddOn);
-            row.cells[5].innerHTML = total.toFixed(2);
+            if (newAddOn == 0) {
+                total  = parseFloat(addOn) + parseFloat(newAddOn);
+                row.cells[5].innerHTML = total.toFixed(2);
 
-            row.cells[0].children[0].checked = false;
+                row.cells[0].children[0].checked = false;
+            }
+            else {
+                let name = row.cells[1].innerHTML;
+                alert("AddOn skipped: " + name + " has already done an AddOn!");
+
+                row.cells[0].children[0].checked = false;
+            }
+        });
+        computeTotals();
+    });
+
+
+    // Add BuyIn amount to selected table rows
+    $("#btnMinusRebuy").click(function() {
+        let buyIn     = 0;
+        let newBuyIn  = 0;
+        let bounty    = 0;
+        let newBounty = 0;
+        let total     = 0;
+
+        //Loop through all checked CheckBoxes in GridView.
+        $("#tbodyRow input[type=checkbox]:checked").each(function () {
+            let row = $(this).closest("tr")[0];
+            buyIn  = ($('#buyIn')).val();
+            newBuyIn  = row.cells[2].innerHTML;
+            if (newBuyIn > buyIn) {
+                total  = parseFloat(newBuyIn) - parseFloat(buyIn);
+                row.cells[2].innerHTML = total.toFixed(2);
+
+                bounty = ($('#bounty')).val();
+                newBounty = row.cells[3].innerHTML;
+                total  =  parseFloat(newBounty) - parseFloat(bounty);
+                row.cells[3].innerHTML = total.toFixed(2);
+
+                row.cells[0].children[0].checked = false;
+            }
+            else {
+                let name = row.cells[1].innerHTML;
+                alert("Nothing to remove: " + name + " has not done a rebuy!");
+
+                row.cells[0].children[0].checked = false;
+            }
+        });
+        computeTotals();
+    });
+
+
+    // Add the AddOn amount to selected table rows
+    $("#btnMinusAddOn").click(function(){
+        let addOn  = 0;
+        let newAddOn  = 0;
+        let total  = 0;
+
+        //Loop through all checked CheckBoxes in GridView.
+        $("#tbodyRow input[type=checkbox]:checked").each(function () {
+            let row = $(this).closest("tr")[0];
+            addOn  = ($('#addOn')).val();
+            newAddOn  = row.cells[5].innerHTML;
+            if (newAddOn > 0) {
+                total  =  parseFloat(newAddOn) - parseFloat(addOn);
+                row.cells[5].innerHTML = total.toFixed(2);
+
+                row.cells[0].children[0].checked = false;
+            }
+            else {
+                let name = row.cells[1].innerHTML;
+                alert("Nothing to remove: " + name + " has not done an AddOn!")
+
+                row.cells[0].children[0].checked = false;
+            }
         });
         computeTotals();
     });
