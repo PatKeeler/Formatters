@@ -354,3 +354,27 @@ $(document).ready(function() {
 
 });
 
+
+
+/**
+ * This is user information for the Poker app.
+ */
+function getPokerAbout() {
+
+    alert("This Poker app was written to help keep up with the numbers for poker tournaments. "
+        + "It is generic and should help with most tournaments but maybe not all"
+        + "\n\n\tFollow these steps to get started:"
+        + "\n\t1. The cursor will be focused on the name textbox, type in the first player name."
+        + "\n\t2. Tab to each amount box and enter the amount for this game, or leave at 0.00."
+        + "\n\t3. Tab one more time to the \"Save Player\" and hit enter, the first player is saved."
+        + "\n\t4. Now type in player names and hit enter for each entrant, the numbers you entered before "
+        + "will be the defaults but can be changed for each player before hitting enter. "
+        + "\n\nThe app will keep track of rebuys and addons as you play the tournament. Make the updates "
+        + "as you go using the buttons for rebuys and addons."
+        + "\n\n\tPlay play around with the Chop and Winner sections to view the possible results "
+        + "depending on the default amounts and totals. "
+        + "\n\n\tFor winners, add rows and enter the percentage for each winning position. "
+        + "The numbers should be entered as \"50\" for 50 percent, etc., without any decimals.");
+
+    return true;
+}
