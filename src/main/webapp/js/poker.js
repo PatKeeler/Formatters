@@ -371,10 +371,10 @@ function getPokerAbout() {
         + "will be the defaults but can be changed for each player before hitting enter. "
         + "\n\nThe app will keep track of rebuys and addons as you play the tournament. Make the updates "
         + "as you go using the buttons for rebuys and addons."
-        + "\n\n\tPlay play around with the Chop and Winner sections to view the possible results "
+        + "\n\n\tPlay around with the Chop and Winner sections to view the possible results "
         + "depending on the default amounts and totals. "
         + "\n\n\tFor winners, add rows and enter the percentage for each winning position. "
-        + "The numbers should be entered as \"50\" for 50 percent, etc., without any decimals.");
+        + "The numbers should be entered as 50 for 50 percent, etc., without any decimals.");
 
     return true;
 }

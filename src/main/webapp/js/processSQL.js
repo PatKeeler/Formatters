@@ -104,7 +104,7 @@ function getSqlAbout() {
             + "\n\t For java Strings on multiple lines the \" and + should be on the same line."
             + "\n\t All java Strings end with a semi-colon, so the last line should end with \" and ;."
 			+ "\n\nIf you have suggestions for enhancements or encounter errors send an email "
-			+ "to Pat@PatsTools.com and I'll look into it. ");
+			+ "to keelerpl@gmail.com and I'll look into it. ");
 
 	return true;
 }

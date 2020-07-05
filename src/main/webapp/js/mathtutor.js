@@ -647,7 +647,7 @@ function getMathAbout() {
 	+ "The \"Hint\" button will help you \nlearn the right answers.  But, when you use hints, study them so "
 	+ "you don't have to look at hints so often."
 	+ "\n\nIf you have suggestions for enhancements or encounter errors, send an email "
-	+ "to Pat@PatsTools.com and I'll look into it. ");
+	+ "to keelerpl@gmail.com and I'll look into it. ");
 
 	return true;
 }

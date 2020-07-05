@@ -67,7 +67,7 @@ function getXmlAbout() {
 			+ "\nThe output should run in SoapUI, error free."
 			+ "\n\nThe \"Indent options\" are self evident: \n    indent or not. \n    indent amount. "
 			+ "\n\nIf you have suggestions for enhancements or encounter errors send an email "
-			+ "to Pat@PatsTools.com and I'll \nlook into it.");
+			+ "to keelerpl@gmail.com and I'll \nlook into it.");
 
 	return true;
 }
