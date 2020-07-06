@@ -162,7 +162,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("Addon skipped: " + name + " has already done an Addon!");
+                alert("Rejected: " + name + " has already done an Addon!");
 
                 row.cells[0].children[0].checked = false;
             }
@@ -197,7 +197,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("No change: " + name + " has not done a rebuy!");
+                alert("Rejected: " + name + " has not done a rebuy!");
 
                 row.cells[0].children[0].checked = false;
             }
@@ -225,7 +225,7 @@ $(document).ready(function() {
             }
             else {
                 let name = row.cells[1].innerHTML;
-                alert("No change: " + name + " has not done an AddOn!")
+                alert("Rejected: " + name + " has not done an AddOn!")
 
                 row.cells[0].children[0].checked = false;
             }
