@@ -82,6 +82,24 @@ $(document).ready(function() {
     }
 
 
+    // Set all checked boxes on
+    $("#selectAll").click(function() {
+        $("#tbodyRow").find('input[name="record"]').each(function(){
+            $(this).prop('checked', true);
+        });
+        $('#player_name').focus();
+    });
+
+
+    // Set all checked boxes off
+    $("#unSelectAll").click(function() {
+        $("#tbodyRow").find('input[name="record"]').each(function(){
+            $(this).prop('checked', false);
+        });
+        $('#player_name').focus();
+    });
+
+
     // Find and remove selected table rows
     $("#delete-row").click(function() {
         $("#tbodyRow").find('input[name="record"]').each(function(){
