@@ -362,19 +362,19 @@ $(document).ready(function() {
 function getPokerAbout() {
 
     alert("This Poker app was written to help keep up with the numbers for poker tournaments. "
-        + "It is generic and should help with most tournaments but maybe not all"
+        + "It is generic and will be useful for most tournaments, hopefully yours."
         + "\n\n\tFollow these steps to get started:"
-        + "\n\t1. The cursor will be focused on the name textbox, type in the first player name."
-        + "\n\t2. Tab to each amount box and enter the amount for this game, or leave at 0.00."
-        + "\n\t3. Tab one more time to the \"Save Player\" and hit enter, the first player is saved."
-        + "\n\t4. Now type in player names and hit enter for each entrant, the numbers you entered before "
-        + "will be the defaults but can be changed for each player before hitting enter. "
-        + "\n\nThe app will keep track of rebuys and addons as you play the tournament. Make the updates "
-        + "as you go using the buttons for rebuys and addons."
-        + "\n\n\tPlay around with the Chop and Winner sections to view the possible results "
-        + "depending on the default amounts and totals. "
-        + "\n\n\tFor winners, add rows and enter the percentage for each winning position. "
-        + "The numbers should be entered as 50 for 50 percent, etc., without any decimals.");
+        + "\n\t1. The cursor will be focused on the name textbox, type in the first player\'s name."
+        + "\n\t2. Tab to each amount box and enter the amount for that column, or leave at 0.00."
+        + "\n\t3. Tab one more time to the \"Save Player\" button and hit enter, the first player is saved."
+        + "\n\t4. Now for each entrant type in the players name, change amounts if needed, and hit enter. "
+        + "The amounts you entered last will be the defaults for the next player. "
+        + "\n\n\tThe app will keep totals of rebuys and addons as you play by using the buttons for rebuys and addons."
+        + "\n\tPlay around with the Chop and Winner sections to view the different results "
+        + "depending on the default amounts, totals and number of chops or winners. "
+        + "\n\tFor winners, add rows and enter the percentage for each winning position. "
+        + "The percentages should be entered without decimals, i.e. 50, 30, 20 or 40, 30, 20, 10, etc, totaling 100."
+        + "\n\nHave Fun!");
 
     return true;
 }
