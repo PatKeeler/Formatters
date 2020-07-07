@@ -21,14 +21,17 @@ $(document).ready(function() {
         $('#player_name').val('');
         $('#buyIn').val();
         $('#bounty').val();
+        $('#fee').val();
         $('#lastMan').val();
         $('#addOn').val();
         $('.playerBuyIn').val();
         $('.playerBounty').val();
+        $('.playerFee').val();
         $('.playerAddOn').val();
         $('#totalPlayers').val();
         $('#buyInTotal').val();
         $('#bountyTotal').val();
+        $('#feeTotal').val();
         $('#lastManTotal').val();
         $('#addOnTotal').val();
         $('#chopPlayers').val();
@@ -49,6 +52,7 @@ $(document).ready(function() {
         let name = $('#player_name');
         let buyIn = $('#buyIn').val();
         let bounty = $('#bounty').val();
+        let fee = $('#fee').val();
         let lastMan = $('#lastMan').val();
         let addOn = $('#addOn').val();
         let markup =
@@ -57,6 +61,7 @@ $(document).ready(function() {
             "<td type='text'>" + name.val() + "</td>" +
             "<td type='text' class='playerBuyIn'>" + buyIn + "</td>" +
             "<td type='text' class='playerBounty'>" + bounty + "</td>" +
+            "<td type='text' class='playerFee'>" + fee + "</td>" +
             "<td type='text' class='playerLastMan'>" + lastMan + "</td>" +
             "<td type='text' class='playerAddOn'>0.00</td>" +
             "</tr>";
@@ -65,8 +70,6 @@ $(document).ready(function() {
         players ++;
         name.val('');
         name.focus();
-        // $('#player_name').val('');
-        // $('#player_name').focus();
     };
 
 
@@ -74,9 +77,11 @@ $(document).ready(function() {
         let buyIn = parseFloat($('#buyIn').val());
         let bounty = parseFloat($('#bounty').val());
         let lastMan = parseFloat($('#lastMan').val());
+        let fee = parseFloat($('#fee').val());
         let addOn = parseFloat($('#addOn').val());
         $('#buyIn').val(buyIn.toFixed(2));
         $('#bounty').val(bounty.toFixed(2));
+        $('#fee').val(fee.toFixed(2));
         $('#lastMan').val(lastMan.toFixed(2));
         $('#addOn').val(addOn.toFixed(2));
     }
@@ -153,10 +158,10 @@ $(document).ready(function() {
         $("#tbodyRow input[type=checkbox]:checked").each(function () {
             let row = $(this).closest("tr")[0];
             addOn  = ($('#addOn')).val();
-            newAddOn  = row.cells[5].innerHTML;
+            newAddOn  = row.cells[6].innerHTML;
             if (newAddOn == 0) {
                 total  = parseFloat(addOn) + parseFloat(newAddOn);
-                row.cells[5].innerHTML = total.toFixed(2);
+                row.cells[6].innerHTML = total.toFixed(2);
 
                 row.cells[0].children[0].checked = false;
             }
@@ -216,10 +221,10 @@ $(document).ready(function() {
         $("#tbodyRow input[type=checkbox]:checked").each(function () {
             let row = $(this).closest("tr")[0];
             addOn  = ($('#addOn')).val();
-            newAddOn  = row.cells[5].innerHTML;
+            newAddOn  = row.cells[6].innerHTML;
             if (newAddOn > 0) {
                 total  =  parseFloat(newAddOn) - parseFloat(addOn);
-                row.cells[5].innerHTML = total.toFixed(2);
+                row.cells[6].innerHTML = total.toFixed(2);
 
                 row.cells[0].children[0].checked = false;
             }
@@ -239,6 +244,7 @@ $(document).ready(function() {
 
         let buyInTotal = 0;
         let bountyTotal = 0;
+        let feeTotal = 0;
         let lastManTotal = 0;
         let addOnTotal = 0;
 
@@ -253,18 +259,20 @@ $(document).ready(function() {
 
             buyInTotal += parseFloat($tds.eq(2).text());
             bountyTotal += parseFloat($tds.eq(3).text());
-            lastManTotal += parseFloat($tds.eq(4).text());
-            addOnTotal += parseFloat($tds.eq(5).text());
+            feeTotal += parseFloat($tds.eq(4).text());
+            lastManTotal += parseFloat($tds.eq(5).text());
+            addOnTotal += parseFloat($tds.eq(6).text());
         });
-        setTotals(buyInTotal, bountyTotal, lastManTotal, addOnTotal);
+        setTotals(buyInTotal, bountyTotal, feeTotal, lastManTotal, addOnTotal);
     }
 
 
     //Set the Running totals
-    function setTotals(buyInTotal, bountyTotal, lastManTotal, addOnTotal) {
+    function setTotals(buyInTotal, bountyTotal, feeTotal, lastManTotal, addOnTotal) {
         $('#totalPlayers').val(players);
         $('#buyInTotal').val(buyInTotal.toFixed(2));
         $('#bountyTotal').val(bountyTotal.toFixed(2));
+        $('#feeTotal').val(feeTotal.toFixed(2));
         $('#lastManTotal').val(lastManTotal.toFixed(2));
         $('#addOnTotal').val(addOnTotal.toFixed(2));
     }

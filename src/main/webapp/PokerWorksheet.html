@@ -83,6 +83,7 @@
                 <th align="left">Player Name</th>
                 <th align="left">BuyIn</th>
                 <th align="left">Bounty</th>
+                <th align="left">Fee</th>
                 <th align="left">Last Man</th>
                 <th align="left">AddOn</th>
             </tr>
@@ -90,6 +91,7 @@
                 <td><input size="20" type='text' id='player_name' name='player_name[]'/></td>
                 <td><input size="7" type='text' value=0.00 id='buyIn' name='buyIn[]'/></td>
                 <td><input size="7" type='text' value=0.00 id='bounty' name='bounty[]'/></td>
+                <td><input size="7" type='text' value=0.00 id='fee' name='fee[]'/></td>
                 <td><input size="7" type='text' value=0.00 id='lastMan' name='lastMan[]'/></td>
                 <td><input size="7" type='text' value=0.00 id='addOn' name='addOn[]'/></td>
             </tr>
@@ -107,6 +109,7 @@
                     <th size="15" align="left">Player</th>
                     <th size="4" align="left">BuyIn</th>
                     <th size="4" align="left">Bounty</th>
+                    <th size="4" align="left">Fee</th>
                     <th size="4" align="left">Last Man</th>
                     <th size="4" align="left">AddOn</th>
                 </tr>
@@ -133,16 +136,18 @@
         <table border="0" width="100%" cellpadding="5">
             <tr>
                 <th align="left" width="20%">Players</th>
-                <th align="left" width="20%">BuyIn</th>
-                <th align="left" width="20%">Bounty</th>
-                <th align="left" width="20%">Last Man</th>
-                <th align="left" width="20%">AddOn</th>
+                <th align="left" width="15%">BuyIn</th>
+                <th align="left" width="15%">Bounty</th>
+                <th align="left" width="15%">Fee</th>
+                <th align="left" width="15%">Last Man</th>
+                <th align="left" width="15%">AddOn</th>
                 <th width="20%"></th>
             </tr>
             <tr>
                 <td><input size="7" maxwidth="10" type="text" id="totalPlayers"></td>
                 <td><input size="7" maxwidth="10" type="text" id="buyInTotal"></td>
                 <td><input size="7" maxwidth="10" type="text" id="bountyTotal"></td>
+                <td><input size="7" maxwidth="10" type="text" id="feeTotal"></td>
                 <td><input size="7" maxwidth="10" type="text" id="lastManTotal"></td>
                 <td><input size="7" maxwidth="10" type="text" id="addOnTotal"></td>
                 <td maxwidth="10"></td>
