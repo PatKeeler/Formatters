@@ -399,7 +399,7 @@ function getPokerAbout() {
         + "\n\tPlay around with the Chop and Winner sections to view the different results "
         + "depending on the default amounts, totals and number of chops or winners. "
         + "\n\tFor winners, add rows and enter the percentage for each winning position. "
-        + "The percentages should be entered without decimals, i.e. 50, 30, 20 or 40, 30, 20, 10, etc, totaling 100."
+        + "The percentages should be entered without decimals, i.e. 50, 33, 17 or 40, 30, 20, 10, etc, totaling 100."
         + "\n\nHave Fun!");
 
     return true;
