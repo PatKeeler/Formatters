@@ -2,12 +2,24 @@
  * Created by Pat Keeler on 4/16/2020.
  */
 $(document).ready(function() {
-    let players = 0;
-    $('#player_name').focus();
-    $('#players').hide();
+
+    let playerCount = 0;
+
+    let _addOn      = $('#addOn');
+    let _bounty     = $('#bounty');
+    let _buyIn      = $('#buyIn');
+    let _fee        = $('#fee');
+    let _lastMan    = $('#lastMan');
+    let _players    = $('#players');
+    let _playerName = $('#playerName');
+
+    _players.hide();
+    _playerName.focus();
     emptyAllFields();
-    $('#player_name').keypress(function(e) {
-        var code = (event.keyCode ? event.keyCode : event.which);
+
+
+    _playerName.keypress(function(e) {
+        let code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) {
             e.preventDefault();
             setAmountsToFixed();
@@ -18,12 +30,12 @@ $(document).ready(function() {
 
 
     function emptyAllFields() {
-        $('#player_name').val('');
-        $('#buyIn').val();
-        $('#bounty').val();
-        $('#fee').val();
-        $('#lastMan').val();
-        $('#addOn').val();
+        _playerName.val('');
+        _buyIn.val();
+        _bounty.val();
+        _fee.val();
+        _lastMan.val();
+        _addOn.val();
         $('.playerBuyIn').val();
         $('.playerBounty').val();
         $('.playerFee').val();
@@ -49,41 +61,40 @@ $(document).ready(function() {
 
 
     function addToPlayers() {
-        let name = $('#player_name');
-        let buyIn = $('#buyIn').val();
-        let bounty = $('#bounty').val();
-        let fee = $('#fee').val();
-        let lastMan = $('#lastMan').val();
-        let addOn = $('#addOn').val();
+        let name = _playerName;
+        let buyIn = _buyIn.val();
+        let bounty = _bounty.val();
+        let fee = _fee.val();
+        let lastMan = _lastMan.val();
         let markup =
             "<tr class='item'>" +
             "<td><input id='checker' type='checkbox' name='record'></td>" +
-            "<td type='text'>" + name.val() + "</td>" +
-            "<td type='text' class='playerBuyIn'>" + buyIn + "</td>" +
-            "<td type='text' class='playerBounty'>" + bounty + "</td>" +
-            "<td type='text' class='playerFee'>" + fee + "</td>" +
-            "<td type='text' class='playerLastMan'>" + lastMan + "</td>" +
-            "<td type='text' class='playerAddOn'>0.00</td>" +
+            "<td>" + name.val() + "</td>" +
+            "<td class='playerBuyIn'>" + buyIn + "</td>" +
+            "<td class='playerBounty'>" + bounty + "</td>" +
+            "<td class='playerFee'>" + fee + "</td>" +
+            "<td class='playerLastMan'>" + lastMan + "</td>" +
+            "<td class='playerAddOn'>0.00</td>" +
             "</tr>";
         $('#tbodyRow').append(markup);
-        $('#players').show();
-        players ++;
+        _players.show();
+        playerCount ++;
         name.val('');
         name.focus();
-    };
+    }
 
 
     function setAmountsToFixed() {
-        let buyIn = parseFloat($('#buyIn').val());
-        let bounty = parseFloat($('#bounty').val());
-        let lastMan = parseFloat($('#lastMan').val());
-        let fee = parseFloat($('#fee').val());
-        let addOn = parseFloat($('#addOn').val());
-        $('#buyIn').val(buyIn.toFixed(2));
-        $('#bounty').val(bounty.toFixed(2));
-        $('#fee').val(fee.toFixed(2));
-        $('#lastMan').val(lastMan.toFixed(2));
-        $('#addOn').val(addOn.toFixed(2));
+        let buyIn = parseFloat(_buyIn.val());
+        let bounty = parseFloat(_bounty.val());
+        let lastMan = parseFloat(_lastMan.val());
+        let fee = parseFloat(_fee.val());
+        let addOn = parseFloat(_addOn.val());
+        _buyIn.val(buyIn.toFixed(2));
+        _bounty.val(bounty.toFixed(2));
+        _fee.val(fee.toFixed(2));
+        _lastMan.val(lastMan.toFixed(2));
+        _addOn.val(addOn.toFixed(2));
     }
 
 
@@ -92,7 +103,7 @@ $(document).ready(function() {
         $("#tbodyRow").find('input[name="record"]').each(function(){
             $(this).prop('checked', true);
         });
-        $('#player_name').focus();
+        _playerName.focus();
     });
 
 
@@ -101,7 +112,7 @@ $(document).ready(function() {
         $("#tbodyRow").find('input[name="record"]').each(function(){
             $(this).prop('checked', false);
         });
-        $('#player_name').focus();
+        _playerName.focus();
     });
 
 
@@ -110,14 +121,14 @@ $(document).ready(function() {
         $("#tbodyRow").find('input[name="record"]').each(function(){
             if($(this).is(":checked")){
                 $(this).parents("tr").remove();
-                players --;
+                playerCount --;
                 computeTotals();
-                if (players == 0) {
-                    $('#players').hide();
+                if (playerCount === 0) {
+                    _players.hide();
                 }
             }
         });
-        $('#player_name').focus();
+        _playerName.focus();
     });
 
 
@@ -199,8 +210,7 @@ $(document).ready(function() {
                 row.cells[3].innerHTML = total.toFixed(2);
 
                 row.cells[0].children[0].checked = false;
-            }
-            else {
+            } else {
                 let name = row.cells[1].innerHTML;
                 alert("Rejected: " + name + " has not done a rebuy!");
 
@@ -227,10 +237,9 @@ $(document).ready(function() {
                 row.cells[6].innerHTML = total.toFixed(2);
 
                 row.cells[0].children[0].checked = false;
-            }
-            else {
+            } else {
                 let name = row.cells[1].innerHTML;
-                alert("Rejected: " + name + " has not done an AddOn!")
+                alert("Rejected: " + name + " has not done an AddOn!");
 
                 row.cells[0].children[0].checked = false;
             }
@@ -252,7 +261,7 @@ $(document).ready(function() {
 
         let table = $('table tbody#tbodyRow');
         table.find('tr').each(function (i) {
-            var $tds = $(this).find('td'),
+            let $tds = $(this).find('td'),
 
                 //First parseFloat does not work
                 temp = parseFloat($tds.eq(2).val());
@@ -269,7 +278,7 @@ $(document).ready(function() {
 
     //Set the Running totals
     function setTotals(buyInTotal, bountyTotal, feeTotal, lastManTotal, addOnTotal) {
-        $('#totalPlayers').val(players);
+        $('#totalPlayers').val(playerCount);
         $('#buyInTotal').val(buyInTotal.toFixed(2));
         $('#bountyTotal').val(bountyTotal.toFixed(2));
         $('#feeTotal').val(feeTotal.toFixed(2));
@@ -377,7 +386,6 @@ $(document).ready(function() {
         });
 
     });
-
 });
 
 
